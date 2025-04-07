@@ -123,4 +123,9 @@ payloads/
 .env.*
 webhook_*.json
 secrets/
-*_cache.json 
+*_cache.json
+
+# Project-specific documentation and plans
+referenceDocs/
+RagStrategies/
+reorganization_plan.md
