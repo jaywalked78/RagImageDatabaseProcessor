@@ -1,0 +1,14 @@
+{
+  "airtable_id": "rectest123456789",
+  "frame_name": "test_frame_example",
+  "folder_path": "/test/frames/sample",
+  "folder_name": "sample",
+  "embeddings": "[0.1, 0.2, 0.3, 0.4, 0.5]",
+  "chunk_count": 3,
+  "timestamp": "2025-04-07T11:02:00.746377",
+  "metadata": {
+    "description": "Test frame for webhook integration",
+    "tags": ["test", "webhook", "sample"],
+    "source": "webhook_test_script"
+  }
+} 

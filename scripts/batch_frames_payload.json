@@ -1,0 +1,47 @@
+[
+  {
+    "airtable_id": "recBatchFrame001",
+    "frame_name": "frame_000051.jpg",
+    "folder_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+    "folder_name": "screen_recording_2025_03_03_at_3_39_52_am",
+    "timestamp": "2025-03-03T03:39:52.000000",
+    "embeddings": "[0.111, 0.222, 0.333, 0.444, 0.555]",
+    "chunk_count": 3,
+    "metadata": {
+      "description": "First batch frame",
+      "tags": ["batch", "test", "frame1"],
+      "source": "batch_test",
+      "frame_type": "jpg"
+    }
+  },
+  {
+    "airtable_id": "recBatchFrame002",
+    "frame_name": "frame_000052.jpg",
+    "folder_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+    "folder_name": "screen_recording_2025_03_03_at_3_39_52_am",
+    "timestamp": "2025-03-03T03:39:53.000000",
+    "embeddings": "[0.666, 0.777, 0.888, 0.999, 0.123]",
+    "chunk_count": 4,
+    "metadata": {
+      "description": "Second batch frame",
+      "tags": ["batch", "test", "frame2"],
+      "source": "batch_test",
+      "frame_type": "jpg"
+    }
+  },
+  {
+    "airtable_id": "recBatchFrame003",
+    "frame_name": "frame_000053.jpg",
+    "folder_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+    "folder_name": "screen_recording_2025_03_03_at_3_39_52_am",
+    "timestamp": "2025-03-03T03:39:54.000000",
+    "embeddings": "[0.456, 0.789, 0.012, 0.345, 0.678]",
+    "chunk_count": 5,
+    "metadata": {
+      "description": "Third batch frame",
+      "tags": ["batch", "test", "frame3"],
+      "source": "batch_test",
+      "frame_type": "jpg"
+    }
+  }
+] 

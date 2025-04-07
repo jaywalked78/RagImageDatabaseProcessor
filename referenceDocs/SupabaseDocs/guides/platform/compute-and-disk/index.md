@@ -1,0 +1,199 @@
+[![Supabase wordmark](https://supabase.com/docs/_next/image?url=%2Fdocs%2Fsupabase-dark.svg&w=256&q=75&dpl=dpl_5BYG5BkQhU19GEfZfhcgAbeGcRQo)![Supabase wordmark](https://supabase.com/docs/_next/image?url=%2Fdocs%2Fsupabase-light.svg&w=256&q=75&dpl=dpl_5BYG5BkQhU19GEfZfhcgAbeGcRQo)DOCS](https://supabase.com/docs)
+
+-   [Start](https://supabase.com/docs/guides/getting-started)
+-   Products
+-   Build
+-   Manage
+-   Reference
+-   Resources
+
+[![Supabase wordmark](https://supabase.com/docs/_next/image?url=%2Fdocs%2Fsupabase-dark.svg&w=256&q=75&dpl=dpl_5BYG5BkQhU19GEfZfhcgAbeGcRQo)![Supabase wordmark](https://supabase.com/docs/_next/image?url=%2Fdocs%2Fsupabase-light.svg&w=256&q=75&dpl=dpl_5BYG5BkQhU19GEfZfhcgAbeGcRQo)DOCS](https://supabase.com/docs)
+
+Search docs...
+
+K
+
+Platform
+
+1.  [Platform](https://supabase.com/docs/guides/platform)
+
+3.  Platform Configuration
+
+5.  [Compute and Disk](https://supabase.com/docs/guides/platform/compute-and-disk)
+
+# 
+
+Compute and Disk
+
+* * *
+
+## Compute[#](#compute)
+
+Every project on the Supabase Platform comes with its own dedicated Postgres instance.
+
+The following table describes the base instances, Nano (free plan) and Micro (paid plans), with additional compute instance sizes available if you need extra performance when scaling up.
+
+##### Nano instances in paid plan organizations
+
+In paid organizations, Nano Compute are billed at the same price as Micro Compute. It is recommended to upgrade your Project from Nano Compute to Micro Compute when it's convenient for you. Compute sizes are not auto-upgraded because of the downtime incurred. See [Supabase Pricing](https://supabase.com/pricing) for more information. You cannot launch Nano instances on paid plans, only Micro and above - but you might have Nano instances after upgrading from Free Plan.
+
+| Compute Size | Hourly Price USD | Monthly Price USD | CPU | Memory | Max DB Size (Recommended)[1](#user-content-fn-2) |
+| --- | --- | --- | --- | --- | --- |
+| Nano[2](#user-content-fn-3) | $0 | $0 | Shared | Up to 0.5 GB | 500 MB |
+| Micro | $0.01344 | ~$10 | 2-core ARM (shared) | 1 GB | 10 GB |
+| Small | $0.0206 | ~$15 | 2-core ARM (shared) | 2 GB | 50 GB |
+| Medium | $0.0822 | ~$60 | 2-core ARM (shared) | 4 GB | 100 GB |
+| Large | $0.1517 | ~$110 | 2-core ARM (dedicated) | 8 GB | 200 GB |
+| XL | $0.2877 | ~$210 | 4-core ARM (dedicated) | 16 GB | 500 GB |
+| 2XL | $0.562 | ~$410 | 8-core ARM (dedicated) | 32 GB | 1 TB |
+| 4XL | $1.32 | ~$960 | 16-core ARM (dedicated) | 64 GB | 2 TB |
+| 8XL | $2.562 | ~$1,870 | 32-core ARM (dedicated) | 128 GB | 4 TB |
+| 12XL | $3.836 | ~$2,800 | 48-core ARM (dedicated) | 192 GB | 6 TB |
+| 16XL | $5.12 | ~$3,730 | 64-core ARM (dedicated) | 256 GB | 10 TB |
+| \>16XL | \- | [Contact Us](https://supabase.com/dashboard/support/new?category=sales&subject=Enquiry%20about%20larger%20instance%20sizes) | Custom | Custom | Custom |
+
+Compute sizes can be changed by first selecting your project in the dashboard [here](https://supabase.com/dashboard/project/_/settings/compute-and-disk) and the upgrade process will [incur downtime](https://supabase.com/docs/guides/platform/compute-and-disk#upgrade-downtime).
+
+We charge hourly for additional compute based on your usage. Read more about [usage-based billing for compute](https://supabase.com/docs/guides/platform/manage-your-usage/compute).
+
+### Dedicated vs shared CPU[#](#dedicated-vs-shared-cpu)
+
+All Postgres databases on Supabase run in isolated environments. Compute instances smaller than `Large` compute size have CPUs which can burst to higher performance levels for short periods of time. Instances bigger than `Large` have predictable performance levels and do not exhibit the same burst behavior.
+
+### Compute upgrades [#](#upgrades)
+
+Compute instance changes are usually applied with less than 2 minutes of downtime, but can take longer depending on the underlying Cloud Provider.
+
+When considering compute upgrades, assess whether your bottlenecks are hardware-constrained or software-constrained. For example, you may want to look into [optimizing the number of connections](https://supabase.com/docs/guides/platform/performance#optimizing-the-number-of-connections) or [examining query performance](https://supabase.com/docs/guides/platform/performance#examining-query-performance). When you're happy with your Postgres instance's performance, then you can focus on additional compute resources. For example, you can load test your application in staging to understand your compute requirements. You can also start out on a smaller tier, [create a report](https://supabase.com/dashboard/project/_/reports) in the Dashboard to monitor your CPU utilization, and upgrade as needed.
+
+## Disk[#](#disk)
+
+Supabase databases are backed by high performance SSD disks. The _effective performance_ depends on a combination of all the following factors:
+
+-   Compute size
+-   Provisioned Disk Throughput
+-   Provisioned Disk IOPS: Input/Output Operations per Second, which measures the number of read and write operations.
+-   Disk type: io2 or gp3
+-   Disk size
+
+The disk size and the disk type dictate the maximum IOPS and throughput that can be provisioned. The effective IOPS is the lower of the IOPS supported by the compute size or the provisioned IOPS of the disk. Similarly, the effective throughout is the lower of the throughput supported by the compute size and the provisioned throughput of the disk.
+
+The following sections explain how these attributes affect disk performance.
+
+### Compute size[#](#compute-size)
+
+The compute size of your project sets the upper limit for disk throughput and IOPS. The table below shows the limits for each instance size. For instance, an 8XL compute instance has a maximum throughput of 9,500 Mbps and a maximum IOPS of 40,000.
+
+| Compute Instance | Disk Throughput | IOPS |
+| --- | --- | --- |
+| Nano (free) | 43 Mbps | 250 IOPS |
+| Micro | 87 Mbps | 500 IOPS |
+| Small | 174 Mbps | 1,000 IOPS |
+| Medium | 347 Mbps | 2,000 IOPS |
+| Large | 630 Mbps | 3,600 IOPS |
+| XL | 1,188 Mbps | 6,000 IOPS |
+| 2XL | 2,375 Mbps | 12,000 IOPS |
+| 4XL | 4,750 Mbps | 20,000 IOPS |
+| 8XL | 9,500 Mbps | 40,000 IOPS |
+| 12XL | 14,250 Mbps | 50,000 IOPS |
+| 16XL | 19,000 Mbps | 80,000 IOPS |
+
+Smaller compute instances like Nano, Micro, Small, and Medium have baseline performance levels that can occasionally be exceeded for short periods of time. If it does exceed the baseline, you should consider upgrading your instance size for a more reliable performance.
+
+Larger compute instances (4XL and above) are designed for sustained, high performance with specific IOPS and throughput limits which you can [configure](https://supabase.com/docs/guides/platform/manage-your-usage/disk-throughput). If you hit your IOPS or throughput limit, throttling will occur.
+
+### Choosing the right compute instance for consistent disk performance[#](#choosing-the-right-compute-instance-for-consistent-disk-performance)
+
+If you need consistent disk performance, choose the 4XL or larger compute instance. If you're unsure of how much throughput or IOPS your application requires, you can load test your project and inspect these [metrics in the Dashboard](https://supabase.com/dashboard/project/_/reports). If the `Disk IO % consumed` stat is more than 1%, it indicates that your workload has exceeded the baseline IO throughput during the day. If this metric goes to 100%, the workload has used up all available disk IO budget. Projects that use any disk IO budget are good candidates for upgrading to a larger compute instance with higher throughput.
+
+### Provisioned disk throughput and IOPS[#](#provisioned-disk-throughput-and-iops)
+
+The default disk type is gp3, which comes with a baseline throughput of 125 MB/s and a default IOPS of 3,000. You can provision additional IOPS and throughput from the [Database Settings](https://supabase.com/dashboard/project/_/settings/compute-and-disk) page, but keep in mind that the effective IOPS and throughput will be limited by the compute instance size. This requires Large compute size or above.
+
+Be aware that increasing IOPS or throughput incurs additional charges.
+
+### Disk types[#](#disk-types)
+
+When selecting your disk, it's essential to focus on the performance needs of your workload. Here's a comparison of our available disk types:
+
+|  | General Purpose SSD (gp3) | High Performance SSD (io2) |
+| --- | --- | --- |
+| **Use Case** | General workloads, development environments, small to medium databases | High-performance needs, large-scale databases, mission-critical applications |
+| **Max Disk Size** | 16 TB | 60 TB |
+| **Max IOPS** | 16,000 IOPS (at 32 GB disk size) | 80,000 IOPS (at 80 GB disk size) |
+| **Throughput** | 125 MB/s (default) to 1,000 MB/s (maximum) | Automatically scales with IOPS |
+| **Best For** | Great value for most use cases | Low latency and very high IOPS requirements |
+| **Pricing** | Disk: 8 GB included, then $0.125 per GB  
+IOPS: 3,000 included, then $0.024 per IOPS  
+Throughput: 125 MB/s included, then $0.95 per MB/s | Disk: $0.195 per GB  
+IOPS: $0.119 per IOPS  
+Throughput: Scales with IOPS at no additional cost |
+
+For general, day-to-day operations, gp3 should be more than enough. If you need high throughput and IOPS for critical systems, io2 will provide the performance required.
+
+Compute instance size changes will not change your selected disk type or disk size, but your IO limits may change according to what your selected compute instance size supports.
+
+### Disk size[#](#disk-size)
+
+-   General Purpose (gp3) disks come with a baseline of 3,000 IOPS and 125 MB/s. You can provision additional 500 IOPS for every GB of disk size and additional 0.25 MB/s throughput per provisioned IOPS.
+-   High Performance (io2) disks can be provisioned with 1,000 IOPS per GB of disk size.
+
+## Limits and constraints[#](#limits-and-constraints)
+
+### Postgres replication slots, WAL senders, and connections[#](#postgres-replication-slots-wal-senders-and-connections)
+
+[Replication Slots](https://postgresqlco.nf/doc/en/param/max_replication_slots) and [WAL Senders](https://postgresqlco.nf/doc/en/param/max_wal_senders/) are used to enable [Postgres Replication](https://supabase.com/docs/guides/database/replication). Each compute instance also has limits on the maximum number of database connections and connection pooler clients it can handle.
+
+The maximum number of replication slots, WAL senders, database connections, and pooler clients depends on your compute instance size, as follows:
+
+| Compute instance | Max Replication Slots | Max WAL Senders | Database Max Connections[3](#user-content-fn-1) | Connection Pooler Max Clients |
+| --- | --- | --- | --- | --- |
+| Nano (free) | 5 | 5 | 60 | 200 |
+| Micro | 5 | 5 | 60 | 200 |
+| Small | 5 | 5 | 90 | 400 |
+| Medium | 5 | 5 | 120 | 600 |
+| Large | 8 | 8 | 160 | 800 |
+| XL | 24 | 24 | 240 | 1,000 |
+| 2XL | 80 | 80 | 380 | 1,500 |
+| 4XL | 80 | 80 | 480 | 3,000 |
+| 8XL | 80 | 80 | 490 | 6,000 |
+| 12XL | 80 | 80 | 500 | 9,000 |
+| 16XL | 80 | 80 | 500 | 12,000 |
+
+As mentioned in the Postgres [documentation](https://postgresqlco.nf/doc/en/param/max_replication_slots/), setting `max_replication_slots` to a lower value than the current number of replication slots will prevent the server from starting. If you are downgrading your compute instance, ensure that you are using fewer slots than the maximum number of replication slots available for the new compute instance.
+
+### Constraints[#](#constraints)
+
+-   After **any** disk attribute change, there is a cooldown period of approximately six hours before you can make further adjustments. During this time, no changes are allowed. If you encounter throttling, you’ll need to wait until the cooldown period concludes before making additional modifications.
+-   You can increase disk size but cannot decrease it.
+
+## Footnotes[#](#footnote-label)
+
+1.  Database size for each compute instance is the default recommendation but the actual performance of your database has many contributing factors, including resources available to it and the size of the data contained within it. See the [shared responsibility model](https://supabase.com/docs/guides/platform/shared-responsibility-model) for more information. [↩](#user-content-fnref-2)
+    
+2.  Compute resources on the Free plan are subject to change. [↩](#user-content-fnref-3)
+    
+3.  Database max connections are recommended values and can be customized depending on your use case. [↩](#user-content-fnref-1)
+    
+
+[Edit this page on GitHub](https://github.com/supabase/supabase/blob/master/apps/docs/content/guides/platform/compute-and-disk.mdx)
+
+### Is this helpful?
+
+No Yes
+
+-   Need some help?
+    
+    [Contact support](https://supabase.com/support)
+-   Latest product updates?
+    
+    [See Changelog](https://supabase.com/changelog)
+-   Something's not right?
+    
+    [Check system status](https://status.supabase.com/)
+
+* * *
+
+[© Supabase Inc](https://supabase.com/)—[Contributing](https://github.com/supabase/supabase/blob/master/apps/docs/DEVELOPERS.md)[Author Styleguide](https://github.com/supabase/supabase/blob/master/apps/docs/CONTRIBUTING.md)[Open Source](https://supabase.com/open-source)[SupaSquad](https://supabase.com/supasquad)Privacy Settings
+
+[GitHub](https://github.com/supabase/supabase)[Twitter](https://twitter.com/supabase)[Discord](https://discord.supabase.com/)
