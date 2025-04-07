@@ -146,6 +146,63 @@ Options:
 --output FILE        : Save results to JSON file
 ```
 
+## OCR Processing and Airtable Integration
+
+The system now includes OCR (Optical Character Recognition) capabilities to extract text from frames, along with advanced data processing and Airtable integration.
+
+### OCR Features
+
+- **Text Extraction**: Uses Tesseract OCR to extract text content from frames
+- **Content Categorization**: Parses and categorizes extracted text into structured data
+- **Sensitive Content Detection**: Identifies and flags frames containing potential API keys, credentials, or sensitive information
+- **Enhanced Analysis**: Optional integration with Google's Gemini API for more advanced content understanding
+
+### Airtable Integration
+
+The system can automatically update Airtable with processed OCR data:
+
+1. Each frame's extracted text is categorized and stored in the `OCRData` column
+2. Sensitive content (like Google Sheets with API keys) is flagged in the `Flagged` column
+3. Additional metadata like word count, character count, and content types are also recorded
+
+### Setup
+
+1. Install required dependencies:
+   ```bash
+   pip install pytesseract pillow pyairtable google-generativeai
+   ```
+
+2. Install Tesseract OCR:
+   ```bash
+   sudo apt-get install -y tesseract-ocr
+   ```
+
+3. Configure Airtable integration:
+   - Copy `.env.airtable.example` to `.env.airtable`
+   - Add your Airtable credentials (Base ID, Table Name, API Key)
+   - Optionally add Google Gemini API key for enhanced text analysis
+
+### Usage
+
+Process frames with OCR and update Airtable:
+
+```bash
+./scripts/process_all_frames.sh --storage-dir all_frame_embeddings --enable-ocr
+```
+
+Advanced processing with Gemini API:
+
+```bash
+source scripts/load_env.sh  # Load credentials from .env.airtable
+./scripts/process_all_frames.sh --storage-dir all_frame_embeddings --enable-ocr
+```
+
+Process OCR data separately (without frame processing):
+
+```bash
+python scripts/ocr_data_processor.py --input-dir "ocr_results" --update-airtable --base-id "YOUR_BASE_ID" --table-name "YOUR_TABLE" --api-key "YOUR_API_KEY" --use-gemini --gemini-api-key "YOUR_GEMINI_KEY"
+```
+
 ## Project Structure
 
 - `main.py`: Entry point for the application

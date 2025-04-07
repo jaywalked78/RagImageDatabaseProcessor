@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2024-07-12
+
+### Added
+- OCR text extraction using Tesseract OCR for improved frame analysis
+- Airtable integration with structured data updating
+- Text categorization and sensitive content detection
+- Google Gemini API integration for advanced text analysis
+- Advanced content categorization into topics, content types, and entities
+- Batch processing with rate limiting for Airtable API requests
+- New command-line options for OCR and Airtable control
+- Helper scripts for standalone OCR data processing and Airtable updates
+- Improved documentation for OCR and Airtable setup
+
+### Fixed
+- Airtable API rate limiting to prevent quota issues
+- Frame timestamp extraction for chronological processing
+- Enhanced duplicate detection using content hashing
+
 ## [1.1.0] - 2023-11-12
 
 ### Added

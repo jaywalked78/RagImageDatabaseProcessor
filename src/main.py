@@ -200,7 +200,7 @@ class HealthResponse(BaseModel):
     status: str = "ok"
     db_connected: bool = False
     voyage_api_connected: bool = False
-    version: str = "1.0.0"
+    version: str = "1.2.0"
 
 # Batch Processing Related Pydantic Models
 class BatchJobParams(BaseModel):
