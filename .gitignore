@@ -124,6 +124,8 @@ payloads/
 webhook_*.json
 secrets/
 *_cache.json
+test_frames/
+frame_embeddings/
 
 # Project-specific documentation and plans
 referenceDocs/

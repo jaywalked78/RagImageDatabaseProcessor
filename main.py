@@ -41,12 +41,12 @@ AIRTABLE_TABLE_NAME = os.environ.get('AIRTABLE_TABLE_NAME', 'tblFrameAnalysis')
 from src.connectors.airtable import AirtableMetadataFinder
 from src.connectors.webhook import WebhookConnector, send_webhook_payload
 from src.utils.chunking import MetadataChunker
-from src.processors.embedding import ChunkEmbedder
+from src.embeddings.chunk_embedder import ChunkEmbedder
 
 # Import frame processing functions
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from src.processors.frame_processor import process_frame
-from src.utils.logging_utils import setup_logging
+from src.processors.frame_processor import FrameProcessor
+from src.utils.logging_utils import configure_logging
 
 # Function to save payload to CSV
 def save_payload_to_csv(payload: Dict[str, Any], csv_file: str = "webhook_payloads.csv"):
@@ -587,6 +587,12 @@ async def process_multiple_frames(
                f"{results['failed_files']} failed out of {results['total_files']} files")
     
     return results
+
+# Create a compatibility function that uses FrameProcessor class
+async def process_frame(frame_path, **kwargs):
+    """Compatibility function that uses FrameProcessor class"""
+    processor = FrameProcessor()
+    return await processor.process_frame(frame_path, **kwargs)
 
 async def main():
     """Entry point for the application."""

@@ -17,8 +17,11 @@ from dotenv import load_dotenv
 import numpy as np
 
 # Import from existing modules
-from test_chunk_embedding import process_frame, ChunkEmbedder, AirtableEmbeddingStore
-from test_webhook import send_webhook_payload
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from main import process_frame
+from src.embeddings.chunk_embedder import ChunkEmbedder
+from src.database.airtable_store import AirtableEmbeddingStore
+from src.connectors.webhook import send_webhook_payload
 
 # Configure logging
 logging.basicConfig(
@@ -150,7 +153,7 @@ async def process_and_send(
                 record = None
                 metadata_finder = None
                 try:
-                    from test_chunk_embedding import AirtableMetadataFinder
+                    from src.connectors.airtable import AirtableMetadataFinder
                     import os
                     metadata_finder = AirtableMetadataFinder()
                     record = metadata_finder.find_record_by_frame_path(frame_path)

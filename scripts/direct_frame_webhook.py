@@ -36,9 +36,11 @@ AIRTABLE_BASE_ID = os.environ.get('AIRTABLE_BASE_ID')
 AIRTABLE_TABLE_NAME = os.environ.get('AIRTABLE_TABLE_NAME', 'tblFrameAnalysis')
 
 # Import key components we need
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from test_chunk_embedding import ChunkEmbedder, MetadataChunker, AirtableMetadataFinder
-from test_webhook import send_webhook_payload
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from src.embeddings.chunk_embedder import ChunkEmbedder
+from src.utils.chunking import MetadataChunker
+from src.connectors.airtable import AirtableMetadataFinder
+from src.connectors.webhook import send_webhook_payload
 
 # Add function to save payload to CSV
 def save_payload_to_csv(payload: Dict[str, Any], csv_file: str = "payloads/csv/webhook_payloads.csv"):

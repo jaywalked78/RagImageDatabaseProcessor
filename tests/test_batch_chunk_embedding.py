@@ -20,8 +20,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 import random
 
-# Import our process_frame function
-from test_chunk_embedding import process_frame, ChunkEmbedder, AirtableEmbeddingStore
+# Import our process_frame function and related classes
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from main import process_frame
+from src.embeddings.chunk_embedder import ChunkEmbedder
+from src.database.airtable_store import AirtableEmbeddingStore
 
 # Import Google Drive downloader if available
 try:

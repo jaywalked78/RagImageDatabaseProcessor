@@ -16,6 +16,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import aiohttp
+from PIL import Image
+import voyageai
 
 import dotenv
 
@@ -30,13 +32,14 @@ class ChunkEmbedder:
     Client for generating text embeddings using Voyage API.
     """
     
-    def __init__(self, api_key: Optional[str] = None, model: str = "voyage-large-2"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "voyage-multimodal-3", use_key_rotation: bool = False):
         """
         Initialize the Voyage embedding client.
         
         Args:
             api_key: Voyage API key (default: from env var VOYAGE_API_KEY)
-            model: Model name for embeddings (default: voyage-large-2)
+            model: Model name for embeddings (default: voyage-multimodal-3)
+            use_key_rotation: Whether to use API key rotation for rate limiting
         """
         self.api_key = api_key or os.getenv("VOYAGE_API_KEY")
         if not self.api_key:
@@ -48,6 +51,11 @@ class ChunkEmbedder:
         
         # Create session for reuse
         self.session = None
+        
+        # Rate limiting settings
+        self.min_api_interval = 0.2  # 5 requests per second max
+        self.last_api_calls = {}  # Track last API call time for each key
+        self.use_key_rotation = use_key_rotation  # Whether to use key rotation
         
         logger.info(f"Initialized ChunkEmbedder with model {model}")
     
