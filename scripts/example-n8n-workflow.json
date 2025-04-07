@@ -1,0 +1,345 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.apiUrl }}/ingest",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "items",
+              "value": "={{ $json.items }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1",
+      "name": "Ingest Documents",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// This function transforms Airtable records into the format expected by the vector search API\nconst items = $input.all().map(record => {\n  const fields = record.json.fields;\n  \n  return {\n    doc_id: fields.ID || record.json.id,\n    text: fields.Description || fields.Content || '',\n    image_url: fields.ImageURL || null,\n    metadata: {\n      source: 'airtable',\n      table: $input.item.json.tableName,\n      category: fields.Category || null,\n      tags: fields.Tags ? fields.Tags.split(',').map(tag => tag.trim()) : [],\n      // Include any other metadata fields you need\n      createdAt: fields.CreatedTime || record.json.createdTime\n    }\n  };\n});\n\n// Add the API URL for subsequent nodes\nreturn {\n  apiUrl: 'http://localhost:8000',  // Replace with your actual API URL\n  items: items\n};"
+      },
+      "id": "2",
+      "name": "Transform Airtable Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "baseId": "appXXXXXXXXXXXXXX",
+        "tableId": "tblXXXXXXXXXXXXXX",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "3",
+      "name": "Fetch Airtable Records",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        420,
+        300
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "1",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.apiUrl }}/search",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query_text",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "cp_rag",
+              "value": "={{ $json.useAdvancedSearch }}"
+            },
+            {
+              "name": "filters",
+              "value": "={{ $json.filters }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4",
+      "name": "Search Documents",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// This prepares the search query\n\nreturn {\n  apiUrl: 'http://localhost:8000',  // Replace with your actual API URL\n  query: $input.item.json.query || 'sample query',\n  useAdvancedSearch: $input.item.json.useAdvancedSearch || true,\n  filters: $input.item.json.filters || {\n    // Add your filters here, e.g., category: 'product'\n  }\n};"
+      },
+      "id": "5",
+      "name": "Prepare Search Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        640,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "path": "query",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "6",
+      "name": "Webhook for Search Query",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        420,
+        500
+      ],
+      "webhookId": "query"
+    },
+    {
+      "parameters": {
+        "from": "vector-search@example.com",
+        "to": "={{ $json.userEmail }}",
+        "subject": "Search Results",
+        "text": "=Here are your search results for query: {{ $json.query }}\n\n{{ $json.formattedResults }}",
+        "options": {}
+      },
+      "id": "7",
+      "name": "Send Search Results Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1290,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format the search results for display\nconst results = $input.item.json.results || [];\nlet formattedResults = '';\n\nif (results.length === 0) {\n  formattedResults = 'No results found.';\n} else {\n  formattedResults = results.map((result, index) => {\n    return `${index + 1}. ${result.doc_id} (Score: ${result.score.toFixed(4)})\n   Metadata: ${JSON.stringify(result.metadata, null, 2)}`;\n  }).join('\\n\\n');\n}\n\nreturn {\n  ...$$,\n  formattedResults,\n  userEmail: $input.item.json.userEmail || 'user@example.com'\n};"
+      },
+      "id": "8",
+      "name": "Format Search Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.apiUrl }}/healthcheck",
+        "options": {}
+      },
+      "id": "9",
+      "name": "Healthcheck",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        640,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "minutesInterval": 60
+            }
+          ]
+        }
+      },
+      "id": "10",
+      "name": "Hourly Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        420,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "operation": "notEqual",
+              "value2": "ok"
+            }
+          ]
+        }
+      },
+      "id": "11",
+      "name": "Service Down?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        860,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "to": "admin@example.com",
+        "subject": "Vector Search Service Alert",
+        "text": "The vector search microservice appears to be down. Please check the server.",
+        "options": {}
+      },
+      "id": "12",
+      "name": "Send Alert",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        680
+      ]
+    }
+  ],
+  "connections": {
+    "2": {
+      "main": [
+        [
+          {
+            "node": "1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3": {
+      "main": [
+        [
+          {
+            "node": "2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5": {
+      "main": [
+        [
+          {
+            "node": "4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6": {
+      "main": [
+        [
+          {
+            "node": "5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4": {
+      "main": [
+        [
+          {
+            "node": "8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8": {
+      "main": [
+        [
+          {
+            "node": "7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10": {
+      "main": [
+        [
+          {
+            "node": "9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9": {
+      "main": [
+        [
+          {
+            "node": "11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11": {
+      "true": [
+        [
+          {
+            "node": "12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+} 

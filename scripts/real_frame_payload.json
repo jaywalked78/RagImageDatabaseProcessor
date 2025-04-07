@@ -1,0 +1,22 @@
+{
+  "airtable_id": "recActualFrame123",
+  "frame_name": "frame_000051.jpg",
+  "folder_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+  "folder_name": "screen_recording_2025_03_03_at_3_39_52_am",
+  "timestamp": "2025-03-03T03:39:52.000000",
+  "embeddings": "[0.123, 0.456, 0.789, 0.321, 0.654]",
+  "chunk_count": 5,
+  "metadata": {
+    "description": "Actual screen recording frame from test data",
+    "tags": [
+      "actual",
+      "screen",
+      "recording",
+      "test"
+    ],
+    "source": "test_webhook_script",
+    "frame_type": "jpg",
+    "resolution": "1920x1080",
+    "size_kb": 2048
+  }
+} 
