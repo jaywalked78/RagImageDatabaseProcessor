@@ -1,0 +1,18 @@
+{
+  "airtable_id": "rechBVCivTtamsyGa",
+  "frame_name": "frame_000051.jpg",
+  "folder_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+  "folder_name": "screen_recording_2025_03_03_at_3_39_52_am",
+  "timestamp": "",
+  "embeddings": "[0.123, 0.456, 0.789, 0.321, 0.654]",
+  "chunk_count": 5,
+  "metadata": {
+    "frame_number": "51",
+    "description": "The user has switched to an n8n interface, which is visible within the DigitalOcean App Platform context in Firefox. They are examining an 'HTTP Request' node in n8n, configured to target 'https://ai.pydantic.dev/sitemap.xml'. This suggests they are starting to build an n8n workflow to interact with a website, possibly related to the deployed Crawl4AI application, and are likely planning to fetch the sitemap of the specified URL.",
+    "tools_visible": "Firefox, Web Browser, DigitalOcean App Platform, n8n",
+    "actions_detected": "Viewing n8n workflow interface in DigitalOcean App Platform, Examining 'HTTP Request' node in n8n, Configuring 'HTTP Request' node with URL 'https://ai.pydantic.dev/sitemap.xml', Potentially starting to build an n8n workflow for web interaction, Preparing to execute 'HTTP Request' node",
+    "technical_details": "n8n workflow interface is visible within the DigitalOcean App Platform., 'HTTP Request' node is selected in n8n., Node name: 'HTTP Request'., Method: 'GET'., URL in HTTP Request node: 'https://ai.pydantic.dev/sitemap.xml'., Authentication: 'None'., Message within n8n node: 'No input data yet Execute previous nodes (From the earliest node that has no output data yet)'., Video player visible at the bottom, timestamp '16:52 / 33:45'., Firefox tab title 'DigitalOcean App Platfo...' is visible., n8n workflow tab title 'Crawl4AI Agent - n8n' is visible.",
+    "relationship_to_previous": "Following the successful deployment and post-deployment checks in previous frames, the user now appears to be transitioning to workflow automation using n8n, possibly to interact with or manage the deployed Crawl4AI application. This frame shows the initial setup of an n8n workflow, starting with an HTTP request node.",
+    "stage_of_work": "Integration/Automation (Connecting n8n Workflow to Deployed Application, potentially for Data Extraction or Management)"
+  }
+}

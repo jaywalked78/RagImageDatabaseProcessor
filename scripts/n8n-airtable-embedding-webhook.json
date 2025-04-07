@@ -1,0 +1,268 @@
+{
+  "name": "Frame Embedding Airtable Update",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-embedding-webhook",
+        "options": {}
+      },
+      "name": "Test Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prod-embedding-webhook",
+        "options": {}
+      },
+      "name": "Production Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "webhookSource",
+              "value": "test"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Test Environment",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "webhookSource",
+              "value": "production"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Production Environment",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByPosition"
+      },
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        700,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.webhookSource }}",
+              "operation": "equal",
+              "value2": "test"
+            }
+          ]
+        }
+      },
+      "name": "Is Test Environment",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        880,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "personalApiToken",
+        "operation": "update",
+        "application": {
+          "__rl": true,
+          "value": "appewal2KEO5B02KV",
+          "mode": "list",
+          "cachedResultName": "Frame Analysis Database"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFrameAnalysis",
+          "mode": "list",
+          "cachedResultName": "Frame Analysis"
+        },
+        "id": "={{ $json.airtable_id }}",
+        "additionalFields": {
+          "fields": {
+            "VectorEmbeddings": "={{ $json.embeddings }}",
+            "ChunkCount": "={{ $json.chunk_count }}",
+            "ProcessedByWebhook": true,
+            "WebhookEnvironment": "={{ $json.webhookSource }}",
+            "FrameName": "={{ $json.frame_name }}",
+            "FolderPath": "={{ $json.folder_path }}",
+            "FolderName": "={{ $json.folder_name }}"
+          }
+        }
+      },
+      "name": "Test Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        260
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "1",
+          "name": "Test Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "personalApiToken",
+        "operation": "update",
+        "application": {
+          "__rl": true,
+          "value": "appewal2KEO5B02KV",
+          "mode": "list",
+          "cachedResultName": "Frame Analysis Database"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFrameAnalysis",
+          "mode": "list",
+          "cachedResultName": "Frame Analysis"
+        },
+        "id": "={{ $json.airtable_id }}",
+        "additionalFields": {
+          "fields": {
+            "VectorEmbeddings": "={{ $json.embeddings }}",
+            "ChunkCount": "={{ $json.chunk_count }}",
+            "ProcessedByWebhook": true,
+            "WebhookEnvironment": "={{ $json.webhookSource }}",
+            "FrameName": "={{ $json.frame_name }}",
+            "FolderPath": "={{ $json.folder_path }}",
+            "FolderName": "={{ $json.folder_name }}"
+          }
+        }
+      },
+      "name": "Production Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        460
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "2",
+          "name": "Production Airtable account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Test Webhook": {
+      "main": [
+        [
+          {
+            "node": "Test Environment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Production Webhook": {
+      "main": [
+        [
+          {
+            "node": "Production Environment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test Environment": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Production Environment": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Is Test Environment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Test Environment": {
+      "main": [
+        [
+          {
+            "node": "Test Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Production Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+} 
