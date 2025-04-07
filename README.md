@@ -14,6 +14,8 @@ This project processes video frames (images) extracted from screen recordings, a
 - Store results locally or in PostgreSQL (with pgvector extension)
 - Support for key rotation to manage API rate limits
 - Webhook integration for triggering downstream processes
+- Duplicate frame detection to prevent reprocessing
+- Database structure verification tools
 
 ## Installation
 
@@ -80,6 +82,7 @@ Options:
 --max-chunks N       : Maximum chunks per frame (default: 10)
 --storage-dir DIR    : Directory to store results (default: all_frame_embeddings)
 --dry-run            : Print what would be processed without actually processing
+--force              : Force reprocessing of already processed frames
 --help               : Display this help message
 ```
 
@@ -108,6 +111,41 @@ To use PostgreSQL for vector storage, ensure you've configured your .env file wi
 python main.py --input path/to/directory --pattern "*.jpg"
 ```
 
+### Data Verification Tools
+
+The project includes several utilities to verify data integrity:
+
+#### Check Database Structure
+
+This script verifies that data is being correctly stored in the PostgreSQL database:
+
+```
+./scripts/check_database.py
+```
+
+Options:
+```
+--frame PATH         : Check if a specific frame exists in the database
+--output FILE        : Save database structure report to JSON file
+```
+
+#### Check for Duplicate Processing
+
+This script verifies that frames aren't being processed multiple times:
+
+```
+./scripts/check_duplicates.py --storage-dir all_frame_embeddings --check-db
+```
+
+Options:
+```
+--storage-dir DIR    : Directory containing processed frames
+--csv-file FILE      : Custom CSV log file to check
+--detailed           : Show detailed information for each duplicate
+--check-db           : Check database for duplicates
+--output FILE        : Save results to JSON file
+```
+
 ## Project Structure
 
 - `main.py`: Entry point for the application
@@ -120,6 +158,9 @@ python main.py --input path/to/directory --pattern "*.jpg"
   - `processors/`: Frame and metadata processors
   - `utils/`: Utility functions
 - `scripts/`: Utility scripts
+  - `process_all_frames.sh`: Recursively process frames with duplicate detection
+  - `check_database.py`: Verify database structure and contents
+  - `check_duplicates.py`: Detect duplicated frame processing
 - `tests/`: Test files
 - `payloads/`: Directory for storing payloads in JSON and CSV formats
 
