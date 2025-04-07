@@ -1,28 +1,30 @@
 # Changelog
 
-## [1.1.0] - 2025-04-07
+All notable changes to this project will be documented in this file.
+
+## [1.1.0] - 2023-11-12
 
 ### Added
-- Extended support for the voyage-multimodal-3 embeddings model
-- Improved rate limiting and API key rotation mechanisms
-- Enhanced local storage options for processed frames
+- Support for voyage-multimodal-3 embedding model
+- Improved rate limiting with configurable API intervals
+- Key rotation functionality for API key management
+- `scripts/process_all_frames.sh` for recursive processing of frame directories
+- Detailed README with comprehensive usage instructions
+- Example environment file (.env.example) for easier setup
 
 ### Fixed
-- Additional fixes for ChunkEmbedder initialization parameter handling
-- Optimized embedding processing for better performance
+- Import structure in main.py to properly use FrameProcessor class
+- Directory creation for JSON payload storage
 
-## [1.0.0] - 2025-04-07
+## [1.0.0] - 2023-11-11
 
 ### Added
-- Initial release of RagImageDatabaseProcessor
-- Implemented frame processing pipeline with metadata chunking and embedding
-- Added support for voyage-multimodal-3 model for text-image embeddings
-- Created Airtable integration for metadata retrieval
-- Added webhook connectivity for sending embedding data
-- Implemented local storage mode for offline processing
-- Added CSV logging for tracking processed frames
-- Created command-line interface with multiple configuration options
-- Added rate limiting and key rotation support for API calls
+- Initial release with frame processing capabilities
+- Embedding generation with Voyage AI
+- Local storage option for frame data
+- PostgreSQL vector database integration
+- Directory-based batch processing
+- Webhook integration for downstream processing
 
 ### Fixed
 - Resolved import issues after codebase reorganization

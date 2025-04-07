@@ -1,60 +1,21 @@
 # RAG Image Database Processor
 
-A comprehensive toolkit for processing screen recording frames, extracting metadata, creating embeddings, and storing in a vector database for RAG (Retrieval Augmented Generation) applications.
+A system for processing and embedding images along with their metadata for retrieval augmented generation (RAG) applications.
 
-## Project Overview
+## Overview
 
-This project provides a pipeline for:
-1. Processing image frames from screen recordings
-2. Extracting and structuring metadata
-3. Chunking content for optimal retrieval
-4. Creating vector embeddings using Voyage AI
-5. Storing results in PostgreSQL (Supabase) vector database
-6. Integrating with n8n workflows via webhooks
-
-## Project Structure
-
-```
-RagImageDatabaseProcessor/
-├── main.py                  # Main entry point
-├── src/                     # Main source code
-│   ├── api/                 # API integrations
-│   ├── connectors/          # External service connections  
-│   ├── database/            # Database interactions
-│   ├── embeddings/          # Embedding-related code
-│   ├── models/              # Data models
-│   ├── processors/          # Data processing modules
-│   └── utils/               # Utility functions
-├── scripts/                 # Utility scripts
-│   ├── process_frames.py    # Process frames from a directory
-│   ├── export_embeddings.py # Export embeddings from database
-│   └── download_frames.py   # Download frames from Google Drive
-├── tests/                   # Test files
-└── payloads/                # Webhook payload storage
-    ├── json/                # JSON payload files
-    └── csv/                 # CSV logs of operations
-```
+This project processes video frames (images) extracted from screen recordings, analyzing them with computer vision and embedding the results into vector databases for retrieval. The system supports both local storage and PostgreSQL vector database storage.
 
 ## Features
 
-- **Frame Processing**: Process image frames with metadata extraction
-- **Semantic Chunking**: Create semantic chunks for optimal retrieval
-- **Vector Embeddings**: Generate embeddings using Voyage AI models
-- **Vector Database**: Store and query embeddings in PostgreSQL/Supabase
-- **n8n Integration**: Send data to n8n workflows via webhooks
-- **Local Storage**: Option to store all data locally without external services
-- **Batch Processing**: Process multiple frames sequentially or in parallel
+- Process single frames or entire directories of images
+- Extract text and visual information from frames using computer vision
+- Generate text embeddings suitable for vector database storage
+- Store results locally or in PostgreSQL (with pgvector extension)
+- Support for key rotation to manage API rate limits
+- Webhook integration for triggering downstream processes
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.8+
-- PostgreSQL database (or Supabase account)
-- Voyage AI API key for embeddings
-- Airtable account (optional)
-
-### Installation
+## Installation
 
 1. Clone the repository:
    ```
@@ -62,7 +23,7 @@ RagImageDatabaseProcessor/
    cd RagImageDatabaseProcessor
    ```
 
-2. Create a virtual environment:
+2. Create and activate a virtual environment:
    ```
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -73,54 +34,114 @@ RagImageDatabaseProcessor/
    pip install -r requirements.txt
    ```
 
-4. Copy the example environment file:
+4. Create a `.env` file with your API keys and configuration:
    ```
-   cp .env.example .env
+   # API Keys
+   VOYAGE_API_KEY=your_voyage_api_key
+   OPENAI_API_KEY=your_openai_api_key
+   
+   # Database Configuration
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=your_database_name
+   DB_USER=your_database_user
+   DB_PASSWORD=your_database_password
+   
+   # Webhook Configuration
+   WEBHOOK_URL=your_webhook_url
    ```
 
-5. Edit `.env` with your credentials and configuration
+## Usage
 
-### Usage
+### Basic Frame Processing
 
-#### Process a single frame:
-
-```bash
-python main.py --input /path/to/frame.jpg
+Process a single frame:
+```
+python main.py --input path/to/frame.jpg
 ```
 
-#### Batch process frames from a directory:
-
-```bash
-python scripts/process_frames.py --input /path/to/directory --pattern "*.jpg" --limit 10
+Process all frames in a directory:
+```
+python main.py --input path/to/directory --pattern "*.jpg"
 ```
 
-#### Export embeddings from the database:
+### Batch Processing
 
-```bash
-python scripts/export_embeddings.py --output embeddings.json
+To process all frames in a base directory and all subdirectories:
+```
+./scripts/process_all_frames.sh
 ```
 
-#### Store data locally without sending to webhook:
-
-```bash
-python main.py --input /path/to/frame.jpg --local-only --local-storage-dir "data"
+Options:
+```
+--limit N            : Process only N frames per directory (default: 0 for all)
+--chunk-size N       : Size of text chunks (default: 500)
+--chunk-overlap N    : Overlap between chunks (default: 50)
+--max-chunks N       : Maximum chunks per frame (default: 10)
+--storage-dir DIR    : Directory to store results (default: all_frame_embeddings)
+--dry-run            : Print what would be processed without actually processing
+--help               : Display this help message
 ```
 
-## Configuration
+### Advanced Options
 
-The application uses environment variables for configuration:
+Process frames sequentially rather than in batch:
+```
+python main.py --input path/to/directory --pattern "*.jpg" --sequential
+```
 
-- `POSTGRES_HOST`: PostgreSQL host
-- `POSTGRES_PORT`: PostgreSQL port
-- `POSTGRES_USER`: PostgreSQL username
-- `POSTGRES_PASS`: PostgreSQL password
-- `POSTGRES_DB`: PostgreSQL database name
-- `VOYAGE_API_KEY`: Voyage AI API key
-- `AIRTABLE_PERSONAL_ACCESS_TOKEN`: Airtable PAT token
-- `AIRTABLE_BASE_ID`: Airtable base ID
-- `WEBHOOK_URL`: n8n webhook URL
-- `FRAME_BASE_DIR`: Base directory for frames
+Store results only locally (no database or webhook):
+```
+python main.py --input path/to/directory --pattern "*.jpg" --local-only
+```
+
+Specify a custom storage directory:
+```
+python main.py --input path/to/directory --pattern "*.jpg" --local-storage-dir "my_embeddings"
+```
+
+### PostgreSQL Integration
+
+To use PostgreSQL for vector storage, ensure you've configured your .env file with database credentials and run without the `--local-only` flag:
+
+```
+python main.py --input path/to/directory --pattern "*.jpg"
+```
+
+## Project Structure
+
+- `main.py`: Entry point for the application
+- `src/`: Source code modules
+  - `api/`: API integration components
+  - `connectors/`: Database and external service connectors
+  - `db/`: Database interaction modules
+  - `embeddings/`: Embedding generation components
+  - `models/`: Data models
+  - `processors/`: Frame and metadata processors
+  - `utils/`: Utility functions
+- `scripts/`: Utility scripts
+- `tests/`: Test files
+- `payloads/`: Directory for storing payloads in JSON and CSV formats
+
+## Development
+
+### Running Tests
+
+```
+pytest tests/
+```
+
+### Adding New Features
+
+1. Create a new branch for your feature
+2. Implement your changes
+3. Add tests
+4. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is proprietary and not licensed for public use without explicit permission.
+
+## Contact
+
+For questions or support, contact the repository owner.
