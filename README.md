@@ -13,8 +13,16 @@ This project now includes advanced OCR capabilities and Airtable integration:
 - **Skip Mechanism**: Avoid reprocessing frames that already have OCR data
 - **Multiple Run Scripts**:
   - `run_sequential_ocr.sh`: Process one frame at a time, one folder at a time
-  - `run_ocr_batch.sh`: Process frames in batches
-  - `run_folder_reset.sh`: Reset flagged fields for specific folders
+  - `run_ocr_batch.sh`: Process frames in batches with parallelization options
+  - `run_folder_reset.sh`: Reset flagged fields for specific folders or all folders
+  - `simple_process_frames.js`: Process existing OCR data for flagging sensitive content
+
+### Batch Processing Improvements (v1.3.0)
+- **Folder-Based Processing**: Target specific folders or process entire collections
+- **Parallel Processing**: Option to process multiple frames simultaneously
+- **Rate Limiting Protection**: Intelligent delays to prevent Airtable API rate limits
+- **Selective Flag Updates**: Option to preserve sensitive flags while updating others
+- **Detailed Logging**: Track progress with timestamped console output
 
 ### Airtable Integration
 - Records are updated only after successful OCR and LLM processing
@@ -35,9 +43,24 @@ To process frames in a specific folder:
 ./run_sequential_ocr.sh --folder=/path/to/folder
 ```
 
+To process frames in batches:
+```bash
+./run_ocr_batch.sh
+```
+
 To reset flagged fields for all folders:
 ```bash
 ./run_folder_reset.sh
+```
+
+To reset flagged fields for a specific folder:
+```bash
+./run_folder_reset.sh -f "folder_name"
+```
+
+To process existing OCR data for flagging:
+```bash
+./run_simple.sh
 ```
 
 ## Project Overview
