@@ -1,0 +1,3 @@
+timestamp,image_path,hash,lang,word_count,confidence,processing_time,text
+2025-04-07 12:42:15,test_frames/test_frame_1.jpg,e5ac835ed1c9a4842c153eb826fb1dfd590033acb3ce0b934ca9281f11699611,eng,0,18.2,0.12167859077453613,
+2025-04-07 12:42:18,test_frames/test_frame_2.jpg,431a104a693dd4b44fdb97ee619b5678b1332f485e55ba7de886829c0a69cf53,eng,0,18.2,0.14887237548828125,

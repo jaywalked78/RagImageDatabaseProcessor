@@ -1,3 +1,25 @@
+# Core dependencies
+python-dotenv==1.0.0
+pillow==10.0.0
+pytesseract==0.3.10
+numpy==1.24.3
+requests==2.31.0
+google-generativeai==0.3.1
+
+# Async utilities
+asyncio==3.4.3
+aiohttp==3.8.5
+aiodns==3.0.0
+
+# Optional: Database connections
+asyncpg==0.28.0
+psycopg2-binary==2.9.7
+
+# Optional: For embedding models
+transformers==4.30.2
+torch==2.0.1
+sentence-transformers==2.2.2
+
 # API and Web Framework
 fastapi>=0.95.0
 uvicorn>=0.21.1
@@ -6,7 +28,6 @@ python-multipart>=0.0.6
 starlette>=0.26.1
 
 # Database
-psycopg2-binary==2.9.6
 pgvector>=0.1.8
 
 # Integrations
@@ -17,9 +38,7 @@ google-auth-httplib2>=0.1.0
 google-auth-oauthlib>=1.0.0
 
 # Utilities
-python-dotenv==1.0.0
 requests==2.31.0
-numpy==1.24.3
 Pillow==10.0.0
 loguru>=0.7.0
 python-jose[cryptography]>=3.3.0

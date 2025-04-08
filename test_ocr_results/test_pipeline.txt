@@ -1,0 +1,47 @@
+This is a test OCR content file for pipeline testing.
+
+COMPANY: Test Company Inc.
+PROJECT: Database Advanced Tokenizer
+DATE: 2023-09-15
+
+The system should process this text and identify the following sensitive information:
+
+Google API Key: AIzaSyBM_KVZt_umsFwRswNVq6rhcJaM4j_Pwb8
+Stripe Test Key: sk_test_4eC39HqLyjWDarjtT1zdp7dc
+
+Document Topics:
+- Data Processing
+- OCR Analysis
+- Information Security
+- API Integration
+
+This document contains information about the workflow to process OCR data from 
+documents and extract structured information using advanced tokenization techniques.
+
+The system uses Google's Gemini API for enhanced analysis of text content and can
+identify various content types including:
+
+1. Code snippets
+2. API keys and credentials 
+3. Technical documentation
+4. URLs and links (https://example.com/test)
+5. Tabular data
+
+STEPS IN WORKFLOW:
+1. Extract text using OCR
+2. Process with Gemini API
+3. Identify sensitive information
+4. Structure data into topics and content types
+5. Save to CSV and database
+6. Update Airtable with results
+7. Generate logs for auditing
+
+The system should also correctly extract and format this sample table:
+
+| ID | Name    | Type   | Status   |
+|----|---------|--------|----------|
+| 1  | Frame A | Image  | Complete |
+| 2  | Frame B | Video  | Pending  |
+| 3  | Frame C | Audio  | Failed   |
+
+END OF TEST DOCUMENT 

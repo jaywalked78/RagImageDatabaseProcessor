@@ -18,6 +18,7 @@ from pathlib import Path
 
 import asyncpg
 import dotenv
+import uuid
 
 # Load environment variables
 load_dotenv()
@@ -39,876 +40,823 @@ class PostgresVectorStore:
     Supports pgvector operations.
     """
     
-    def __init__(self, 
-                connection_pool: Optional[asyncpg.pool.Pool] = None,
-                host: Optional[str] = None,
-                port: Optional[str] = None,
-                user: Optional[str] = None,
-                password: Optional[str] = None,
-                database: Optional[str] = None,
-                min_connections: int = 1,
-                max_connections: int = 10):
-        """
-        Initialize the PostgreSQL vector store.
-        
-        Args:
-            connection_pool: Existing connection pool to use
-            host: Database host (default: from env var POSTGRES_HOST)
-            port: Database port (default: from env var POSTGRES_PORT)
-            user: Database user (default: from env var POSTGRES_USER)
-            password: Database password (default: from env var POSTGRES_PASSWORD)
-            database: Database name (default: from env var POSTGRES_DB)
-            min_connections: Minimum number of connections in the pool
-            max_connections: Maximum number of connections in the pool
-        """
-        # Use provided connection pool or create one
-        self.pool = connection_pool
-        
-        # Set connection parameters
-        self.host = host or os.getenv("POSTGRES_HOST")
-        self.port = port or os.getenv("POSTGRES_PORT", "5432")
-        self.user = user or os.getenv("POSTGRES_USER")
-        self.password = password or os.getenv("POSTGRES_PASSWORD")
-        self.database = database or os.getenv("POSTGRES_DB")
-        
-        # Initialize with empty pool, to be created when needed
-        self.min_connections = min_connections
-        self.max_connections = max_connections
-        
-        # Check connection parameters
-        if not self.pool and (not self.host or not self.user or not self.password or not self.database):
-            logger.warning("Incomplete PostgreSQL connection information")
-        
-        # Connection status
-        self._connected = False
+    def __init__(self):
+        """Initialize the PostgreSQL vector store."""
+        self.connection_pool = None
+        self.embedding_dim = int(os.getenv('EMBEDDING_DIM', 1024))
+        self.connected = False
+        self.vector_dimension = int(os.getenv("VECTOR_DIMENSION", "1024"))
+        self.embedding_distance_threshold = float(os.getenv("EMBEDDING_DISTANCE_THRESHOLD", "0.2"))
     
     async def connect(self) -> bool:
-        """
-        Connect to the PostgreSQL database and create a connection pool.
-        
-        Returns:
-            Boolean indicating connection success
-        """
-        if self.pool:
-            self._connected = True
+        """Connect to the PostgreSQL database."""
+        if self.connected and self.connection_pool:
             return True
         
-        if not self.host or not self.user or not self.password or not self.database:
-            logger.error("Cannot connect: Incomplete connection information")
+        # Get connection parameters from environment
+        host = os.getenv('POSTGRES_HOST')
+        port = os.getenv('POSTGRES_PORT')
+        database = os.getenv('POSTGRES_DB')
+        user = os.getenv('POSTGRES_USER')
+        password = os.getenv('POSTGRES_PASS')
+        
+        # Check if all parameters are available
+        if not all([host, port, database, user, password]):
+            logger.warning("Incomplete PostgreSQL connection information")
             return False
         
         try:
             # Create connection pool
-            self.pool = await asyncpg.create_pool(
-                host=self.host,
-                port=self.port,
-                user=self.user,
-                password=self.password,
-                database=self.database,
-                min_size=self.min_connections,
-                max_size=self.max_connections,
-                command_timeout=60
-            )
+            dsn = f"postgres://{user}:{password}@{host}:{port}/{database}"
+            self.connection_pool = await asyncpg.create_pool(dsn=dsn)
+            self.connected = True
             
-            self._connected = True
-            logger.info(f"Connected to PostgreSQL at {self.host}:{self.port}")
+            logger.info(f"Connected to PostgreSQL database at {host}:{port}/{database}")
             
-            # Verify pgvector extension
-            await self._verify_pgvector()
+            # Ensure schema and tables are set up
+            await self._ensure_database_setup()
             
             return True
-            
         except Exception as e:
-            logger.error(f"Error connecting to PostgreSQL: {e}")
-            return False
-    
-    async def _verify_pgvector(self):
-        """Verify that pgvector extension is installed."""
-        if not self.pool:
-            logger.error("Cannot verify pgvector: No connection pool")
-            return False
-        
-        try:
-            async with self.pool.acquire() as conn:
-                result = await conn.fetchval(
-                    "SELECT EXISTS(SELECT 1 FROM pg_extension WHERE extname = 'vector')"
-                )
-                
-                if not result:
-                    logger.error("pgvector extension is not installed")
-                    return False
-                
-                logger.info("pgvector extension is installed")
-                return True
-                
-        except Exception as e:
-            logger.error(f"Error verifying pgvector: {e}")
+            logger.error(f"Error connecting to PostgreSQL database: {e}")
+            self.connected = False
             return False
     
     async def _ensure_connected(self) -> bool:
-        """Ensure connection to the database is established."""
-        if self._connected and self.pool:
-            return True
-        return await self.connect()
+        """Ensure there is a connection to the database."""
+        if not self.connected or not self.connection_pool:
+            return await self.connect()
+        return True
     
-    async def store_frame(self,
-                        frame_name: str,
-                        folder_path: str,
-                        folder_name: Optional[str] = None,
-                        frame_timestamp: Optional[str] = None,
-                        google_drive_url: Optional[str] = None,
-                        airtable_record_id: Optional[str] = None,
-                        metadata: Optional[Dict[str, Any]] = None) -> Optional[int]:
+    async def _ensure_database_setup(self) -> None:
+        """Ensure the database has the necessary schemas, extensions, and tables."""
+        if not await self._ensure_connected():
+            return
+
+        async with self.connection_pool.acquire() as conn:
+            # Create schemas if they don't exist
+            await conn.execute("""
+                CREATE SCHEMA IF NOT EXISTS content;
+                CREATE SCHEMA IF NOT EXISTS metadata;
+                CREATE SCHEMA IF NOT EXISTS embeddings;
+            """)
+            
+            # Create pgvector extension if it doesn't exist
+            await conn.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+            
+            # Ensure tables exist
+            await self._ensure_frames_table(conn)
+            await self._ensure_chunks_table(conn)
+            await self._ensure_frame_details_table(conn)
+            await self._ensure_chunk_details_table(conn)
+            await self._ensure_process_frames_chunks_table(conn)  # New table for processing info
+            await self._ensure_embeddings_table(conn)
+            
+            logger.info("Database schemas and tables verified")
+
+    async def _ensure_frames_table(self, conn) -> None:
+        """Ensure the content.frames table exists."""
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS content.frames (
+                id SERIAL PRIMARY KEY,
+                frame_name TEXT NOT NULL,
+                folder_path TEXT NOT NULL,
+                folder_name TEXT NOT NULL,
+                frame_timestamp TIMESTAMP,
+                google_drive_url TEXT,
+                airtable_record_id TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            
+            CREATE INDEX IF NOT EXISTS frames_frame_name_idx ON content.frames(frame_name);
+            CREATE INDEX IF NOT EXISTS frames_folder_name_idx ON content.frames(folder_name);
+            CREATE INDEX IF NOT EXISTS frames_airtable_id_idx ON content.frames(airtable_record_id);
+        """)
+
+    async def _ensure_process_frames_chunks_table(self, conn) -> None:
+        """Ensure the metadata.process_frames_chunks table exists."""
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS metadata.process_frames_chunks (
+                id SERIAL PRIMARY KEY,
+                frame_id INTEGER REFERENCES content.frames(id),
+                chunk_id INTEGER REFERENCES content.chunks(id),
+                airtable_record_id TEXT,
+                processing_status TEXT,
+                chunk_type TEXT,
+                chunk_format TEXT,
+                processing_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                processing_metadata JSONB,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            
+            CREATE INDEX IF NOT EXISTS process_chunks_frame_id_idx ON metadata.process_frames_chunks(frame_id);
+            CREATE INDEX IF NOT EXISTS process_chunks_chunk_id_idx ON metadata.process_frames_chunks(chunk_id);
+            CREATE INDEX IF NOT EXISTS process_chunks_airtable_id_idx ON metadata.process_frames_chunks(airtable_record_id);
+            CREATE INDEX IF NOT EXISTS process_chunks_status_idx ON metadata.process_frames_chunks(processing_status);
+        """)
+
+    async def store_process_chunk_data(
+        self,
+        frame_id: int,
+        chunk_id: int,
+        airtable_record_id: str,
+        processing_status: str = "processed",
+        chunk_type: str = "text",
+        chunk_format: str = "plain",
+        processing_metadata: Dict[str, Any] = None
+    ) -> bool:
         """
-        Store frame information in the database.
+        Store processing information for a frame-chunk pair.
         
         Args:
-            frame_name: Name of the frame
-            folder_path: Path to the folder containing the frame
-            folder_name: Name of the folder containing the frame
-            frame_timestamp: Timestamp of the frame
-            google_drive_url: Google Drive URL for the frame
-            airtable_record_id: Airtable record ID
-            metadata: Dictionary of metadata for the frame
+            frame_id: ID of the frame
+            chunk_id: ID of the chunk
+            airtable_record_id: ID of the corresponding Airtable record
+            processing_status: Status of the processing (e.g., "processed", "failed")
+            chunk_type: Type of the chunk (e.g., "text", "image")
+            chunk_format: Format of the chunk (e.g., "plain", "markdown")
+            processing_metadata: Additional metadata about the processing
             
         Returns:
-            Frame ID if successful, None otherwise
+            bool: True if successful, False otherwise
         """
         if not await self._ensure_connected():
-            logger.error("Cannot store frame: Not connected to database")
-            return None
-        
-        # Extract folder name from path if not provided
-        if not folder_name and folder_path:
-            try:
-                folder_name = os.path.basename(folder_path)
-            except:
-                pass
-        
-        # Check if frame exists
-        frame_id = await self._get_frame_id(frame_name, folder_path)
+            return False
         
         try:
-            async with self.pool.acquire() as conn:
-                if frame_id:
-                    # Update existing frame
-                    query = """
-                    UPDATE content.frames SET
-                        folder_name = COALESCE($1, folder_name),
-                        frame_timestamp = COALESCE($2::TIMESTAMPTZ, frame_timestamp),
-                        google_drive_url = COALESCE($3, google_drive_url),
-                        airtable_record_id = COALESCE($4, airtable_record_id),
-                        metadata = COALESCE($5::JSONB, metadata)
-                    WHERE id = $6
-                    RETURNING id
-                    """
-                    
-                    result = await conn.fetchval(
-                        query,
-                        folder_name,
-                        frame_timestamp,
-                        google_drive_url,
-                        airtable_record_id,
-                        json.dumps(metadata) if metadata else None,
-                        frame_id
+            async with self.connection_pool.acquire() as conn:
+                # Check if entry already exists
+                exists = await conn.fetchval("""
+                    SELECT EXISTS(
+                        SELECT 1 FROM metadata.process_frames_chunks 
+                        WHERE frame_id = $1 AND chunk_id = $2
                     )
+                """, frame_id, chunk_id)
+                
+                if exists:
+                    # Update existing entry
+                    await conn.execute("""
+                        UPDATE metadata.process_frames_chunks
+                        SET 
+                            airtable_record_id = $3,
+                            processing_status = $4,
+                            chunk_type = $5,
+                            chunk_format = $6,
+                            processing_metadata = $7,
+                            processing_timestamp = CURRENT_TIMESTAMP,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE frame_id = $1 AND chunk_id = $2
+                    """, frame_id, chunk_id, airtable_record_id, processing_status, 
+                        chunk_type, chunk_format, processing_metadata or {})
                     
-                    logger.info(f"Updated frame '{frame_name}' with ID {frame_id}")
-                    return frame_id
-                    
+                    logger.info(f"Updated processing data for frame ID {frame_id}, chunk ID {chunk_id}")
                 else:
-                    # Insert new frame
-                    query = """
-                    INSERT INTO content.frames (
-                        frame_name, folder_path, folder_name, frame_timestamp,
-                        google_drive_url, airtable_record_id, metadata
-                    ) VALUES ($1, $2, $3, $4::TIMESTAMPTZ, $5, $6, $7::JSONB)
+                    # Insert new entry
+                    await conn.execute("""
+                        INSERT INTO metadata.process_frames_chunks
+                        (frame_id, chunk_id, airtable_record_id, processing_status, 
+                         chunk_type, chunk_format, processing_metadata)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7)
+                    """, frame_id, chunk_id, airtable_record_id, processing_status,
+                        chunk_type, chunk_format, processing_metadata or {})
+                    
+                    logger.info(f"Stored processing data for frame ID {frame_id}, chunk ID {chunk_id}")
+                
+                return True
+                    
+        except Exception as e:
+            logger.error(f"Error storing process data for frame ID {frame_id}, chunk ID {chunk_id}: {str(e)}")
+            return False
+    
+    async def get_chunk_processing_status(self, airtable_record_id: str) -> List[Dict[str, Any]]:
+        """
+        Get processing status for all chunks associated with an Airtable record.
+        
+        Args:
+            airtable_record_id: ID of the Airtable record
+            
+        Returns:
+            List of dictionaries with processing status information
+        """
+        if not await self._ensure_connected():
+            return []
+        
+        try:
+            async with self.connection_pool.acquire() as conn:
+                rows = await conn.fetch("""
+                    SELECT 
+                        pfc.id,
+                        pfc.frame_id,
+                        pfc.chunk_id,
+                        pfc.processing_status,
+                        pfc.chunk_type,
+                        pfc.chunk_format,
+                        pfc.processing_timestamp,
+                        f.frame_name,
+                        f.folder_name,
+                        c.chunk_sequence_id,
+                        c.chunk_text
+                    FROM metadata.process_frames_chunks pfc
+                    JOIN content.frames f ON pfc.frame_id = f.id
+                    JOIN content.chunks c ON pfc.chunk_id = c.id
+                    WHERE pfc.airtable_record_id = $1
+                    ORDER BY f.id, c.chunk_sequence_id
+                """, airtable_record_id)
+                
+                return [dict(row) for row in rows]
+                
+        except Exception as e:
+            logger.error(f"Error getting processing status for Airtable ID {airtable_record_id}: {str(e)}")
+            return []
+    
+    async def store_frame(self, 
+                         frame_name: str, 
+                         folder_path: Optional[str] = None,
+                         folder_name: Optional[str] = None,
+                         frame_timestamp: Optional[str] = None,
+                         google_drive_url: Optional[str] = None,
+                         airtable_record_id: Optional[str] = None,
+                         metadata: Optional[Dict[str, Any]] = None) -> Optional[int]:
+        """Store frame information and return frame ID."""
+        if not await self._ensure_connected():
+            return None
+        
+        try:
+            async with self.connection_pool.acquire() as conn:
+                # Insert or update frame
+                frame_id = await conn.fetchval("""
+                INSERT INTO content.frames (
+                    frame_name, folder_path, folder_name, frame_timestamp, 
+                    google_drive_url, airtable_record_id, metadata
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+                ON CONFLICT (frame_name, folder_path) DO UPDATE SET
+                    folder_name = $3,
+                    frame_timestamp = $4,
+                    google_drive_url = $5,
+                    airtable_record_id = $6,
+                    metadata = $7
                     RETURNING id
-                    """
-                    
-                    frame_id = await conn.fetchval(
-                        query,
-                        frame_name,
-                        folder_path,
-                        folder_name,
-                        frame_timestamp,
-                        google_drive_url,
-                        airtable_record_id,
-                        json.dumps(metadata) if metadata else None
-                    )
-                    
-                    logger.info(f"Inserted frame '{frame_name}' with ID {frame_id}")
-                    return frame_id
+                """, frame_name, folder_path, folder_name, frame_timestamp, 
+                   google_drive_url, airtable_record_id, 
+                   json.dumps(metadata) if metadata else None)
+                
+                # Create reference_id in the format "folder_name/frame_name"
+                reference_id = f"{folder_name}/{frame_name}" if folder_name else frame_name
+                
+                # Insert or update frame_details_full
+                await conn.execute("""
+                INSERT INTO metadata.frame_details_full (frame_id, reference_id)
+                VALUES ($1, $2)
+                ON CONFLICT (frame_id) DO UPDATE SET
+                    reference_id = $2,
+                    updated_at = CURRENT_TIMESTAMP
+                """, frame_id, reference_id)
+                
+                logger.info(f"Stored frame information for '{frame_name}' with ID {frame_id}")
+                return frame_id
                     
         except Exception as e:
             logger.error(f"Error storing frame '{frame_name}': {e}")
             return None
     
-    async def _get_frame_id(self, frame_name: str, folder_path: str) -> Optional[int]:
+    async def store_chunk(
+        self,
+        frame_reference_id: str,
+        chunk_text: str,
+        chunk_sequence_id: int,
+        chunk_start_index: int = None,
+        chunk_end_index: int = None,
+        metadata: Dict[str, Any] = None
+    ) -> Optional[int]:
         """
-        Get frame ID by name and folder path.
+        Store chunk details in the database using a frame reference ID.
         
         Args:
-            frame_name: Name of the frame
-            folder_path: Path to the folder containing the frame
-            
-        Returns:
-            Frame ID if found, None otherwise
-        """
-        if not self.pool:
-            return None
-        
-        try:
-            async with self.pool.acquire() as conn:
-                query = """
-                SELECT id FROM content.frames
-                WHERE frame_name = $1 AND folder_path = $2
-                """
-                
-                return await conn.fetchval(query, frame_name, folder_path)
-                
-        except Exception as e:
-            logger.error(f"Error getting frame ID: {e}")
-            return None
-    
-    async def store_chunk(self,
-                        frame_id: int,
-                        chunk_sequence_id: int,
-                        chunk_text: str) -> Optional[int]:
-        """
-        Store chunk information in the database.
-        
-        Args:
-            frame_id: ID of the frame
-            chunk_sequence_id: Sequence ID of the chunk
+            frame_reference_id: Reference ID of the parent frame
             chunk_text: Text content of the chunk
+            chunk_sequence_id: Sequence ID of the chunk
+            chunk_start_index: Start index of the chunk in the source text
+            chunk_end_index: End index of the chunk in the source text
+            metadata: Additional metadata for the chunk
             
         Returns:
-            Chunk ID if successful, None otherwise
+            int: Chunk ID if successful, None otherwise
         """
         if not await self._ensure_connected():
-            logger.error("Cannot store chunk: Not connected to database")
             return None
-        
-        # Check if chunk exists
-        chunk_id = await self._get_chunk_id(frame_id, chunk_sequence_id)
         
         try:
-            async with self.pool.acquire() as conn:
-                if chunk_id:
-                    # Update existing chunk
-                    query = """
-                    UPDATE content.chunks SET
-                        chunk_text = $1
-                    WHERE id = $2
-                    RETURNING id
-                    """
-                    
-                    result = await conn.fetchval(query, chunk_text, chunk_id)
-                    logger.info(f"Updated chunk {chunk_sequence_id} for frame {frame_id}")
-                    return chunk_id
-                    
-                else:
-                    # Insert new chunk
-                    query = """
-                    INSERT INTO content.chunks (
-                        frame_id, chunk_sequence_id, chunk_text
-                    ) VALUES ($1, $2, $3)
-                    RETURNING id
-                    """
-                    
-                    chunk_id = await conn.fetchval(query, frame_id, chunk_sequence_id, chunk_text)
-                    logger.info(f"Inserted chunk {chunk_sequence_id} for frame {frame_id}")
-                    return chunk_id
-                    
-        except Exception as e:
-            logger.error(f"Error storing chunk {chunk_sequence_id} for frame {frame_id}: {e}")
-            return None
-    
-    async def _get_chunk_id(self, frame_id: int, chunk_sequence_id: int) -> Optional[int]:
-        """
-        Get chunk ID by frame ID and sequence ID.
-        
-        Args:
-            frame_id: ID of the frame
-            chunk_sequence_id: Sequence ID of the chunk
+            # Create reference_id for chunk in the standard format
+            chunk_reference_id = f"{frame_reference_id}/chunk_{chunk_sequence_id}"
             
-        Returns:
-            Chunk ID if found, None otherwise
-        """
-        if not self.pool:
-            return None
-        
-        try:
-            async with self.pool.acquire() as conn:
-                query = """
-                SELECT id FROM content.chunks
-                WHERE frame_id = $1 AND chunk_sequence_id = $2
-                """
+            async with self.connection_pool.acquire() as conn:
+                # Get frame_id from reference_id
+                frame_id = await conn.fetchval("""
+                    SELECT f.id 
+                    FROM content.frames f
+                    JOIN metadata.frame_details_full fd ON f.id = fd.frame_id
+                    WHERE fd.reference_id = $1
+                """, frame_reference_id)
                 
-                return await conn.fetchval(query, frame_id, chunk_sequence_id)
+                if not frame_id:
+                    logger.error(f"Frame with reference_id {frame_reference_id} not found")
+                    return None
+                
+                # Insert chunk record
+                chunk_id = await conn.fetchval("""
+                    INSERT INTO content.chunks 
+                    (frame_id, chunk_sequence_id, chunk_text, chunk_start_index, chunk_end_index)
+                    VALUES ($1, $2, $3, $4, $5)
+                    RETURNING id
+                """, frame_id, chunk_sequence_id, chunk_text, chunk_start_index, chunk_end_index)
+                
+                if not chunk_id:
+                    logger.error(f"Failed to insert chunk {chunk_sequence_id} for frame {frame_reference_id}")
+                    return None
+                
+                # Insert chunk details in metadata schema with consistent reference_id
+                await conn.execute("""
+                    INSERT INTO metadata.frame_details_chunk 
+                    (chunk_id, reference_id, chunk_sequence_id, metadata)
+                    VALUES ($1, $2, $3, $4)
+                """, chunk_id, chunk_reference_id, chunk_sequence_id, metadata or {})
+                
+                logger.info(f"Stored chunk {chunk_sequence_id} with ID {chunk_id} and reference_id {chunk_reference_id}")
+                return chunk_id
                 
         except Exception as e:
-            logger.error(f"Error getting chunk ID: {e}")
+            logger.error(f"Error storing chunk for frame {frame_reference_id}: {str(e)}")
             return None
     
     async def store_frame_embedding(self,
                                   frame_id: int,
                                   embedding: List[float],
-                                  model_name: str) -> bool:
-        """
-        Store a whole-frame embedding in the database.
-        
-        Args:
-            frame_id: ID of the frame
-            embedding: List of embedding values
-            model_name: Name of the embedding model
-            
-        Returns:
-            Boolean indicating success
-        """
+                                   model_name: str) -> Optional[str]:
+        """Store a frame embedding and return the embedding ID."""
         if not await self._ensure_connected():
-            logger.error("Cannot store frame embedding: Not connected to database")
-            return False
+            return None
         
         try:
-            # Convert embedding to correct format
-            embedding_str = str(embedding).replace('[', '{').replace(']', '}')
-            
             # Generate a UUID for the embedding
             embedding_id = str(uuid.uuid4())
             
-            async with self.pool.acquire() as conn:
-                # Check if frame embedding exists for this model
-                query = """
-                SELECT id FROM metadata.frame_embeddings
-                WHERE frame_id = $1 AND model_name = $2
-                """
+            async with self.connection_pool.acquire() as conn:
+                # Get frame information and reference_id
+                frame_info = await conn.fetchrow("""
+                SELECT f.frame_name, f.folder_name, f.google_drive_url, fdf.reference_id
+                FROM content.frames f
+                LEFT JOIN metadata.frame_details_full fdf ON f.id = fdf.frame_id
+                WHERE f.id = $1
+                """, frame_id)
                 
-                existing_id = await conn.fetchval(query, frame_id, model_name)
+                if not frame_info:
+                    logger.error(f"Frame with ID {frame_id} not found")
+                    return None
                 
-                if existing_id:
-                    # Update existing embedding
-                    query = """
-                    UPDATE metadata.frame_embeddings SET
-                        embedding = $1::vector
-                    WHERE id = $2
-                    """
-                    
-                    await conn.execute(query, embedding_str, existing_id)
-                    logger.info(f"Updated frame embedding for frame {frame_id}")
-                    
-                else:
-                    # Insert new embedding
-                    query = """
-                    INSERT INTO metadata.frame_embeddings (
-                        id, frame_id, embedding, model_name
-                    ) VALUES ($1, $2, $3::vector, $4)
-                    """
-                    
-                    await conn.execute(query, embedding_id, frame_id, embedding_str, model_name)
-                    logger.info(f"Inserted frame embedding for frame {frame_id}")
+                # Store in metadata.frame_embeddings
+                await conn.execute("""
+                INSERT INTO metadata.frame_embeddings (id, frame_id, embedding, model_name)
+                VALUES ($1, $2, $3, $4)
+                ON CONFLICT (id) DO UPDATE SET 
+                    embedding = $3,
+                    model_name = $4,
+                    creation_time = CURRENT_TIMESTAMP
+                """, embedding_id, frame_id, embedding, model_name)
                 
-                return True
+                # Store in embeddings.multimodal_embeddings
+                await conn.execute("""
+                INSERT INTO embeddings.multimodal_embeddings (
+                    embedding_id, reference_id, reference_type, 
+                    text_content, image_url, embedding, model_name
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+                ON CONFLICT (embedding_id) DO UPDATE SET
+                    reference_id = $2,
+                    text_content = $4,
+                    image_url = $5,
+                    embedding = $6,
+                    model_name = $7,
+                    updated_at = CURRENT_TIMESTAMP
+                """, embedding_id, frame_info['reference_id'], 'frame', 
+                   None, frame_info['google_drive_url'], embedding, model_name)
+                
+                logger.info(f"Stored frame embedding for frame ID {frame_id} with embedding ID {embedding_id}")
+                return embedding_id
                 
         except Exception as e:
-            logger.error(f"Error storing frame embedding for frame {frame_id}: {e}")
-            return False
+            logger.error(f"Error storing frame embedding for frame ID {frame_id}: {e}")
+            return None
     
     async def store_chunk_embedding(self,
                                   chunk_id: int,
                                   embedding: List[float],
-                                  model_name: str) -> bool:
-        """
-        Store a chunk embedding in the database.
-        
-        Args:
-            chunk_id: ID of the chunk
-            embedding: List of embedding values
-            model_name: Name of the embedding model
-            
-        Returns:
-            Boolean indicating success
-        """
+                                   model_name: str) -> Optional[str]:
+        """Store a chunk embedding and return the embedding ID."""
         if not await self._ensure_connected():
-            logger.error("Cannot store chunk embedding: Not connected to database")
-            return False
+            return None
         
         try:
-            # Convert embedding to correct format
-            embedding_str = str(embedding).replace('[', '{').replace(']', '}')
-            
             # Generate a UUID for the embedding
             embedding_id = str(uuid.uuid4())
             
-            async with self.pool.acquire() as conn:
-                # Check if chunk embedding exists for this model
-                query = """
-                SELECT id FROM metadata.chunk_embeddings
-                WHERE chunk_id = $1 AND model_name = $2
-                """
+            async with self.connection_pool.acquire() as conn:
+                # Get chunk information and reference_id
+                chunk_info = await conn.fetchrow("""
+                SELECT c.frame_id, c.chunk_sequence_id, c.chunk_text, fdc.reference_id
+                FROM content.chunks c
+                LEFT JOIN metadata.frame_details_chunk fdc ON c.id = fdc.chunk_id
+                WHERE c.id = $1
+                """, chunk_id)
                 
-                existing_id = await conn.fetchval(query, chunk_id, model_name)
+                if not chunk_info:
+                    logger.error(f"Chunk with ID {chunk_id} not found")
+                    return None
                 
-                if existing_id:
-                    # Update existing embedding
-                    query = """
-                    UPDATE metadata.chunk_embeddings SET
-                        embedding = $1::vector
-                    WHERE id = $2
-                    """
-                    
-                    await conn.execute(query, embedding_str, existing_id)
-                    logger.info(f"Updated chunk embedding for chunk {chunk_id}")
-                    
-                else:
-                    # Insert new embedding
-                    query = """
-                    INSERT INTO metadata.chunk_embeddings (
-                        id, chunk_id, embedding, model_name
-                    ) VALUES ($1, $2, $3::vector, $4)
-                    """
-                    
-                    await conn.execute(query, embedding_id, chunk_id, embedding_str, model_name)
-                    logger.info(f"Inserted chunk embedding for chunk {chunk_id}")
+                # Store in metadata.chunk_embeddings
+                await conn.execute("""
+                INSERT INTO metadata.chunk_embeddings (id, chunk_id, embedding, model_name)
+                VALUES ($1, $2, $3, $4)
+                ON CONFLICT (id) DO UPDATE SET 
+                    embedding = $3,
+                    model_name = $4,
+                    creation_time = CURRENT_TIMESTAMP
+                """, embedding_id, chunk_id, embedding, model_name)
                 
-                return True
+                # Store in embeddings.multimodal_embeddings
+                await conn.execute("""
+                INSERT INTO embeddings.multimodal_embeddings (
+                    embedding_id, reference_id, reference_type, 
+                    text_content, image_url, embedding, model_name
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+                ON CONFLICT (embedding_id) DO UPDATE SET
+                    reference_id = $2,
+                    text_content = $4,
+                    embedding = $6,
+                    model_name = $7,
+                    updated_at = CURRENT_TIMESTAMP
+                """, embedding_id, chunk_info['reference_id'], 'chunk', 
+                   chunk_info['chunk_text'], None, embedding, model_name)
+                
+                logger.info(f"Stored chunk embedding for chunk ID {chunk_id} with embedding ID {embedding_id}")
+                return embedding_id
                 
         except Exception as e:
-            logger.error(f"Error storing chunk embedding for chunk {chunk_id}: {e}")
-            return False
+            logger.error(f"Error storing chunk embedding for chunk ID {chunk_id}: {e}")
+            return None
     
-    async def process_frame_with_chunks(self,
-                                      frame_name: str,
-                                      folder_path: str,
-                                      chunks: List[Dict[str, Any]],
-                                      frame_embedding: List[float],
-                                      model_name: str,
-                                      folder_name: Optional[str] = None,
-                                      frame_timestamp: Optional[str] = None,
-                                      google_drive_url: Optional[str] = None,
-                                      airtable_record_id: Optional[str] = None,
-                                      metadata: Optional[Dict[str, Any]] = None) -> bool:
-        """
-        Process a complete frame with chunks in one transaction.
-        
-        Args:
-            frame_name: Name of the frame
-            folder_path: Path to the folder containing the frame
-            chunks: List of chunk dictionaries with text, sequence_id, and embedding
-            frame_embedding: Whole-frame embedding
-            model_name: Name of the embedding model
-            folder_name: Name of the folder containing the frame
-            frame_timestamp: Timestamp of the frame
-            google_drive_url: Google Drive URL for the frame
-            airtable_record_id: Airtable record ID
-            metadata: Dictionary of metadata for the frame
-            
-        Returns:
-            Boolean indicating success
-        """
-        if not await self._ensure_connected():
-            logger.error("Cannot process frame: Not connected to database")
-            return False
-        
-        try:
-            async with self.pool.acquire() as conn:
-                async with conn.transaction():
-                    # Store frame
-                    frame_id = await self.store_frame(
-                        frame_name=frame_name,
-                        folder_path=folder_path,
-                        folder_name=folder_name,
-                        frame_timestamp=frame_timestamp,
-                        google_drive_url=google_drive_url,
-                        airtable_record_id=airtable_record_id,
-                        metadata=metadata
-                    )
-                    
-                    if not frame_id:
-                        logger.error(f"Failed to store frame '{frame_name}'")
-                        return False
-                    
-                    # Store frame embedding
-                    frame_emb_success = await self.store_frame_embedding(
-                        frame_id=frame_id,
-                        embedding=frame_embedding,
-                        model_name=model_name
-                    )
-                    
-                    if not frame_emb_success:
-                        logger.error(f"Failed to store frame embedding for '{frame_name}'")
-                        return False
-                    
-                    # Store chunks and their embeddings
-                    for chunk in chunks:
-                        chunk_id = await self.store_chunk(
-                            frame_id=frame_id,
-                            chunk_sequence_id=chunk['sequence_id'],
-                            chunk_text=chunk['text']
-                        )
-                        
-                        if not chunk_id:
-                            logger.error(f"Failed to store chunk {chunk['sequence_id']} for '{frame_name}'")
-                            continue
-                        
-                        # Store chunk embedding
-                        chunk_emb_success = await self.store_chunk_embedding(
-                            chunk_id=chunk_id,
-                            embedding=chunk['embedding'],
-                            model_name=model_name
-                        )
-                        
-                        if not chunk_emb_success:
-                            logger.error(f"Failed to store embedding for chunk {chunk['sequence_id']} for '{frame_name}'")
-                    
-                    logger.info(f"Successfully processed frame '{frame_name}' with {len(chunks)} chunks")
-                    return True
-                    
-        except Exception as e:
-            logger.error(f"Error processing frame '{frame_name}': {e}")
-            return False
-    
-    async def search_frames(self,
+    async def search_frame_embeddings(self, 
                           query_embedding: List[float],
                           similarity_threshold: float = 0.7,
                           limit: int = 10) -> List[Dict[str, Any]]:
-        """
-        Search for frames by embedding similarity.
-        
-        Args:
-            query_embedding: Query embedding vector
-            similarity_threshold: Minimum similarity threshold (0-1)
-            limit: Maximum number of results
-            
-        Returns:
-            List of dictionaries with frame information and similarity scores
-        """
+        """Search for similar frame embeddings."""
         if not await self._ensure_connected():
-            logger.error("Cannot search frames: Not connected to database")
-            return []
-        
-        if not query_embedding:
-            logger.error("Cannot search frames: Empty query embedding")
             return []
         
         try:
-            # Convert embedding to correct format
-            embedding_str = str(query_embedding).replace('[', '{').replace(']', '}')
-            
-            async with self.pool.acquire() as conn:
-                query = """
+            async with self.connection_pool.acquire() as conn:
+                results = await conn.fetch("""
                 SELECT 
+                    mfe.id as embedding_id,
                     f.id as frame_id,
                     f.frame_name,
-                    f.folder_path,
                     f.folder_name,
                     f.google_drive_url,
+                    fdf.reference_id,
                     f.airtable_record_id,
-                    f.metadata,
-                    1 - (fe.embedding <=> $1::vector) as similarity
+                    1 - (mfe.embedding <=> $1) as similarity
                 FROM 
-                    metadata.frame_embeddings fe
-                JOIN 
-                    content.frames f ON fe.frame_id = f.id
+                    metadata.frame_embeddings mfe
+                INNER JOIN 
+                    content.frames f ON mfe.frame_id = f.id
+                LEFT JOIN
+                    metadata.frame_details_full fdf ON f.id = fdf.frame_id
                 WHERE 
-                    1 - (fe.embedding <=> $1::vector) > $2
+                    1 - (mfe.embedding <=> $1) > $2
                 ORDER BY 
                     similarity DESC
                 LIMIT $3
-                """
+                """, query_embedding, similarity_threshold, limit)
                 
-                rows = await conn.fetch(query, embedding_str, similarity_threshold, limit)
-                
-                results = []
-                for row in rows:
-                    result = dict(row)
-                    # Convert metadata from JSON string to dictionary
-                    if result['metadata']:
-                        if isinstance(result['metadata'], str):
-                            result['metadata'] = json.loads(result['metadata'])
-                    else:
-                        result['metadata'] = {}
-                    
-                    results.append(result)
-                
-                logger.info(f"Found {len(results)} frames with similarity > {similarity_threshold}")
-                return results
+                return [dict(r) for r in results]
                 
         except Exception as e:
-            logger.error(f"Error searching frames: {e}")
+            logger.error(f"Error searching frame embeddings: {e}")
             return []
     
-    async def search_chunks(self,
+    async def search_chunk_embeddings(self, 
                           query_embedding: List[float],
                           similarity_threshold: float = 0.7,
-                          limit: int = 20) -> List[Dict[str, Any]]:
-        """
-        Search for chunks by embedding similarity.
-        
-        Args:
-            query_embedding: Query embedding vector
-            similarity_threshold: Minimum similarity threshold (0-1)
-            limit: Maximum number of results
-            
-        Returns:
-            List of dictionaries with chunk information and similarity scores
-        """
+                                    limit: int = 10) -> List[Dict[str, Any]]:
+        """Search for similar chunk embeddings."""
         if not await self._ensure_connected():
-            logger.error("Cannot search chunks: Not connected to database")
-            return []
-        
-        if not query_embedding:
-            logger.error("Cannot search chunks: Empty query embedding")
             return []
         
         try:
-            # Convert embedding to correct format
-            embedding_str = str(query_embedding).replace('[', '{').replace(']', '}')
-            
-            async with self.pool.acquire() as conn:
-                query = """
+            async with self.connection_pool.acquire() as conn:
+                results = await conn.fetch("""
                 SELECT 
+                    mce.id as embedding_id,
                     c.id as chunk_id,
                     c.frame_id,
                     c.chunk_sequence_id,
                     c.chunk_text,
-                    f.frame_name,
-                    f.folder_path,
-                    f.folder_name,
-                    f.google_drive_url,
-                    f.airtable_record_id,
-                    f.metadata,
-                    1 - (ce.embedding <=> $1::vector) as similarity
+                    fdc.reference_id,
+                    1 - (mce.embedding <=> $1) as similarity
                 FROM 
-                    metadata.chunk_embeddings ce
-                JOIN 
-                    content.chunks c ON ce.chunk_id = c.id
-                JOIN 
-                    content.frames f ON c.frame_id = f.id
+                    metadata.chunk_embeddings mce
+                INNER JOIN 
+                    content.chunks c ON mce.chunk_id = c.id
+                LEFT JOIN
+                    metadata.frame_details_chunk fdc ON c.id = fdc.chunk_id
                 WHERE 
-                    1 - (ce.embedding <=> $1::vector) > $2
+                    1 - (mce.embedding <=> $1) > $2
                 ORDER BY 
                     similarity DESC
                 LIMIT $3
-                """
+                """, query_embedding, similarity_threshold, limit)
                 
-                rows = await conn.fetch(query, embedding_str, similarity_threshold, limit)
-                
-                results = []
-                for row in rows:
-                    result = dict(row)
-                    # Convert metadata from JSON string to dictionary
-                    if result['metadata']:
-                        if isinstance(result['metadata'], str):
-                            result['metadata'] = json.loads(result['metadata'])
-                    else:
-                        result['metadata'] = {}
-                    
-                    results.append(result)
-                
-                logger.info(f"Found {len(results)} chunks with similarity > {similarity_threshold}")
-                return results
+                return [dict(r) for r in results]
                 
         except Exception as e:
-            logger.error(f"Error searching chunks: {e}")
+            logger.error(f"Error searching chunk embeddings: {e}")
             return []
     
-    async def hybrid_search(self,
-                          query_embedding: List[float],
-                          metadata_filters: Optional[Dict[str, Any]] = None,
-                          limit: int = 10,
-                          similarity_threshold: float = 0.7) -> List[Dict[str, Any]]:
-        """
-        Perform a hybrid search using both vector similarity and metadata filters.
-        
-        Args:
-            query_embedding: Query embedding vector
-            metadata_filters: Dictionary of metadata filters to apply
-            limit: Maximum number of results
-            similarity_threshold: Minimum similarity threshold (0-1)
-            
-        Returns:
-            List of dictionaries with frame information and similarity scores
-        """
-        if not await self._ensure_connected():
-            logger.error("Cannot perform hybrid search: Not connected to database")
-            return []
-        
-        if not query_embedding:
-            logger.error("Cannot perform hybrid search: Empty query embedding")
-            return []
-        
-        try:
-            # Convert embedding to correct format
-            embedding_str = str(query_embedding).replace('[', '{').replace(']', '}')
-            
-            # Convert metadata filters to JSONB
-            metadata_json = json.dumps(metadata_filters) if metadata_filters else None
-            
-            async with self.pool.acquire() as conn:
-                query = """
-                SELECT 
-                    f.id as frame_id,
-                    f.frame_name,
-                    f.folder_path,
-                    f.folder_name,
-                    f.google_drive_url,
-                    f.airtable_record_id,
-                    f.metadata,
-                    1 - (fe.embedding <=> $1::vector) as similarity
-                FROM 
-                    metadata.frame_embeddings fe
-                JOIN 
-                    content.frames f ON fe.frame_id = f.id
-                WHERE 
-                    1 - (fe.embedding <=> $1::vector) > $3
-                    AND ($2::jsonb IS NULL OR f.metadata @> $2::jsonb)
-                ORDER BY 
-                    similarity DESC
-                LIMIT $4
-                """
-                
-                rows = await conn.fetch(query, embedding_str, metadata_json, similarity_threshold, limit)
-                
-                results = []
-                for row in rows:
-                    result = dict(row)
-                    # Convert metadata from JSON string to dictionary
-                    if result['metadata']:
-                        if isinstance(result['metadata'], str):
-                            result['metadata'] = json.loads(result['metadata'])
-                    else:
-                        result['metadata'] = {}
-                    
-                    results.append(result)
-                
-                logger.info(f"Found {len(results)} frames with hybrid search")
-                return results
-                
-        except Exception as e:
-            logger.error(f"Error in hybrid search: {e}")
-            return []
-    
-    def reciprocal_rank_fusion(self, results_lists: List[List[Dict[str, Any]]], k: int = 60) -> List[Dict[str, Any]]:
-        """
-        Apply Reciprocal Rank Fusion to merge multiple result lists.
-        
-        Args:
-            results_lists: List of result lists to fuse
-            k: Constant in RRF formula (typically 60)
-            
-        Returns:
-            List of merged and reranked results
-        """
-        if not results_lists:
-            return []
-        
-        # Initialize fusion scores dictionary
-        fusion_scores = {}
-        
-        # Process each result list
-        for results in results_lists:
-            for rank, result in enumerate(results):
-                # Get document ID (using frame_id or other unique identifier)
-                doc_id = result.get('frame_id') or result.get('id')
-                if not doc_id:
-                    continue
-                
-                # Initialize score if not already present
-                if doc_id not in fusion_scores:
-                    fusion_scores[doc_id] = 0
-                
-                # Update score with RRF formula
-                fusion_scores[doc_id] += 1.0 / (k + rank)
-        
-        # If no results were found
-        if not fusion_scores:
-            return []
-        
-        # Sort documents by fusion score
-        reranked_doc_ids = sorted(fusion_scores.items(), key=lambda item: item[1], reverse=True)
-        
-        # Create a map of result documents for easy lookup
-        all_docs = {}
-        for results in results_lists:
-            for result in results:
-                doc_id = result.get('frame_id') or result.get('id')
-                if doc_id and doc_id not in all_docs:
-                    all_docs[doc_id] = result
-        
-        # Create final list of merged results
-        merged_results = []
-        for doc_id, fusion_score in reranked_doc_ids:
-            if doc_id in all_docs:
-                result = all_docs[doc_id].copy()
-                result['fusion_score'] = fusion_score
-                merged_results.append(result)
-        
-        return merged_results
-    
-    async def query_expansion_search(self,
-                                  query_embedding: List[float],
-                                  variation_embeddings: List[List[float]],
-                                  metadata_filters: Optional[Dict[str, Any]] = None,
-                                  limit: int = 10,
-                                  similarity_threshold: float = 0.7) -> List[Dict[str, Any]]:
-        """
-        Perform a search with query expansion and result fusion.
-        
-        Args:
-            query_embedding: Primary query embedding vector
-            variation_embeddings: List of variation embedding vectors
-            metadata_filters: Dictionary of metadata filters to apply
-            limit: Maximum number of results per query
-            similarity_threshold: Minimum similarity threshold (0-1)
-            
-        Returns:
-            List of merged and reranked results
-        """
-        if not await self._ensure_connected():
-            logger.error("Cannot perform search with query expansion: Not connected to database")
-            return []
-        
-        if not query_embedding:
-            logger.error("Cannot perform search with query expansion: Empty query embedding")
-            return []
-        
-        try:
-            # Perform primary search with metadata filters
-            primary_results = await self.hybrid_search(
-                query_embedding=query_embedding,
-                metadata_filters=metadata_filters,
-                limit=limit,
-                similarity_threshold=similarity_threshold
-            )
-            
-            # Perform searches for variation embeddings (without metadata filters)
-            variation_results = []
-            for variation_embedding in variation_embeddings:
-                results = await self.search_frames(
-                    query_embedding=variation_embedding,
-                    similarity_threshold=similarity_threshold,
-                    limit=limit
-                )
-                variation_results.append(results)
-            
-            # Combine all results
-            all_results = [primary_results] + variation_results
-            
-            # Apply Reciprocal Rank Fusion to merge and rerank results
-            merged_results = self.reciprocal_rank_fusion(all_results)
-            
-            logger.info(f"Found {len(merged_results)} frames with query expansion search")
-            return merged_results
-            
-        except Exception as e:
-            logger.error(f"Error in query expansion search: {e}")
-            return []
-    
-    def close(self):
-        """Close the connection pool."""
-        if self.pool:
-            asyncio.create_task(self.pool.close())
+    async def close(self):
+        """Close the database connection pool."""
+        if self.connection_pool:
+            await self.connection_pool.close()
+            self.connected = False
             logger.info("PostgreSQL connection pool closed")
-            self._connected = False 
+
+    async def check_reference_id_in_metadata(self, reference_id: str) -> bool:
+        """
+        Check if a reference_id exists in the metadata schema.
+        
+        Args:
+            reference_id: Reference ID to check
+            
+        Returns:
+            bool: True if reference_id exists, False otherwise
+        """
+        if not await self._ensure_connected():
+            return False
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                # Check in frame_details_full
+                frame_exists = await conn.fetchval("""
+                    SELECT EXISTS(SELECT 1 FROM metadata.frame_details_full WHERE reference_id = $1)
+                """, reference_id)
+                
+                if frame_exists:
+                    return True
+                    
+                # Check in frame_details_chunk
+                chunk_exists = await conn.fetchval("""
+                    SELECT EXISTS(SELECT 1 FROM metadata.frame_details_chunk WHERE reference_id = $1)
+                """, reference_id)
+                
+                return chunk_exists
+                
+        except Exception as e:
+            logger.error(f"Error checking reference_id {reference_id} in metadata: {str(e)}")
+            return False
+
+    async def check_reference_id_in_embeddings(self, reference_id: str) -> bool:
+        """
+        Check if a reference_id exists in the embeddings schema.
+        
+        Args:
+            reference_id: Reference ID to check
+            
+        Returns:
+            bool: True if reference_id exists, False otherwise
+        """
+        if not await self._ensure_connected():
+            return False
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                exists = await conn.fetchval("""
+                    SELECT EXISTS(SELECT 1 FROM embeddings.multimodal_embeddings WHERE reference_id = $1)
+                """, reference_id)
+                
+                return exists
+                
+        except Exception as e:
+            logger.error(f"Error checking reference_id {reference_id} in embeddings: {str(e)}")
+            return False
+    
+    async def get_metadata_by_reference_id(self, reference_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get metadata for a reference_id from the appropriate table.
+        
+        Args:
+            reference_id: Reference ID to get metadata for
+            
+        Returns:
+            Dict or None: Metadata if found, None otherwise
+        """
+        if not await self._ensure_connected():
+            return None
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                # First check if it's a frame reference_id
+                frame_metadata = await conn.fetchrow("""
+                    SELECT f.frame_name, f.folder_name, f.google_drive_url, 
+                           fdf.metadata, fdf.description, fdf.summary
+                    FROM metadata.frame_details_full fdf
+                    JOIN content.frames f ON fdf.frame_id = f.id
+                    WHERE fdf.reference_id = $1
+                """, reference_id)
+                
+                if frame_metadata:
+                    # Convert to dictionary
+                    result = {
+                        "type": "frame",
+                        "reference_id": reference_id,
+                        "frame_name": frame_metadata["frame_name"],
+                        "folder_name": frame_metadata["folder_name"],
+                        "google_drive_url": frame_metadata["google_drive_url"]
+                    }
+                    
+                    # Add optional fields if they exist
+                    if frame_metadata["description"]:
+                        result["description"] = frame_metadata["description"]
+                    if frame_metadata["summary"]:
+                        result["summary"] = frame_metadata["summary"]
+                    if frame_metadata["metadata"]:
+                        result["metadata"] = frame_metadata["metadata"]
+                        
+                    return result
+                
+                # If not a frame, check if it's a chunk reference_id
+                chunk_metadata = await conn.fetchrow("""
+                    SELECT c.chunk_text, c.chunk_sequence_id, 
+                           fdc.metadata, f.folder_name, f.frame_name
+                    FROM metadata.frame_details_chunk fdc
+                    JOIN content.chunks c ON fdc.chunk_id = c.id
+                    JOIN content.frames f ON c.frame_id = f.id
+                    WHERE fdc.reference_id = $1
+                """, reference_id)
+                
+                if chunk_metadata:
+                    # Convert to dictionary
+                    result = {
+                        "type": "chunk",
+                        "reference_id": reference_id,
+                        "chunk_sequence_id": chunk_metadata["chunk_sequence_id"],
+                        "chunk_text": chunk_metadata["chunk_text"],
+                        "frame_name": chunk_metadata["frame_name"],
+                        "folder_name": chunk_metadata["folder_name"]
+                    }
+                    
+                    # Add metadata if it exists
+                    if chunk_metadata["metadata"]:
+                        result["metadata"] = chunk_metadata["metadata"]
+                        
+                    return result
+                
+                # If not found in either table
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error getting metadata for reference_id {reference_id}: {str(e)}")
+            return None
+
+    async def search_embeddings(
+        self, 
+        embedding: List[float],
+        reference_type: str = None,
+        similarity_threshold: float = None,
+        limit: int = 10
+    ) -> List[Dict[str, Any]]:
+        """
+        Search for similar embeddings.
+        
+        Args:
+            embedding: Query embedding vector
+            reference_type: Optional filter by reference type ('frame' or 'chunk')
+            similarity_threshold: Minimum similarity threshold (default from env)
+            limit: Maximum number of results to return
+            
+        Returns:
+            List of dictionaries with search results
+        """
+        if not await self._ensure_connected():
+            return []
+        
+        # Use default threshold if not provided
+        if similarity_threshold is None:
+            similarity_threshold = self.embedding_distance_threshold
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                # Build query based on parameters
+                query = """
+                    SELECT 
+                        e.reference_id,
+                        e.reference_type,
+                        e.model_name,
+                        1 - (e.embedding <=> $1) as similarity
+                    FROM embeddings.multimodal_embeddings e
+                    WHERE 1 - (e.embedding <=> $1) > $2
+                """
+                
+                params = [embedding, similarity_threshold]
+                
+                # Add reference_type filter if provided
+                if reference_type:
+                    query += " AND e.reference_type = $3"
+                    params.append(reference_type)
+                
+                # Add ordering and limit
+                query += " ORDER BY similarity DESC LIMIT $" + str(len(params) + 1)
+                params.append(limit)
+                
+                # Execute query
+                rows = await conn.fetch(query, *params)
+                
+                # Format results
+                results = []
+                for row in rows:
+                    result = {
+                        "reference_id": row["reference_id"],
+                        "reference_type": row["reference_type"],
+                        "model_name": row["model_name"],
+                        "similarity": row["similarity"]
+                    }
+                    results.append(result)
+                
+                return results
+            
+        except Exception as e:
+            logger.error(f"Error searching embeddings: {str(e)}")
+            return []
+    
+    async def get_all_frames_with_embeddings(self) -> List[Dict[str, Any]]:
+        """
+        Get all frames with their embeddings.
+        
+        Returns:
+            List of dictionaries with frame data
+        """
+        if not await self._ensure_connected():
+            return []
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                rows = await conn.fetch("""
+                    SELECT 
+                        f.id as frame_id,
+                        f.frame_name,
+                        f.folder_name,
+                        fdf.reference_id,
+                        fe.embedding_id,
+                        fe.model_name
+                    FROM content.frames f
+                    JOIN metadata.frame_details_full fdf ON f.id = fdf.frame_id
+                    LEFT JOIN metadata.frame_embeddings fe ON f.id = fe.frame_id
+                    ORDER BY f.id
+                """)
+                
+                return [dict(row) for row in rows]
+                
+        except Exception as e:
+            logger.error(f"Error getting all frames with embeddings: {str(e)}")
+            return []
+
+    async def get_all_chunks_with_embeddings(self) -> List[Dict[str, Any]]:
+        """
+        Get all chunks with their embeddings.
+        
+        Returns:
+            List of dictionaries with chunk data
+        """
+        if not await self._ensure_connected():
+            return []
+            
+        try:
+            async with self.connection_pool.acquire() as conn:
+                rows = await conn.fetch("""
+                    SELECT 
+                        c.id as chunk_id,
+                        c.frame_id,
+                        c.chunk_sequence_id,
+                        LEFT(c.chunk_text, 100) as chunk_text_preview,
+                        fdc.reference_id,
+                        ce.embedding_id,
+                        ce.model_name
+                    FROM content.chunks c
+                    JOIN metadata.frame_details_chunk fdc ON c.id = fdc.chunk_id
+                    LEFT JOIN metadata.chunk_embeddings ce ON c.id = ce.chunk_id
+                    ORDER BY c.frame_id, c.chunk_sequence_id
+                """)
+                
+                return [dict(row) for row in rows]
+                
+        except Exception as e:
+            logger.error(f"Error getting all chunks with embeddings: {str(e)}")
+            return [] 

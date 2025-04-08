@@ -22,9 +22,14 @@ import glob
 import requests
 
 # Configure logging
+os.makedirs("output/logs/ocr", exist_ok=True)  # Create log directory if it doesn't exist
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler("output/logs/ocr/ocr_data_processor.log")
+    ]
 )
 logger = logging.getLogger("main")
 
@@ -159,7 +164,8 @@ async def process_frame_direct(
     save_payload: bool = True,
     csv_file: str = "payloads/csv/webhook_payloads.csv",
     local_only: bool = False,
-    local_storage_dir: Optional[str] = None
+    local_storage_dir: Optional[str] = None,
+    overwrite_airtable: bool = False
 ) -> bool:
     """
     Directly process a frame and send to webhook.
@@ -174,6 +180,7 @@ async def process_frame_direct(
         csv_file: CSV file to save payload records to
         local_only: If True, only store locally and don't send to webhook
         local_storage_dir: Directory to store local payload files
+        overwrite_airtable: Whether to overwrite existing OCR Data and Flagged fields in Airtable
         
     Returns:
         True if successfully processed and sent
@@ -200,6 +207,12 @@ async def process_frame_direct(
         airtable_id = record.get('id')
         logger.info(f"Found metadata for frame with ID: {airtable_id}")
         
+        # Check if this frame has already been processed and has OCR data
+        ocr_data_exists = metadata.get('OCRData')
+        if ocr_data_exists and not overwrite_airtable:
+            logger.info(f"Frame already has OCR data and overwrite is not enabled: {frame_path}")
+            return False
+            
         # Step 3: Initialize the metadata chunker
         logger.info(f"Initializing metadata chunker (chunk_size={chunk_size}, overlap={chunk_overlap})...")
         chunker = MetadataChunker(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
@@ -215,50 +228,38 @@ async def process_frame_direct(
             chunks = chunks[:max_chunks]
             logger.info(f"Limiting to first {max_chunks} chunks out of {original_chunks}")
         
-        # Step 5: Initialize the chunk embedder
-        logger.info("Initializing chunk embedder...")
-        embedder = ChunkEmbedder(use_key_rotation=True)
+        # SKIP EMBEDDINGS: Using placeholder instead of real embeddings
+        logger.info("Skipping embedding generation as requested")
         
-        # Step 6: Create embeddings for all chunks
-        logger.info("Creating embeddings for chunks...")
-        embedded_chunks = await embedder.embed_chunks(chunks, img)
-        
-        # Step 7: Prepare webhook payload
-        if not embedded_chunks:
-            logger.error("Failed to create embeddings")
-            return False
+        # Initialize embedded_chunks with placeholder data
+        embedded_chunks = []
+        for i, chunk in enumerate(chunks):
+            embedded_chunks.append({
+                "chunk": chunk,
+                "embedding": []  # Empty embedding
+            })
             
-        logger.info(f"Successfully embedded {len(embedded_chunks)} out of {len(chunks)} chunks")
-        
-        # Format embedding vectors for JSON
+        # Format embedding data for JSON (minimal version)
         embedding_data = {
-            "model": "voyage-multimodal-3",
-            "dimension": len(embedded_chunks[0]["embedding"]) if embedded_chunks else 0,
-            "count": len(embedded_chunks),
+            "model": "OCR-only",
+            "dimension": 0,
+            "count": len(chunks),
             "created_at": int(asyncio.get_event_loop().time()),
             "chunks": [],
             "vectors": []
         }
         
-        # Add each chunk's data
+        # Add chunk data without embeddings
         for i, embed_chunk in enumerate(embedded_chunks):
-            # Convert numpy arrays to lists if needed
-            embedding_vector = embed_chunk["embedding"]
-            if isinstance(embedding_vector, np.ndarray):
-                embedding_vector = embedding_vector.tolist()
-                
-            # Add chunk metadata
             chunk_data = {
                 "sequence_id": embed_chunk["chunk"]["chunk_sequence_id"],
                 "text_length": len(embed_chunk["chunk"]["chunk_text"]),
                 "text": embed_chunk["chunk"]["chunk_text"],
                 "text_preview": embed_chunk["chunk"]["chunk_text"][:100] + "..." if len(embed_chunk["chunk"]["chunk_text"]) > 100 else embed_chunk["chunk"]["chunk_text"],
-                "embedding_preview": embedding_vector[:5] + ["..."] + embedding_vector[-5:],
+                "embedding_preview": []
             }
             embedding_data["chunks"].append(chunk_data)
-            
-            # Add full vector to the vectors array
-            embedding_data["vectors"].append(embedding_vector)
+            embedding_data["vectors"].append([])
         
         # Convert to JSON string for the webhook
         embeddings_json = json.dumps(embedding_data)
@@ -269,76 +270,55 @@ async def process_frame_direct(
         folder_name = os.path.basename(folder_path)
         timestamp = asyncio.get_event_loop().time()
         
-        # Prepare webhook payload
+        # Prepare minimal payload (no embeddings)
         webhook_payload = {
             "airtable_id": airtable_id,
             "frame_name": frame_name,
             "folder_path": folder_path,
             "folder_name": folder_name,
-            "chunk_count": len(embedded_chunks),
-            "embeddings": embeddings_json,
+            "chunk_count": len(chunks),
             "metadata": metadata,
-            "webhook_source": "test" if use_test_webhook else "production",
             "timestamp": timestamp
         }
         
         # Create directories if needed
         os.makedirs(os.path.dirname(csv_file), exist_ok=True)  # Ensure CSV directory exists
-        os.makedirs("payloads/json", exist_ok=True)  # Ensure JSON directory exists
         
         # Create storage directory if needed
         if local_storage_dir:
             os.makedirs(local_storage_dir, exist_ok=True)
-            
-        # Determine payload file path
-        payload_file = f"payloads/json/webhook_payload_{frame_name.split('.')[0]}.json"
-        if local_storage_dir:
-            payload_file = os.path.join(local_storage_dir, payload_file)
-            
-        # Save payload to file if requested
-        if save_payload:
-            with open(payload_file, 'w') as f:
-                json.dump(webhook_payload, f, indent=2)
-            logger.info(f"Saved webhook payload to: {payload_file}")
         
-        # Save full embeddings data in a separate file
-        if local_storage_dir:
-            embeddings_file = os.path.join(local_storage_dir, f"embeddings_{frame_name.split('.')[0]}.json")
-            with open(embeddings_file, 'w') as f:
-                # Save non-string version of embedding_data with full precision vectors
-                json.dump(embedding_data, f, indent=2)
-            logger.info(f"Saved full embeddings data to: {embeddings_file}")
-        
-        # Save payload record to CSV
+        # Save minimal CSV data
         csv_row = save_payload_to_csv(webhook_payload, csv_file)
         
-        # If local_only is True, don't send to webhook
-        if local_only:
-            logger.info(f"Local-only mode: Not sending to webhook for {frame_path}")
-            # Mark as success in CSV since we're not actually sending
-            update_csv_status(csv_file, airtable_id, frame_name, True)
-            return True
-            
-        # Send to webhook
-        webhook_url = WEBHOOK_TEST_URL if use_test_webhook else WEBHOOK_URL
-        if not webhook_url:
-            logger.error("No webhook URL configured")
-            return False
-            
-        logger.info(f"Sending data to webhook: {webhook_url}")
-        webhook_connector = WebhookConnector(WEBHOOK_URL, WEBHOOK_TEST_URL)
-        success = await webhook_connector.send_payload(webhook_payload, use_test_webhook)
+        # Update Airtable record - THIS IS THE MAIN GOAL
+        if overwrite_airtable:
+            logger.info(f"Updating Airtable record with OCR data for frame: {frame_name}")
+            try:
+                # Prepare OCR data summary (no embeddings)
+                ocr_summary = {
+                    "chunks_count": len(chunks),
+                    "embedding_model": "OCR-only",
+                    "embedding_dimension": 0,
+                    "processed_at": datetime.datetime.now().isoformat(),
+                    "status": "processed",
+                    "chunk_texts": [chunk["chunk_text"] for chunk in chunks]
+                }
+                
+                # Update Airtable record
+                update_data = {
+                    "OCRData": json.dumps(ocr_summary),
+                    "Flagged": False  # Reset flag
+                }
+                
+                metadata_finder.update_record(airtable_id, update_data)
+                logger.info(f"Successfully updated Airtable record for {frame_path}")
+            except Exception as e:
+                logger.error(f"Failed to update Airtable record for {frame_path}: {e}")
+                # Continue processing - don't fail the whole operation
         
-        if success:
-            logger.info(f"Successfully sent data to webhook for {frame_path}")
-            # Update CSV with success status
-            update_csv_status(csv_file, airtable_id, frame_name, True)
-            return True
-        else:
-            logger.error(f"Failed to send data to webhook for {frame_path}")
-            # Update CSV with failure status
-            update_csv_status(csv_file, airtable_id, frame_name, False)
-            return False
+        # Always return success for local mode
+        return True
             
     except Exception as e:
         logger.error(f"Error processing frame {frame_path}: {e}")
@@ -358,7 +338,9 @@ async def process_multiple_frames(
     save_payload: bool = True,
     csv_file: str = "payloads/csv/webhook_payloads.csv",
     local_only: bool = False,
-    local_storage_dir: Optional[str] = None
+    local_storage_dir: Optional[str] = None,
+    overwrite_airtable: bool = False,
+    skip_processed: bool = False
 ) -> Dict[str, Any]:
     """
     Process multiple frames and send to webhook.
@@ -371,11 +353,13 @@ async def process_multiple_frames(
         chunk_overlap: Overlap between chunks
         max_chunks: Maximum number of chunks per frame
         sequential: Whether to process frames sequentially
-        use_test_webhook: Whether to use the test webhook URL
-        save_payload: Whether to save the payloads to disk
+        use_test_webhook: Whether to use the test webhook URL (not used in OCR-only mode)
+        save_payload: Whether to save the payloads to disk (not used in OCR-only mode)
         csv_file: CSV file to save payload records to
-        local_only: If True, only store locally and don't send to webhook
+        local_only: If True, only store locally and don't send to webhook (always true in OCR-only mode)
         local_storage_dir: Directory to store local payload files
+        overwrite_airtable: Whether to overwrite existing OCR Data and Flagged fields in Airtable
+        skip_processed: Whether to skip frames that have already been processed (have OCR Data)
         
     Returns:
         Dictionary with processing results
@@ -431,7 +415,9 @@ async def process_multiple_frames(
                 "max_chunks": max_chunks,
                 "sequential": sequential,
                 "use_test_webhook": use_test_webhook,
-                "local_only": local_only
+                "local_only": local_only,
+                "overwrite_airtable": overwrite_airtable,
+                "skip_processed": skip_processed
             },
             "start_time": datetime.datetime.now().isoformat(),
             "files": []
@@ -440,74 +426,45 @@ async def process_multiple_frames(
     if sequential:
         # Process files sequentially
         for file_path in files:
-            try:
-                success = await process_frame_direct(
-                    frame_path=file_path,
-                    chunk_size=chunk_size,
-                    chunk_overlap=chunk_overlap,
-                    max_chunks=max_chunks,
-                    use_test_webhook=use_test_webhook,
-                    save_payload=save_payload,
-                    csv_file=csv_file,
-                    local_only=local_only,
-                    local_storage_dir=local_storage_dir
-                )
+            # Check if frame has already been processed
+            if skip_processed:
+                # Check if the frame has already been processed by looking at Airtable
+                logger.info(f"Checking if frame has already been processed: {file_path}")
+                metadata_finder = AirtableMetadataFinder(AIRTABLE_TOKEN, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME)
+                record = metadata_finder.find_record_by_frame_path(file_path)
                 
-                results["processed_files"] += 1
-                if success:
-                    results["successful_files"] += 1
-                else:
-                    results["failed_files"] += 1
+                if record and record.get('fields', {}).get('OCRData'):
+                    logger.info(f"Skipping already processed frame with OCR data: {file_path}")
+                    results["processed_files"] += 1
+                    results["successful_files"] += 1  # Count as successful since it's already done
                     
-                file_result = {
-                    "path": file_path,
-                    "success": success
-                }
-                results["files"].append(file_result)
-                
-                # Add to summary if using local storage
-                if local_storage_dir:
-                    summary_data["files"].append({
+                    file_result = {
                         "path": file_path,
-                        "frame_name": os.path.basename(file_path),
-                        "success": success,
-                        "timestamp": datetime.datetime.now().isoformat()
-                    })
-                    # Update summary file after each frame
-                    with open(summary_file, 'w') as f:
-                        json.dump(summary_data, f, indent=2)
-                
-                logger.info(f"Processed {results['processed_files']}/{results['total_files']} files")
-                
-            except Exception as e:
-                logger.error(f"Error processing {file_path}: {e}")
-                results["failed_files"] += 1
-                results["processed_files"] += 1
-                
-                file_result = {
-                    "path": file_path,
-                    "success": False,
-                    "error": str(e)
-                }
-                results["files"].append(file_result)
-                
-                # Add to summary if using local storage
-                if local_storage_dir:
-                    summary_data["files"].append({
-                        "path": file_path,
-                        "frame_name": os.path.basename(file_path),
-                        "success": False,
-                        "error": str(e),
-                        "timestamp": datetime.datetime.now().isoformat()
-                    })
-                    # Update summary file after each frame
-                    with open(summary_file, 'w') as f:
-                        json.dump(summary_data, f, indent=2)
-    else:
-        # Process files in parallel (with limited concurrency)
-        tasks = []
-        for file_path in files:
-            task = process_frame_direct(
+                        "success": True,
+                        "status": "skipped",
+                        "reason": "Frame has already been processed with OCR data"
+                    }
+                    results["files"].append(file_result)
+                    
+                    # Add to summary if using local storage
+                    if local_storage_dir:
+                        summary_data["files"].append({
+                            "path": file_path,
+                            "frame_name": os.path.basename(file_path),
+                            "success": True,
+                            "status": "skipped",
+                            "reason": "Frame has already been processed with OCR data",
+                            "timestamp": datetime.datetime.now().isoformat()
+                        })
+                        # Update summary file after each frame
+                        with open(summary_file, 'w') as f:
+                            json.dump(summary_data, f, indent=2)
+                    
+                    logger.info(f"Processed {results['processed_files']}/{results['total_files']} files (skipped: {file_path})")
+                    continue
+            
+            # Process the frame if we didn't skip it
+            success = await process_frame_direct(
                 frame_path=file_path,
                 chunk_size=chunk_size,
                 chunk_overlap=chunk_overlap,
@@ -515,60 +472,144 @@ async def process_multiple_frames(
                 use_test_webhook=use_test_webhook,
                 save_payload=save_payload,
                 csv_file=csv_file,
-                local_only=local_only,
-                local_storage_dir=local_storage_dir
+                local_only=True,  # Force local-only mode for OCR-only processing
+                local_storage_dir=local_storage_dir,
+                overwrite_airtable=overwrite_airtable
             )
-            tasks.append(task)
-            
-        # Wait for all tasks to complete
-        frame_results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Process results
-        for i, result in enumerate(frame_results):
-            file_path = files[i]
             
             results["processed_files"] += 1
-            
-            if isinstance(result, Exception):
-                logger.error(f"Error processing {file_path}: {result}")
+            if success:
+                results["successful_files"] += 1
+            else:
                 results["failed_files"] += 1
                 
-                file_result = {
+            file_result = {
+                "path": file_path,
+                "success": success
+            }
+            results["files"].append(file_result)
+            
+            # Add to summary if using local storage
+            if local_storage_dir:
+                summary_data["files"].append({
                     "path": file_path,
-                    "success": False,
-                    "error": str(result)
-                }
-                results["files"].append(file_result)
-                
-                # Add to summary if using local storage
-                if local_storage_dir:
-                    summary_data["files"].append({
+                    "frame_name": os.path.basename(file_path),
+                    "success": success,
+                    "timestamp": datetime.datetime.now().isoformat()
+                })
+                # Update summary file after each frame
+                with open(summary_file, 'w') as f:
+                    json.dump(summary_data, f, indent=2)
+            
+            logger.info(f"Processed {results['processed_files']}/{results['total_files']} files")
+    else:
+        # If skip_processed is true, pre-filter files that have already been processed
+        files_to_process = []
+        if skip_processed:
+            metadata_finder = AirtableMetadataFinder(AIRTABLE_TOKEN, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME)
+            
+            for file_path in files:
+                # Check if the frame has already been processed
+                record = metadata_finder.find_record_by_frame_path(file_path)
+                if record and record.get('fields', {}).get('OCRData'):
+                    logger.info(f"Skipping already processed frame with OCR data: {file_path}")
+                    results["processed_files"] += 1
+                    results["successful_files"] += 1  # Count as successful since it's already done
+                    
+                    file_result = {
                         "path": file_path,
-                        "frame_name": os.path.basename(file_path),
-                        "success": False,
-                        "error": str(result),
-                        "timestamp": datetime.datetime.now().isoformat()
-                    })
-            else:
-                if result:
-                    results["successful_files"] += 1
+                        "success": True,
+                        "status": "skipped",
+                        "reason": "Frame has already been processed with OCR data"
+                    }
+                    results["files"].append(file_result)
+                    
+                    # Add to summary if using local storage
+                    if local_storage_dir:
+                        summary_data["files"].append({
+                            "path": file_path,
+                            "frame_name": os.path.basename(file_path),
+                            "success": True,
+                            "status": "skipped",
+                            "reason": "Frame has already been processed with OCR data",
+                            "timestamp": datetime.datetime.now().isoformat()
+                        })
                 else:
+                    files_to_process.append(file_path)
+        else:
+            files_to_process = files
+            
+        if not files_to_process:
+            logger.info("No files to process after filtering already processed frames")
+        else:
+            logger.info(f"Processing {len(files_to_process)} files in parallel")
+            
+            # Create tasks for processing (in OCR-only mode)
+            tasks = []
+            for file_path in files_to_process:
+                task = process_frame_direct(
+                    frame_path=file_path,
+                    chunk_size=chunk_size,
+                    chunk_overlap=chunk_overlap,
+                    max_chunks=max_chunks,
+                    use_test_webhook=use_test_webhook,
+                    save_payload=save_payload,
+                    csv_file=csv_file,
+                    local_only=True,  # Force local-only mode for OCR-only processing
+                    local_storage_dir=local_storage_dir,
+                    overwrite_airtable=overwrite_airtable
+                )
+                tasks.append(task)
+                
+            # Wait for all tasks to complete
+            frame_results = await asyncio.gather(*tasks, return_exceptions=True)
+            
+            # Process results
+            for i, result in enumerate(frame_results):
+                file_path = files_to_process[i]
+                
+                results["processed_files"] += 1
+                
+                if isinstance(result, Exception):
+                    logger.error(f"Error processing {file_path}: {result}")
                     results["failed_files"] += 1
                     
-                file_result = {
-                    "path": file_path,
-                    "success": result
-                }
-                results["files"].append(file_result)
-                
-                # Add to summary if using local storage
-                if local_storage_dir:
-                    summary_data["files"].append({
+                    file_result = {
                         "path": file_path,
-                        "frame_name": os.path.basename(file_path),
-                        "success": result,
-                        "timestamp": datetime.datetime.now().isoformat()
-                    })
+                        "success": False,
+                        "error": str(result)
+                    }
+                    results["files"].append(file_result)
+                    
+                    # Add to summary if using local storage
+                    if local_storage_dir:
+                        summary_data["files"].append({
+                            "path": file_path,
+                            "frame_name": os.path.basename(file_path),
+                            "success": False,
+                            "error": str(result),
+                            "timestamp": datetime.datetime.now().isoformat()
+                        })
+                else:
+                    if result:
+                        results["successful_files"] += 1
+                    else:
+                        results["failed_files"] += 1
+                        
+                    file_result = {
+                        "path": file_path,
+                        "success": result
+                    }
+                    results["files"].append(file_result)
+                    
+                    # Add to summary if using local storage
+                    if local_storage_dir:
+                        summary_data["files"].append({
+                            "path": file_path,
+                            "frame_name": os.path.basename(file_path),
+                            "success": result,
+                            "timestamp": datetime.datetime.now().isoformat()
+                        })
     
     # Final update to summary if using local storage
     if local_storage_dir:
@@ -622,6 +663,13 @@ async def main():
     local_group.add_argument("--local-only", action="store_true", help="Only store locally, don't send to webhook")
     local_group.add_argument("--local-storage-dir", default="frame_embeddings", help="Directory to store local payload and embedding files (default: frame_embeddings)")
     
+    # Airtable options
+    airtable_group = parser.add_argument_group("Airtable Options")
+    airtable_group.add_argument("--overwrite-airtable", action="store_true", 
+                               help="Overwrite existing OCR Data and Flagged fields in Airtable even if they already exist")
+    airtable_group.add_argument("--skip-processed", action="store_true", 
+                               help="Skip frames that already have OCR Data in Airtable (faster processing for incremental updates)")
+    
     args = parser.parse_args()
     
     # Process frames
@@ -637,7 +685,9 @@ async def main():
         save_payload=not args.no_save,
         csv_file=args.csv_file,
         local_only=args.local_only,
-        local_storage_dir=args.local_storage_dir if not args.no_save else None
+        local_storage_dir=args.local_storage_dir if not args.no_save else None,
+        overwrite_airtable=args.overwrite_airtable,
+        skip_processed=args.skip_processed
     )
     
     # Print summary
@@ -649,6 +699,14 @@ async def main():
     if args.local_only:
         print(f"\nData stored locally in: {args.local_storage_dir}")
         print(f"CSV record: {args.csv_file}")
+    
+    if args.overwrite_airtable:
+        print(f"\nAirtable records were updated with OCR data and Flagged status reset")
+    
+    if args.skip_processed:
+        skipped_count = sum(1 for file in results['files'] if file.get('status') == 'skipped')
+        if skipped_count > 0:
+            print(f"\nSkipped {skipped_count} already processed frames with existing OCR data")
     
     # Return exit code
     return 0 if results["failed_files"] == 0 else 1

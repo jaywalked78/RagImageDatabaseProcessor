@@ -1,0 +1,21 @@
+{
+  "local": {
+    "frame_found": false,
+    "chunk_found": true,
+    "details": {
+      "chunk": {
+        "frame_id": "frame001",
+        "index": "0",
+        "hash": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "length": "125",
+        "processed_time": "2023-11-15T10:15:30+00:00",
+        "frame_path": "/home/jason/Videos/screenRecordings/sample1/frame001.jpg"
+      }
+    }
+  },
+  "database": {
+    "frame_found": false,
+    "chunk_found": false,
+    "details": {}
+  }
+}

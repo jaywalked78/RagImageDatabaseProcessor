@@ -7,6 +7,10 @@ Provides functionality to find frame metadata and records.
 import os
 import logging
 import re
+import sys
+import json
+import time
+import requests
 from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 from pyairtable import Api
@@ -102,14 +106,30 @@ class AirtableConnector:
             The updated record if successful, None otherwise
         """
         try:
-            return self.table.update(record_id, fields)
+            # Detailed logging of the update operation
+            logger.info(f"AIRTABLE UPDATE: Record ID: {record_id}")
+            logger.info(f"AIRTABLE UPDATE: Table: {self.table_name} in Base: {self.base_id}")
+            logger.info(f"AIRTABLE UPDATE: Fields being updated: {', '.join(fields.keys())}")
+            
+            # Log sensitive fields with values
+            for field_name, field_value in fields.items():
+                if field_name in ['Flagged', 'OCRData', 'Summary', 'ActionsDetected', 'TechnicalDetails']:
+                    if isinstance(field_value, str):
+                        truncated_value = field_value[:100] + "..." if len(field_value) > 100 else field_value
+                    else:
+                        truncated_value = str(field_value)
+                    logger.info(f"AIRTABLE UPDATE: {field_name} = {truncated_value}")
+            
+            result = self.table.update(record_id, fields)
+            logger.info(f"AIRTABLE UPDATE: Successfully updated record {record_id}")
+            return result
         except Exception as e:
             logger.error(f"Error updating record {record_id} in Airtable: {e}")
             return None
     
     def create_record(self, fields: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
-        Create a new record.
+        Create a new record with the provided fields.
         
         Args:
             fields: Dictionary of fields for the new record
@@ -118,19 +138,59 @@ class AirtableConnector:
             The created record if successful, None otherwise
         """
         try:
-            return self.table.create(fields)
+            # Detailed logging of record creation
+            logger.info(f"AIRTABLE CREATE: Creating new record in table: {self.table_name}")
+            logger.info(f"AIRTABLE CREATE: Base ID: {self.base_id}")
+            logger.info(f"AIRTABLE CREATE: Fields being set: {', '.join(fields.keys())}")
+            
+            # Log specific field values with truncation for large text fields
+            for field_name, field_value in fields.items():
+                if field_name in ['Flagged', 'OCRData', 'Summary', 'ActionsDetected', 'TechnicalDetails']:
+                    if isinstance(field_value, str):
+                        truncated_value = field_value[:100] + "..." if len(field_value) > 100 else field_value
+                    else:
+                        truncated_value = str(field_value)
+                    logger.info(f"AIRTABLE CREATE: {field_name} = {truncated_value}")
+            
+            # Create the record and log success
+            result = self.table.create(fields)
+            record_id = result.get('id', 'unknown')
+            logger.info(f"AIRTABLE CREATE: Successfully created record with ID: {record_id}")
+            return result
         except Exception as e:
             logger.error(f"Error creating record in Airtable: {e}")
             return None
 
 
 class AirtableMetadataFinder(AirtableConnector):
-    """Class for finding frame metadata in Airtable."""
+    """
+    Class for finding and updating metadata in Airtable.
+    """
     
-    def __init__(self, api_key: Optional[str] = None, base_id: Optional[str] = None, table_name: Optional[str] = None):
-        """Initialize the metadata finder by setting up the Airtable connection."""
-        super().__init__(api_key, base_id, table_name)
-        logger.info(f"Initialized AirtableMetadataFinder for table {self.table_name} in base {self.base_id}")
+    def __init__(self, token: str, base_id: str, table_name: str):
+        """
+        Initialize the AirtableMetadataFinder.
+        
+        Args:
+            token: Airtable personal access token
+            base_id: Airtable base ID
+            table_name: Airtable table name
+        """
+        super().__init__(token, base_id, table_name)
+        self.headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        self.base_url = f"https://api.airtable.com/v0/{base_id}/{table_name}"
+        self.rate_limit_sleep = float(os.environ.get('AIRTABLE_RATE_LIMIT_SLEEP', '0.25'))
+        
+        # Verify we have the necessary credentials
+        if not token:
+            logger.error("AIRTABLE_PERSONAL_ACCESS_TOKEN not set")
+            raise ValueError("AIRTABLE_PERSONAL_ACCESS_TOKEN not set")
+        if not base_id:
+            logger.error("AIRTABLE_BASE_ID not set")
+            raise ValueError("AIRTABLE_BASE_ID not set")
     
     def extract_frame_number(self, frame_filename: str) -> Optional[int]:
         """
@@ -206,36 +266,55 @@ class AirtableMetadataFinder(AirtableConnector):
             logger.error(f"Error finding record by frame number {frame_number}: {e}")
             return None
     
-    def find_record_by_frame_path(self, frame_path: str) -> Optional[Dict[str, Any]]:
+    async def find_record_by_frame_path(self, frame_path: str) -> Optional[Dict[str, Any]]:
         """
-        Find a record in Airtable corresponding to a frame file path.
+        Find an Airtable record based on the frame path.
         
         Args:
-            frame_path: Path to the frame file
+            frame_path: Path to the frame
             
         Returns:
-            Matching record if found, None otherwise
+            Airtable record dictionary or None if not found
         """
         try:
-            # Extract frame filename and number
-            frame_filename = os.path.basename(frame_path)
-            frame_number = self.extract_frame_number(frame_filename)
+            # Extract folder name and frame name
+            frame_name = os.path.basename(frame_path)
+            folder_path = os.path.dirname(frame_path)
+            folder_name = os.path.basename(folder_path)
             
-            if not frame_number:
-                logger.error(f"Could not extract frame number from filename: {frame_filename}")
+            # Build the Airtable filter formula - use the correct field names
+            frame_path_formula = f"AND({{FolderPath}}='{folder_path}', {{FrameID}}='{frame_name}')"
+            
+            # Apply rate limiting
+            time.sleep(self.rate_limit_sleep)
+            
+            # Make the API request
+            response = requests.get(
+                self.base_url,
+                headers=self.headers,
+                params={
+                    "filterByFormula": frame_path_formula,
+                    "maxRecords": 1
+                }
+            )
+            
+            if response.status_code != 200:
+                logger.error(f"Airtable API error: {response.status_code} - {response.text}")
                 return None
+                
+            # Parse the response
+            data = response.json()
+            records = data.get('records', [])
             
-            logger.info(f"Looking for metadata for frame: {frame_filename} (number: {frame_number})")
+            if not records:
+                logger.warning(f"No Airtable record found for frame: {frame_path}")
+                return None
+                
+            # Return the first matching record
+            return records[0]
             
-            # Extract folder name
-            folder_name = self.extract_folder_name(frame_path)
-            
-            # Find record by frame number and folder name
-            logger.info(f"Searching by frame number: {frame_number}")
-            return self.find_record_by_frame_number(frame_number, folder_name)
-        
         except Exception as e:
-            logger.error(f"Error finding record for frame {frame_path}: {e}")
+            logger.error(f"Error finding Airtable record for {frame_path}: {e}")
             return None
     
     def update_frame_metadata(self, record_id: str, metadata: Dict[str, Any]) -> bool:
@@ -254,4 +333,47 @@ class AirtableMetadataFinder(AirtableConnector):
             return result is not None
         except Exception as e:
             logger.error(f"Error updating metadata for record {record_id}: {e}")
+            return False
+
+    def update_record(self, record_id: str, fields: Dict[str, Any]) -> bool:
+        """
+        Update an Airtable record.
+        
+        Args:
+            record_id: Airtable record ID
+            fields: Fields to update
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            # Apply rate limiting
+            time.sleep(self.rate_limit_sleep)
+            
+            # Prepare the request payload
+            payload = {
+                "records": [
+                    {
+                        "id": record_id,
+                        "fields": fields
+                    }
+                ]
+            }
+            
+            # Make the API request
+            response = requests.patch(
+                self.base_url,
+                headers=self.headers,
+                json=payload
+            )
+            
+            if response.status_code != 200:
+                logger.error(f"Airtable API error: {response.status_code} - {response.text}")
+                return False
+                
+            logger.info(f"Successfully updated Airtable record: {record_id}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error updating Airtable record {record_id}: {e}")
             return False 

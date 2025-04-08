@@ -13,6 +13,7 @@ from pathlib import Path
 import requests
 from PIL import Image
 from dotenv import load_dotenv
+import pytesseract
 
 import numpy as np
 
@@ -52,7 +53,8 @@ class FrameProcessor:
                 voyage_api_key: Optional[str] = None,
                 embedding_model: str = "voyage-large-2",
                 use_postgres: bool = True,
-                use_webhook: bool = False):
+                use_webhook: bool = False,
+                tesseract_config: Optional[Dict[str, Any]] = None):
         """
         Initialize the frame processor.
         
@@ -61,6 +63,7 @@ class FrameProcessor:
             embedding_model: Model name for embeddings (default: voyage-large-2)
             use_postgres: Whether to store results in PostgreSQL
             use_webhook: Whether to send results via webhook
+            tesseract_config: Optional configuration for Tesseract OCR
         """
         # Initialize API keys
         self.voyage_api_key = voyage_api_key or os.getenv("VOYAGE_API_KEY")
@@ -82,6 +85,20 @@ class FrameProcessor:
             except Exception as e:
                 logger.error(f"Failed to initialize PostgreSQL: {e}")
                 self.use_postgres = False
+        
+        # Initialize Tesseract OCR
+        self.tesseract_config = tesseract_config or {
+            'lang': 'eng',
+            'config': '--psm 6'  # Assume a single uniform block of text
+        }
+        
+        # Check if tesseract is installed and available
+        try:
+            pytesseract.get_tesseract_version()
+            logger.info(f"Tesseract OCR initialized (version: {pytesseract.get_tesseract_version()})")
+        except Exception as e:
+            logger.error(f"Tesseract OCR is not available: {e}")
+            logger.error("Please install Tesseract OCR and ensure it's in your PATH")
         
         logger.info(f"Initialized FrameProcessor with model: {embedding_model}")
         logger.info(f"Using PostgreSQL: {use_postgres}")
@@ -349,4 +366,72 @@ class FrameProcessor:
     def close(self):
         """Close any open connections."""
         if self.pg_store:
-            self.pg_store.close() 
+            self.pg_store.close()
+
+    async def extract_text(self, image: Image.Image) -> str:
+        """
+        Extract text from an image using OCR.
+        
+        Args:
+            image: PIL Image to process
+            
+        Returns:
+            Extracted text as string
+        """
+        try:
+            # Run Tesseract OCR in a separate thread to avoid blocking
+            loop = asyncio.get_event_loop()
+            text = await loop.run_in_executor(
+                None,
+                lambda: pytesseract.image_to_string(
+                    image,
+                    lang=self.tesseract_config['lang'],
+                    config=self.tesseract_config['config']
+                )
+            )
+            
+            # Clean the text
+            text = text.strip()
+            
+            logger.info(f"Extracted {len(text)} characters of text")
+            return text
+            
+        except Exception as e:
+            logger.error(f"Error extracting text with OCR: {e}")
+            return ""
+    
+    async def process_frame_ocr(self, frame_path: str) -> Dict[str, Any]:
+        """
+        Process a frame to extract OCR text.
+        
+        Args:
+            frame_path: Path to the frame image
+            
+        Returns:
+            Dictionary with processing results
+        """
+        try:
+            # Load the image
+            img = Image.open(frame_path)
+            logger.info(f"Loaded image: {frame_path} ({img.width}x{img.height})")
+            
+            # Extract text using OCR
+            ocr_text = await self.extract_text(img)
+            
+            return {
+                "frame_path": frame_path,
+                "frame_name": os.path.basename(frame_path),
+                "folder_name": os.path.basename(os.path.dirname(frame_path)),
+                "ocr_text": ocr_text,
+                "ocr_text_length": len(ocr_text),
+                "success": True
+            }
+            
+        except Exception as e:
+            logger.error(f"Error processing frame {frame_path}: {e}")
+            return {
+                "frame_path": frame_path,
+                "frame_name": os.path.basename(frame_path) if frame_path else "",
+                "success": False,
+                "error": str(e)
+            } 

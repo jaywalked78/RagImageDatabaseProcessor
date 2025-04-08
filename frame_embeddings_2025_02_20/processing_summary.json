@@ -1,0 +1,36 @@
+{
+  "processing_parameters": {
+    "input_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_20_at_12_14_43_pm",
+    "pattern": "*.jpg",
+    "limit": 10,
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "max_chunks": 10,
+    "sequential": true,
+    "use_test_webhook": false,
+    "local_only": false,
+    "overwrite_airtable": true,
+    "skip_processed": false
+  },
+  "start_time": "2025-04-08T00:30:35.563958",
+  "files": [
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_20_at_12_14_43_pm/frame_000001.jpg",
+      "frame_name": "frame_000001.jpg",
+      "success": false,
+      "timestamp": "2025-04-08T00:30:44.931557"
+    },
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_20_at_12_14_43_pm/frame_000002.jpg",
+      "frame_name": "frame_000002.jpg",
+      "success": false,
+      "timestamp": "2025-04-08T00:30:55.731918"
+    },
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_20_at_12_14_43_pm/frame_000003.jpg",
+      "frame_name": "frame_000003.jpg",
+      "success": false,
+      "timestamp": "2025-04-08T00:31:05.247189"
+    }
+  ]
+}

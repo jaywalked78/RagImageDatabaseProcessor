@@ -506,6 +506,108 @@ extract_chunks() {
   fi
 }
 
+# Function to process OCR data for a frame
+process_ocr_data() {
+  local frame_id="$1"
+  local frame_path="$2"
+  local ocr_dir="$STORAGE_DIR/payloads/ocr"
+  local ocr_file="$ocr_dir/${frame_id}.txt"
+  local ocr_structured_file="$ocr_dir/${frame_id}_structured.json"
+  local ocr_structured_csv="$STORAGE_DIR/payloads/csv/ocr_structured_data.csv"
+  
+  # If OCR has been done but we don't have structured data yet
+  if [ -f "$ocr_file" ] && [ ! -f "$ocr_structured_file" ]; then
+    echo "Processing OCR data for frame $frame_id"
+    
+    # Run the OCR data processor to create structured data
+    if [ "$USE_GEMINI" = true ]; then
+      python scripts/ocr_data_processor.py --input-dir "$ocr_dir" --frame-id "$frame_id" --use-gemini
+    else
+      python scripts/ocr_data_processor.py --input-dir "$ocr_dir" --frame-id "$frame_id"
+    fi
+    
+    # Update the processed frames CSV with structured data status
+    if [ -f "$ocr_structured_file" ]; then
+      echo "OCR structured data created for $frame_id"
+      update_csv_value "$PROCESSED_FRAMES_CSV" "frame_id" "$frame_id" "ocr_structured" "done"
+    fi
+  fi
+  
+  # Return the path to the structured OCR data file if it exists
+  if [ -f "$ocr_structured_file" ]; then
+    echo "$ocr_structured_file"
+  else
+    echo ""
+  fi
+}
+
+# Function to get or load OCR data for embedding
+get_ocr_data_for_embedding() {
+  local frame_id="$1"
+  local ocr_structured_file="$STORAGE_DIR/payloads/ocr/${frame_id}_structured.json"
+  
+  if [ -f "$ocr_structured_file" ]; then
+    # Return the JSON file
+    echo "$ocr_structured_file"
+  else
+    # Try to process OCR data if available
+    local ocr_file="$STORAGE_DIR/payloads/ocr/${frame_id}.txt"
+    if [ -f "$ocr_file" ] && [ "$ENABLE_OCR" = true ]; then
+      process_ocr_data "$frame_id" "unknown"
+      if [ -f "$ocr_structured_file" ]; then
+        echo "$ocr_structured_file"
+      else
+        echo ""
+      fi
+    else
+      echo ""
+    fi
+  fi
+}
+
+# Function to load OCR data from structured JSON
+load_ocr_data() {
+  local ocr_structured_file="$1"
+  if [ -z "$ocr_structured_file" ] || [ ! -f "$ocr_structured_file" ]; then
+    return 1
+  fi
+  
+  # Return the file contents
+  cat "$ocr_structured_file"
+}
+
+# Function to chunk a frame with metadata and OCR data
+chunk_frame_with_ocr() {
+  local frame_path="$1"
+  local frame_id="$2"
+  local metadata_file="$3"
+  local output_dir="$4"
+  local ocr_structured_file="$5"
+  
+  # Create output directory if it doesn't exist
+  mkdir -p "$output_dir"
+  
+  # Chunk command base
+  local chunk_cmd="python scripts/chunk_metadata.py --input-file \"$metadata_file\" --output-dir \"$output_dir\" --frame-id \"$frame_id\" --frame-path \"$frame_path\" --chunk-size $CHUNK_SIZE --chunk-overlap $CHUNK_OVERLAP --max-chunks $MAX_CHUNKS"
+  
+  # Add OCR data if available
+  if [ -n "$ocr_structured_file" ] && [ -f "$ocr_structured_file" ]; then
+    chunk_cmd+=" --ocr-file \"$ocr_structured_file\""
+  fi
+  
+  # Run the chunking command
+  eval "$chunk_cmd"
+  
+  # Check result
+  if [ $? -eq 0 ]; then
+    echo "Chunked frame $frame_id with metadata$([ -n "$ocr_structured_file" ] && echo " and OCR data")"
+    return 0
+  else
+    echo "Error chunking frame $frame_id"
+    return 1
+  fi
+}
+
 # Loop through each subdirectory
 for DIR in "${SUBDIRS[@]}"; do
   # Count JPG files in this directory

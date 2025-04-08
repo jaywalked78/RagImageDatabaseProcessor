@@ -1,0 +1,41 @@
+{
+  "processing_parameters": {
+    "input_path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am",
+    "pattern": "frame_00005[0-2].jpg",
+    "limit": 3,
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "max_chunks": 10,
+    "sequential": true,
+    "use_test_webhook": true,
+    "local_only": true
+  },
+  "start_time": "2025-04-07T12:16:23.650835",
+  "files": [
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am/frame_000050.jpg",
+      "frame_name": "frame_000050.jpg",
+      "success": true,
+      "timestamp": "2025-04-07T12:16:35.690544"
+    },
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am/frame_000051.jpg",
+      "frame_name": "frame_000051.jpg",
+      "success": true,
+      "timestamp": "2025-04-07T12:16:53.710172"
+    },
+    {
+      "path": "/home/jason/Videos/screenRecordings/screen_recording_2025_03_03_at_3_39_52_am/frame_000052.jpg",
+      "frame_name": "frame_000052.jpg",
+      "success": true,
+      "timestamp": "2025-04-07T12:17:05.182507"
+    }
+  ],
+  "end_time": "2025-04-07T12:17:05.182632",
+  "results": {
+    "total_files": 3,
+    "processed_files": 3,
+    "successful_files": 3,
+    "failed_files": 0
+  }
+}

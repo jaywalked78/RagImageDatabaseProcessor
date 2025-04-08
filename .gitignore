@@ -1,10 +1,48 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+
+# Logs
+logs/
+*.log
+
+# Output directories
+output/
+ocr_data_*/
+payloads/
+frame_embeddings/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
 
 # Distribution / packaging
 .Python
@@ -79,36 +117,12 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
+# Project-specific documentation and plans
+referenceDocs/
+RagStrategies/
+reorganization_plan.md
 
 # Project-specific
-logs/
 credentials/
 *.pem
 *.key
@@ -116,18 +130,10 @@ credentials/
 *.zip
 temp/
 /tmp
-.DS_Store 
 
 # Database Advanced Tokenizer specific
-payloads/
 .env.*
 webhook_*.json
 secrets/
 *_cache.json
 test_frames/
-frame_embeddings/
-
-# Project-specific documentation and plans
-referenceDocs/
-RagStrategies/
-reorganization_plan.md

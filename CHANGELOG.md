@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2025-04-08
+
+### Added
+- Sequential OCR processing to handle frames in numerical order
+- Improved Airtable integration with proper OCR data verification
+- Skip mechanism to avoid reprocessing frames that already have OCR data
+- Frame-by-frame OCR and LLM processing with controlled Airtable updates
+- Fixed Airtable batch update to respect 10-record API limit
+- Enhanced folder-based processing to complete all frames in a folder before moving on
+- Multiple run scripts for different processing scenarios:
+  - `run_sequential_ocr.sh` for controlled sequential processing
+  - `run_ocr_batch.sh` for batch OCR processing
+  - `run_folder_reset.sh` for resetting Flagged fields
+
+### Fixed
+- Prevented Airtable from receiving false data when OCR fails
+- Fixed batch size limitations to respect Airtable's 10-record update limit
+- Improved frame sorting to ensure numerical order processing
+- Added proper verification before updating Airtable records
+- Enhanced error handling and logging throughout the OCR pipeline
+
 ## [1.2.0] - 2024-07-12
 
 ### Added

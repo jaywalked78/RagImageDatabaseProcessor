@@ -74,7 +74,7 @@ LOGGING_CONFIG: Dict[str, Any] = {
             'class': 'logging.handlers.RotatingFileHandler',
             'level': LOG_LEVEL,
             'formatter': 'detailed',
-            'filename': 'logicLoom.log',
+            'filename': 'output/logs/logicLoom.log',
             'maxBytes': 10485760,  # 10MB
             'backupCount': 5,
             'encoding': 'utf8',
@@ -83,7 +83,7 @@ LOGGING_CONFIG: Dict[str, Any] = {
             'class': 'logging.handlers.RotatingFileHandler',
             'level': 'ERROR',
             'formatter': 'detailed',
-            'filename': 'logicLoom_errors.log',
+            'filename': 'output/logs/logicLoom_errors.log',
             'maxBytes': 10485760,  # 10MB
             'backupCount': 5,
             'encoding': 'utf8',

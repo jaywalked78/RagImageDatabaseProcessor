@@ -249,50 +249,270 @@ class DatabaseClient:
     def connect(self):
         """Connect to the database."""
         self.conn = get_db_connection()
-
+        register_vector(self.conn)
+        return self.conn
+        
     def close(self):
         """Close the database connection."""
         if self.conn:
             self.conn.close()
             self.conn = None
-
+    
     def check_connection(self):
-        """Check if the database connection is active."""
-        return self.conn and not self.conn.closed
-
+        """Check if the connection is active."""
+        return self.conn is not None and not self.conn.closed
+    
     def get_connection(self):
-        """Get the current database connection."""
+        """Get the current connection, creating one if needed."""
+        self._ensure_connection()
         return self.conn
     
     def _ensure_connection(self):
-        """Ensure that a connection exists before executing queries."""
-        if self.conn is None or self.conn.closed:
-            logger.warning("Database connection is closed. Reconnecting...")
+        """Ensure there is an active connection."""
+        if not self.check_connection():
             self.connect()
-        if self.conn is None:
-            raise ConnectionError("Failed to establish database connection")
-
+            
+    # Add methods for OCR data handling
+    def insert_ocr_data(self, frame_id: str, ocr_data: Dict[str, Any]) -> bool:
+        """
+        Insert OCR data into the ocr_data table.
+        
+        Args:
+            frame_id: Unique identifier for the frame
+            ocr_data: Dictionary containing OCR data
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        self._ensure_connection()
+        
+        try:
+            # Convert lists to array format
+            topics = ocr_data.get('topics', [])
+            content_types = ocr_data.get('content_types', [])
+            urls = ocr_data.get('urls', [])
+            
+            query = """
+                INSERT INTO ocr_data (
+                    frame_id, raw_text, structured_data, is_flagged, 
+                    sensitive_explanation, topics, content_types, urls,
+                    word_count, char_count, processed_at
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP
+                )
+                ON CONFLICT (frame_id) 
+                DO UPDATE SET
+                    raw_text = EXCLUDED.raw_text,
+                    structured_data = EXCLUDED.structured_data,
+                    is_flagged = EXCLUDED.is_flagged,
+                    sensitive_explanation = EXCLUDED.sensitive_explanation,
+                    topics = EXCLUDED.topics,
+                    content_types = EXCLUDED.content_types,
+                    urls = EXCLUDED.urls,
+                    word_count = EXCLUDED.word_count,
+                    char_count = EXCLUDED.char_count,
+                    processed_at = CURRENT_TIMESTAMP
+                RETURNING frame_id
+            """
+            
+            params = (
+                frame_id,
+                ocr_data.get('raw_text', ''),
+                Json(ocr_data),  # Store full structured data as JSONB
+                ocr_data.get('is_flagged', False),
+                ocr_data.get('sensitive_explanation', ''),
+                topics,
+                content_types,
+                urls,
+                ocr_data.get('word_count', 0),
+                ocr_data.get('char_count', 0)
+            )
+            
+            with db_cursor(self.conn, cursor_factory=psycopg2.extras.DictCursor, commit=True) as cursor:
+                cursor.execute(query, params)
+                result = cursor.fetchone()
+                
+                if result:
+                    logger.debug(f"Inserted OCR data for frame {frame_id}")
+                    return True
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error inserting OCR data for frame {frame_id}: {str(e)}")
+            return False
+            
+    def get_ocr_data(self, frame_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Get OCR data for a specific frame.
+        
+        Args:
+            frame_id: Unique identifier for the frame
+            
+        Returns:
+            Dictionary containing OCR data or None if not found
+        """
+        self._ensure_connection()
+        
+        try:
+            query = """
+                SELECT * FROM ocr_data WHERE frame_id = %s
+            """
+            
+            with db_cursor(self.conn, cursor_factory=psycopg2.extras.DictCursor) as cursor:
+                cursor.execute(query, (frame_id,))
+                result = cursor.fetchone()
+                
+                if result:
+                    return dict(result)
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error retrieving OCR data for frame {frame_id}: {str(e)}")
+            return None
+            
+    def update_embedding_with_ocr(self, doc_id: str, ocr_data: Dict[str, Any]) -> bool:
+        """
+        Update an existing embedding record with OCR data.
+        
+        Args:
+            doc_id: Unique document ID for the embedding
+            ocr_data: Dictionary containing OCR data
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        self._ensure_connection()
+        
+        try:
+            query = """
+                UPDATE embeddings
+                SET ocr_data = %s,
+                    ocr_text = %s,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE doc_id = %s
+                RETURNING doc_id
+            """
+            
+            # Extract text for full-text search
+            ocr_text = ocr_data.get('raw_text', '')
+            if not ocr_text and 'paragraphs' in ocr_data:
+                # Combine paragraphs if raw_text is not available
+                ocr_text = ' '.join(ocr_data.get('paragraphs', []))
+            
+            params = (
+                Json(ocr_data),  # Store full structured data as JSONB
+                ocr_text,
+                doc_id
+            )
+            
+            with db_cursor(self.conn, cursor_factory=psycopg2.extras.DictCursor, commit=True) as cursor:
+                cursor.execute(query, params)
+                result = cursor.fetchone()
+                
+                if result:
+                    logger.debug(f"Updated embedding {doc_id} with OCR data")
+                    return True
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error updating embedding {doc_id} with OCR data: {str(e)}")
+            return False
+    
+    def search_ocr_text(self, search_text: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Search for frames containing specific OCR text.
+        
+        Args:
+            search_text: Text to search for
+            limit: Maximum number of results to return
+            
+        Returns:
+            List of matching OCR data records
+        """
+        self._ensure_connection()
+        
+        try:
+            query = """
+                SELECT * FROM ocr_data
+                WHERE to_tsvector('english', raw_text) @@ plainto_tsquery('english', %s)
+                ORDER BY processed_at DESC
+                LIMIT %s
+            """
+            
+            with db_cursor(self.conn, cursor_factory=psycopg2.extras.DictCursor) as cursor:
+                cursor.execute(query, (search_text, limit))
+                results = cursor.fetchall()
+                
+                if results:
+                    return [dict(row) for row in results]
+                return []
+                
+        except Exception as e:
+            logger.error(f"Error searching OCR data for '{search_text}': {str(e)}")
+            return []
+            
     def insert_frame_chunk(self, airtable_record_id: str, frame_path: str, 
                            chunk_sequence_id: int, chunk_text: str, 
-                           full_metadata: dict, embedding: list) -> Optional[uuid.UUID]:
-        """Insert a single frame chunk into the database."""
-        self._ensure_connection()
-        query = """
-        INSERT INTO frame_chunks (airtable_record_id, frame_path, chunk_sequence_id, chunk_text, full_metadata, embedding)
-        VALUES (%s, %s, %s, %s, %s, %s)
-        RETURNING id;
+                           full_metadata: dict, embedding: list,
+                           ocr_data: Dict[str, Any] = None) -> Optional[uuid.UUID]:
         """
+        Insert a frame chunk with embedding into the database.
+        
+        Args:
+            airtable_record_id: ID of the record in Airtable
+            frame_path: Path to the frame image file
+            chunk_sequence_id: Sequence ID of the chunk
+            chunk_text: Text content of the chunk
+            full_metadata: Full metadata for the chunk
+            embedding: Vector embedding for the chunk
+            ocr_data: Optional OCR data for the chunk
+            
+        Returns:
+            Generated UUID for the inserted record, or None on failure
+        """
+        self._ensure_connection()
+        
         try:
-            with self.conn.cursor() as cur:
-                register_vector(cur) # Ensure vector type is registered for the cursor
-                cur.execute(query, (airtable_record_id, frame_path, chunk_sequence_id, chunk_text, Json(full_metadata), embedding))
-                result = cur.fetchone()
-                self.conn.commit()
-                logger.info(f"Inserted chunk {chunk_sequence_id} for Airtable record {airtable_record_id}")
-                return result[0] if result else None
+            # Generate a unique ID for this document
+            doc_id = str(uuid.uuid4())
+            
+            # Extract frame_id from metadata
+            frame_id = full_metadata.get('FrameID', airtable_record_id)
+            
+            # Add OCR data to metadata if provided
+            metadata_with_ocr = full_metadata.copy()
+            if ocr_data:
+                metadata_with_ocr['ocr_data'] = ocr_data
+            
+            query = """
+                INSERT INTO embeddings (
+                    doc_id, embedding, metadata, ocr_data, ocr_text, created_at, updated_at
+                ) VALUES (
+                    %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+                ) RETURNING doc_id
+            """
+            
+            # Extract OCR text for full-text search
+            ocr_text = ocr_data.get('raw_text', '') if ocr_data else ''
+            
+            params = (
+                doc_id,
+                embedding,
+                Json(metadata_with_ocr),
+                Json(ocr_data) if ocr_data else None,
+                ocr_text
+            )
+            
+            with db_cursor(self.conn, commit=True) as cursor:
+                cursor.execute(query, params)
+                result = cursor.fetchone()
+                
+                if result:
+                    return uuid.UUID(result[0])
+                return None
+                
         except Exception as e:
-            logger.error(f"Error inserting frame chunk: {e}", exc_info=True)
-            self.conn.rollback() # Rollback on error
+            logger.error(f"Error inserting frame chunk for {frame_path}, chunk {chunk_sequence_id}: {str(e)}")
             return None
 
     def batch_insert_frame_chunks(self, chunk_data: List[Tuple]) -> bool:

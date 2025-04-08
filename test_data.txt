@@ -1,0 +1,4 @@
+API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc
+DATABASE_URL=postgresql://user:password123@localhost:5432/mydatabase
+Credit Card: 4111 1111 1111 1111
+password=supersecret123

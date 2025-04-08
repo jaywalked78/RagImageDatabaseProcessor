@@ -43,15 +43,16 @@ class MetadataChunker:
         
         logger.info(f"Using LangChain RecursiveCharacterTextSplitter with chunk_size={chunk_size}, overlap={chunk_overlap}")
     
-    def create_text_representation(self, metadata: Dict[str, Any]) -> str:
+    def create_text_representation(self, metadata: Dict[str, Any], ocr_data: Dict[str, Any] = None) -> str:
         """
-        Create a single text representation from frame metadata.
+        Create a single text representation from frame metadata and OCR data.
         
         Args:
             metadata: Dictionary of frame metadata
+            ocr_data: Dictionary of OCR data (optional)
             
         Returns:
-            Text representation of the metadata
+            Text representation of the metadata and OCR
         """
         # Extract key fields
         frame_number = metadata.get('FrameNumber', '')
@@ -87,6 +88,27 @@ class MetadataChunker:
                 if value and isinstance(value, (str, int, float, bool)):
                     text += f"{key}: {value}\n\n"
         
+        # Add OCR data if available
+        if ocr_data:
+            text += "OCR TEXT:\n"
+            
+            # Add raw OCR text if available
+            if 'raw_text' in ocr_data and ocr_data['raw_text']:
+                text += f"{ocr_data['raw_text']}\n\n"
+            
+            # Add structured OCR data
+            if 'topics' in ocr_data and ocr_data['topics']:
+                text += f"OCR Topics: {', '.join(ocr_data['topics'])}\n\n"
+                
+            if 'content_types' in ocr_data and ocr_data['content_types']:
+                text += f"OCR Content Types: {', '.join(ocr_data['content_types'])}\n\n"
+                
+            if 'urls' in ocr_data and ocr_data['urls']:
+                text += f"OCR URLs: {', '.join(ocr_data['urls'])}\n\n"
+                
+            if 'paragraphs' in ocr_data and ocr_data['paragraphs']:
+                text += f"OCR Text Content: {' '.join(ocr_data['paragraphs'])}\n\n"
+        
         return text
     
     def split_text(self, text: str) -> List[str]:
@@ -105,20 +127,22 @@ class MetadataChunker:
     
     def process_metadata(self, metadata: Dict[str, Any], 
                         record_id: str, 
-                        frame_path: str) -> List[Dict[str, Any]]:
+                        frame_path: str,
+                        ocr_data: Dict[str, Any] = None) -> List[Dict[str, Any]]:
         """
-        Process metadata into chunks.
+        Process metadata and OCR data into chunks.
         
         Args:
             metadata: Dictionary of frame metadata
             record_id: ID of the record in the database
             frame_path: Path to the frame file
+            ocr_data: Dictionary of OCR data (optional)
             
         Returns:
             List of chunk dictionaries
         """
-        # Create text representation
-        text = self.create_text_representation(metadata)
+        # Create text representation with OCR data if available
+        text = self.create_text_representation(metadata, ocr_data)
         
         # Split text into chunks
         text_chunks = self.split_text(text)
@@ -132,7 +156,9 @@ class MetadataChunker:
                 "record_id": record_id,
                 "frame_path": frame_path,
                 "metadata": metadata,
-                "total_chunks": len(text_chunks)
+                "ocr_data": ocr_data,
+                "total_chunks": len(text_chunks),
+                "source": "metadata_with_ocr" if ocr_data else "metadata"
             }
             chunks.append(chunk)
         
@@ -140,14 +166,16 @@ class MetadataChunker:
     
     def create_metadata_payload(self, chunks: List[Dict[str, Any]], 
                                record_id: str, 
-                               frame_path: str) -> Dict[str, Any]:
+                               frame_path: str,
+                               ocr_data: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Create a payload for storing metadata and chunks.
+        Create a payload for storing metadata, OCR data, and chunks.
         
         Args:
             chunks: List of chunk dictionaries
             record_id: ID of the record in the database
             frame_path: Path to the frame file
+            ocr_data: Dictionary of OCR data (optional)
             
         Returns:
             Payload dictionary
@@ -157,6 +185,8 @@ class MetadataChunker:
             "frame_path": frame_path,
             "chunks": chunks,
             "chunk_count": len(chunks),
+            "ocr_data": ocr_data,
+            "has_ocr": ocr_data is not None,
             "timestamp": os.path.getmtime(frame_path) if os.path.exists(frame_path) else None
         }
 

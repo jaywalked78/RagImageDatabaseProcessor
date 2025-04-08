@@ -1,0 +1,2 @@
+frame_id,processed_time,frame_path,ocr_status,ocr_structured,topics,content_types,is_flagged,word_count,char_count,summary
+test_frame_logging,2025-04-07T16:31:42.916182,/test/path/to/frame.jpg,done,true,Test|Logging|CSV,text|code|api_key,1,150,750,This is a test summary for CSV logging that should be displayed in the enhanced logs.

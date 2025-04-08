@@ -1,0 +1,2 @@
+timestamp,frame_path,frame_id,ocr_status,hash,flagged,api_keys_detected,ocr_processed_at
+2024-07-12T12:00:00,test/path/image.jpg,test_ocr_data,done,abcdef1234567890,1,0,2025-04-07T15:26:18.335389

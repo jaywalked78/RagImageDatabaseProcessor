@@ -1,3 +1,185 @@
+# Database Advanced Tokenizer
+
+A comprehensive system for processing, analyzing, and storing OCR data from screen recordings with advanced sensitive information detection and LLM processing.
+
+## OCR and Airtable Integration
+
+This project now includes advanced OCR capabilities and Airtable integration:
+
+### OCR Processing Features
+- **Sequential Processing**: Process frames in numerical order within each folder
+- **Sensitive Content Detection**: Automatically flag frames containing sensitive information
+- **Frame-by-Frame Processing**: Complete OCR and LLM analysis for each frame
+- **Skip Mechanism**: Avoid reprocessing frames that already have OCR data
+- **Multiple Run Scripts**:
+  - `run_sequential_ocr.sh`: Process one frame at a time, one folder at a time
+  - `run_ocr_batch.sh`: Process frames in batches
+  - `run_folder_reset.sh`: Reset flagged fields for specific folders
+
+### Airtable Integration
+- Records are updated only after successful OCR and LLM processing
+- Respects Airtable's 10-record batch update limit
+- Stores OCR text and sensitive content flags
+- Provides detailed logging of all processing steps
+- Supports controlled updates to avoid false data
+
+### Getting Started with OCR
+
+To process frames sequentially (recommended):
+```bash
+./run_sequential_ocr.sh
+```
+
+To process frames in a specific folder:
+```bash
+./run_sequential_ocr.sh --folder=/path/to/folder
+```
+
+To reset flagged fields for all folders:
+```bash
+./run_folder_reset.sh
+```
+
+## Project Overview
+
+This project provides tools for:
+
+1. **Migration**: Transferring data from source tables to a normalized schema structure
+2. **Verification**: Checking database structure and data integrity
+3. **Sensitive Information Detection**: Identifying and redacting sensitive data like API keys, passwords, and payment information
+4. **LLM Processing**: Analyzing OCR data to generate descriptions and summaries while respecting sensitive data
+
+## Database Schema
+
+The system uses three main schemas:
+
+### Content Schema
+- `frames`: Stores information about individual frames from screen recordings
+  - Primary key: `frame_id`
+  - Contains: timestamps, frame numbers, image URLs, and file metadata
+
+### Metadata Schema
+- `frame_details_full`: Stores full frame details including OCR text and LLM-generated descriptions
+  - Primary key: `frame_id` (references `content.frames.frame_id`)
+  - Contains: descriptions, summaries, OCR data, and technical details
+- `frame_details_chunks`: Stores chunks from frames with specific analyses
+  - Primary key: `frame_id` (references `content.frames.frame_id`)
+  - Has `chunk_id` to link with embeddings
+- `process_frames_chunks`: Tracks processing status of chunks
+  - Contains references to `frame_id` and `chunk_id`
+  - Logs processing status, timestamps, and metadata
+
+### Embeddings Schema
+- `multimodal_embeddings`: Source table with original embeddings
+- `multimodal_embeddings_chunks`: Stores embeddings for chunks with reference to `chunk_id`
+  - Primary key: `embedding_id`
+  - Contains vector embeddings and reference data
+
+## Key Scripts
+
+### Data Migration
+- `migrate_embedding_tables.py`: Migrates data from source tables to normalized schema structure
+  - Creates entries in `content.frames` table
+  - Populates metadata tables with frame and chunk data
+  - Creates relationships between tables
+
+### Data Verification
+- `verify_embedding_tables.py`: Validates database structure and reference consistency
+- `verify_production_data.py`: Checks actual data in tables, relationships, and counts
+- `check_processed_frames.py`: Examines LLM-processed data and sensitive information detection
+
+### Sensitive Information Detection
+- `sensitive_info_detector.py`: Detects and redacts sensitive information in OCR data
+  - Identifies API keys, passwords, environment variables, and payment card numbers
+  - Provides risk assessments and sanitized text for LLM processing
+  - Uses regex patterns and validation algorithms to reduce false positives
+
+### LLM Processing
+- `llm_ocr_processor.py`: Processes OCR data with LLM to generate descriptions and summaries
+  - Detects sensitive information before LLM processing
+  - Sanitizes text to protect sensitive data
+  - Updates database with LLM-generated content and technical metadata
+
+## Workflow
+
+1. **Data Migration**:
+   ```bash
+   python migrate_embedding_tables.py
+   ```
+   Migrates data from source tables to the normalized schema structure, creating entries in `content.frames` and populating metadata tables.
+
+2. **Verification**:
+   ```bash
+   python verify_embedding_tables.py
+   python verify_production_data.py
+   ```
+   Validates database structure, reference consistency, and data integrity.
+
+3. **LLM Processing**:
+   ```bash
+   python llm_ocr_processor.py --type both --limit 10
+   ```
+   Processes frames and chunks with LLM to generate descriptions and summaries, while detecting and redacting sensitive information.
+
+4. **Check Results**:
+   ```bash
+   python check_processed_frames.py
+   ```
+   Examines LLM-processed data and sensitive information detection results.
+
+## Sensitive Information Detection
+
+The system detects multiple types of sensitive information:
+
+1. **API Keys**: Long alphanumeric strings that might represent credentials
+2. **Passwords**: Password fields in config or .env files
+3. **Environment Variables**: Configuration with sensitive values
+4. **Payment Card Numbers**: Credit/debit card numbers (validated with Luhn algorithm)
+
+When sensitive information is detected:
+- The content is redacted before sending to LLM
+- Risk levels are assigned (low, medium, high) based on sensitivity
+- The LLM is instructed to avoid referencing or repeating sensitive data
+- Metadata records the detection for security auditing
+
+## Future Enhancements
+
+Possible enhancements for the system:
+
+1. **Real-time Processing**: Enable streaming processing of frames as they're captured
+2. **Enhanced Security Measures**: Add encryption for sensitive metadata
+3. **User Interface**: Create a dashboard for monitoring sensitive information detection
+4. **Custom LLM Prompts**: Develop domain-specific prompts for specialized analysis
+5. **Expanded Detection**: Add more patterns for sensitive information detection
+
+## Requirements
+
+- Python 3.8+
+- PostgreSQL database (Supabase)
+- Environment variables set in `.env` file (database credentials)
+- Required Python packages:
+  - asyncpg
+  - python-dotenv
+  - requests
+
+## Setup
+
+1. Clone the repository
+2. Create a `.env` file with database credentials:
+   ```
+   SUPABASE_DB_HOST=your-db-host
+   SUPABASE_DB_PORT=5432
+   SUPABASE_DB_NAME=postgres
+   SUPABASE_DB_USER=your-username
+   SUPABASE_DB_PASSWORD=your-password
+   LLM_API_ENDPOINT=your-llm-api-endpoint  # Optional, uses mock responses if not set
+   LLM_API_KEY=your-llm-api-key            # Optional, uses mock responses if not set
+   ```
+3. Install required packages:
+   ```bash
+   pip install asyncpg python-dotenv requests
+   ```
+
 # RAG Image Database Processor
 
 A system for processing and embedding images along with their metadata for retrieval augmented generation (RAG) applications.
@@ -148,60 +330,144 @@ Options:
 
 ## OCR Processing and Airtable Integration
 
-The system now includes OCR (Optical Character Recognition) capabilities to extract text from frames, along with advanced data processing and Airtable integration.
+This section covers the frame OCR processing pipeline and Airtable integration capabilities of the DatabaseAdvancedTokenizer system.
 
-### OCR Features
+## Processing Frames with OCR
 
-- **Text Extraction**: Uses Tesseract OCR to extract text content from frames
-- **Content Categorization**: Parses and categorizes extracted text into structured data
-- **Sensitive Content Detection**: Identifies and flags frames containing potential API keys, credentials, or sensitive information
-- **Enhanced Analysis**: Optional integration with Google's Gemini API for more advanced content understanding
-
-### Airtable Integration
-
-The system can automatically update Airtable with processed OCR data:
-
-1. Each frame's extracted text is categorized and stored in the `OCRData` column
-2. Sensitive content (like Google Sheets with API keys) is flagged in the `Flagged` column
-3. Additional metadata like word count, character count, and content types are also recorded
+The system provides tools to process frames with OCR, structure the extracted text data using Google's Gemini API, save the data to CSV files, and update Airtable with the processed information.
 
 ### Setup
 
-1. Install required dependencies:
+1. **Environment Configuration**
+
+   Copy the `.env.example` file to `.env` and fill in your configuration:
+
    ```bash
-   pip install pytesseract pillow pyairtable google-generativeai
+   cp .env.example .env
+   # Edit .env with your credentials and preferences
    ```
 
-2. Install Tesseract OCR:
-   ```bash
-   sudo apt-get install -y tesseract-ocr
+   The following environment variables are essential for OCR processing and Airtable integration:
+
+   ```
+   # API Keys
+   GOOGLE_API_KEY=your_google_api_key
+   
+   # Gemini API Key Rotation (for high-volume processing)
+   GEMINI_API_KEY_1=your_gemini_api_key_1
+   GEMINI_API_KEY_2=your_gemini_api_key_2
+   GEMINI_API_KEY_3=your_gemini_api_key_3
+   GEMINI_API_KEY_4=your_gemini_api_key_4
+   GEMINI_API_KEY_5=your_gemini_api_key_5
+   GEMINI_USE_KEY_ROTATION=true
+   GEMINI_RATE_LIMIT=60
+   GEMINI_COOLDOWN_PERIOD=60
+   
+   # Airtable Configuration
+   AIRTABLE_API_KEY=your_airtable_api_key
+   AIRTABLE_BASE_ID=your_airtable_base_id
+   AIRTABLE_TABLE_NAME=your_table_name
+   
+   # Airtable Field Mappings
+   OCR_DATA_FIELD=OCRData
+   FLAGGED_FIELD=Flagged
+   SYNC_TIMESTAMP_FIELD=LastSynced
+   
+   # Storage Configuration
+   STORAGE_DIR=all_frame_embeddings
    ```
 
-3. Configure Airtable integration:
-   - Copy `.env.airtable.example` to `.env.airtable`
-   - Add your Airtable credentials (Base ID, Table Name, API Key)
-   - Optionally add Google Gemini API key for enhanced text analysis
+2. **OCR Data Directory**
 
-### Usage
+   Make sure you have a directory containing OCR text files. The default is `ocr_results`.
 
-Process frames with OCR and update Airtable:
+### Processing Pipeline
 
-```bash
-./scripts/process_all_frames.sh --storage-dir all_frame_embeddings --enable-ocr
-```
+The system provides multiple scripts for different processing needs:
 
-Advanced processing with Gemini API:
+#### 1. Complete Frame Processing Pipeline
 
-```bash
-source scripts/load_env.sh  # Load credentials from .env.airtable
-./scripts/process_all_frames.sh --storage-dir all_frame_embeddings --enable-ocr
-```
-
-Process OCR data separately (without frame processing):
+This script processes frames through the entire pipeline:
+1. Reads OCR text from files
+2. Processes text using Google's Gemini API
+3. Extracts structured data
+4. Creates text chunks for search
+5. Saves data to CSV files
+6. Updates Airtable (if configured)
 
 ```bash
-python scripts/ocr_data_processor.py --input-dir "ocr_results" --update-airtable --base-id "YOUR_BASE_ID" --table-name "YOUR_TABLE" --api-key "YOUR_API_KEY" --use-gemini --gemini-api-key "YOUR_GEMINI_KEY"
+./scripts/process_and_update_airtable.sh [OPTIONS]
 ```
+
+**Options:**
+- `--storage-dir DIR`: Set storage directory (default: all_frame_embeddings)
+- `--ocr-dir DIR`: Directory containing OCR data files
+- `--frame-id ID`: Process a specific frame ID
+- `--dry-run`: Run without updating Airtable or writing files
+- `--use-gemini`: Use Google Gemini API for enhanced text analysis
+- `--batch-size N`: Process N frames at a time (default: 10)
+- `--max-workers N`: Use N concurrent workers (default: 4)
+- `--flagged-only`: Only process frames with flagged content
+- `--verbose`: Show detailed logging
+- `--airtable-key KEY`: Set Airtable API key (overrides .env)
+- `--base-id BASE_ID`: Set Airtable base ID (overrides .env)
+- `--table-name TABLE`: Set Airtable table name (overrides .env)
+
+#### 2. OCR Data Processing
+
+Process OCR files and structure the data:
+
+```bash
+python scripts/ocr_data_processor.py --input-dir ocr_results --csv-file all_frame_embeddings/payloads/csv/processed_frames.csv --use-gemini
+```
+
+#### 3. Airtable Updates
+
+Update Airtable with processed OCR data:
+
+```bash
+./scripts/update_airtable.sh --storage-dir all_frame_embeddings --use-gemini
+```
+
+### Output Files
+
+The processing pipeline generates several output files:
+
+1. **CSV Files** (in `STORAGE_DIR/payloads/csv/`):
+   - `processed_frames.csv`: Contains processed frame data
+   - `frame_chunks.csv`: Contains chunked text data
+   - `ocr_structured_data.csv`: Contains structured OCR data
+
+2. **JSON Files** (in `STORAGE_DIR/payloads/json/`):
+   - `{frame_id}_structured.json`: Structured OCR data for each frame
+
+3. **Text Chunks** (in `STORAGE_DIR/payloads/chunks/{frame_id}/`):
+   - `chunk_{index}.txt`: Text chunks for each frame
+   - `chunk_info.json`: Metadata about chunks
+
+4. **Log Files** (in `STORAGE_DIR/logs/`):
+   - `pipeline_{timestamp}.log`: Regular processing logs
+   - `master_logs/master_log_{timestamp}.jsonl`: Detailed JSONL logs of processing steps
+
+### Features
+
+- **Gemini API Key Rotation**: Automatically rotates between multiple API keys to handle high-volume processing.
+- **Sensitive Information Flagging**: Identifies frames containing API keys, credentials, or other sensitive information.
+- **CSV Data Storage**: Stores processed data in CSV format for local database-like access.
+- **Comprehensive Logging**: Detailed logging of all processing steps for debugging and analysis.
+- **Airtable Integration**: Updates Airtable with processed OCR data.
+- **Rate Limiting**: Respects API rate limits to avoid throttling.
+
+### Airtable Schema
+
+The system is designed to work with an Airtable base that has the following fields:
+
+- `FrameID`: Unique identifier for each frame
+- `OCRData`: JSON field to store structured OCR data
+- `Flagged`: Checkbox to indicate frames with sensitive information
+- `LastSynced`: Date/time field to track when the record was last updated
+
+See `docs/airtable_schema.md` for more details on the Airtable schema.
 
 ## Project Structure
 
@@ -243,3 +509,171 @@ This project is proprietary and not licensed for public use without explicit per
 ## Contact
 
 For questions or support, contact the repository owner.
+
+# API Key Detection and Airtable Integration
+
+This project now includes enhanced functionality for detecting API keys and other sensitive information in OCR text and updating Airtable with the results.
+
+## Features
+
+- **Enhanced API Key Detection**: Automatically detect various API key patterns in OCR text, including:
+  - Google API keys (starting with 'AIza')
+  - AWS keys (starting with 'AKIA')
+  - Stripe keys (starting with 'sk_test_' or 'pk_test_')
+  - Generic API keys and tokens
+
+- **Sensitive Content Flagging**: Automatically flag content containing:
+  - API keys and credentials
+  - Google Sheets with sensitive information
+  - Contact information and other sensitive data
+
+- **Airtable Integration**: Update Airtable records with:
+  - Flagged status for sensitive content
+  - Structured OCR data including topics, URLs, and tables
+  - Detailed explanations of detected sensitive information
+
+- **LLM-Enhanced Analysis**: Use Google's Gemini API to:
+  - Categorize text content into topics and content types
+  - Extract structured information from OCR text
+  - Identify sensitive information with detailed explanations
+
+## Setup
+
+1. Copy the environment template:
+   ```bash
+   cp .env.airtable.example .env.airtable
+   ```
+
+2. Edit `.env.airtable` with your credentials:
+   ```
+   AIRTABLE_API_KEY="your_api_key"
+   AIRTABLE_BASE_ID="your_base_id"
+   AIRTABLE_TABLE_NAME="your_table_name"
+   GEMINI_API_KEY="your_gemini_api_key"  # Optional, for enhanced analysis
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install pyairtable google-generativeai
+   ```
+
+## Usage
+
+### Process OCR and Update Airtable in One Step
+
+Use the all-in-one script:
+
+```bash
+./scripts/process_and_update_airtable.sh --use-gemini --ocr-dir ocr_results
+```
+
+Options:
+- `--use-gemini`: Enable Gemini API for enhanced text analysis
+- `--flagged-only`: Only update Airtable records for flagged frames
+- `--dry-run`: Show what would be updated without making changes
+- `--skip-ocr-processing`: Skip OCR processing and only update Airtable
+
+### Step-by-Step Processing
+
+1. Process OCR data:
+   ```bash
+   python scripts/ocr_data_processor.py --input-dir ocr_results --csv-file processed_frames.csv --use-gemini
+   ```
+
+2. Update Airtable:
+   ```bash
+   python scripts/csv_to_airtable.py --csv-file processed_frames.csv --ocr-dir ocr_results --base-id YOUR_BASE_ID --table-name YOUR_TABLE --api-key YOUR_API_KEY
+   ```
+
+## Rate Limiting
+
+All Airtable API calls include rate limiting to prevent hitting API quotas:
+- Default: 250ms between requests (approximately 4 requests per second)
+- Adjustable via the `AIRTABLE_RATE_LIMIT_SLEEP` environment variable
+
+# OCRProcessorAndUpsertToAirtable Subprogram
+
+This subprogram focuses solely on OCR processing and Airtable metadata updates, without embedding generation.
+
+### Features
+
+- Processes frames chronologically from oldest to newest based on folder name
+- Divides processing into batches of 10 frames for efficient processing
+- Uses Gemini AI to filter OCR results and identify meaningful text
+- Detects sensitive content in frames
+- Updates Airtable records with OCR data and sensitivity flags
+- Logs detailed processing information
+
+### Usage
+
+#### Running the OCR Processor
+
+```bash
+# Process all folders
+./process_all_folders.sh
+
+# Run directly with Python
+python ocr_processor.py --base-dir /path/to/folders --batch-size 10
+```
+
+#### Command-line Options
+
+```
+--base-dir        Base directory containing screen recording folders
+                  Default: Value from FRAME_BASE_DIR env variable or /home/jason/Videos/screenRecordings
+--pattern         Glob pattern for image files
+                  Default: *.jpg
+--limit-folders   Maximum number of folders to process
+                  Default: All folders
+--batch-size      Number of frames to process in each batch
+                  Default: 10
+```
+
+### Processing Flow
+
+1. Folders are processed chronologically based on folder name (screen_recording_YYYY_MM_DD_*)
+2. For each folder:
+   - All matching frames are identified and sorted
+   - Frames are divided into batches of 10
+   - Each batch is processed through OCR
+   - OCR results are filtered through Gemini AI to extract meaningful text
+   - Airtable records are updated with filtered OCR data and sensitivity flags
+3. Processing results are logged and summarized in JSON reports
+
+### Requirements
+
+- Python 3.8+
+- Pillow for image processing
+- google.generativeai for Gemini API
+- dotenv for environment variables
+- Airtable API token configured in .env file
+- Gemini API key configured in .env file
+
+### Environment Variables
+
+The following environment variables should be set in your .env file:
+
+```
+AIRTABLE_PERSONAL_ACCESS_TOKEN=your_airtable_token
+AIRTABLE_BASE_ID=your_airtable_base_id
+AIRTABLE_TABLE_NAME=tblFrameAnalysis
+GEMINI_API_KEY=your_gemini_api_key
+FRAME_BASE_DIR=/path/to/screen/recordings
+```
+
+### Project Structure
+
+```
+.
+├── ocr_processor.py           # Main OCR processing script
+├── process_all_folders.sh     # Shell script to process all folders
+├── src/
+│   ├── connectors/
+│   │   └── airtable.py        # Airtable connection utilities
+│   └── processors/
+│       └── frame_processor.py # Frame OCR processing utilities
+├── logs/
+│   └── ocr/                   # OCR processing logs
+└── output/
+    └── reports/               # Processing reports and results
+```
