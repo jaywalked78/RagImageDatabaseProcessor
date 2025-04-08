@@ -2,7 +2,32 @@
 
 All notable changes to the Database Advanced Tokenizer will be documented in this file.
 
-## [1.3.0] - 2023-08-05
+## [1.3.1] - 2025-08-08
+
+### Added
+- New `process_all_frames_simple.sh` script for efficient, reliable frame processing
+- Multiple worker support with improved error handling and recovery
+- Parallel processing capability with alphabetical folder segmentation
+
+### Improved
+- Hardcoded absolute paths to prevent environment variable conflicts
+- Enhanced error handling in Airtable API response parsing
+- Better logging with detailed error messages and progress tracking
+- Fallback mechanisms for JSON parsing failures using regex
+
+### Fixed
+- Path handling issues between scripts that caused inconsistent behavior
+- Temp directory conflicts that led to file not found errors
+- Process isolation to prevent worker conflicts
+- Issues with environment variable inheritance between scripts
+
+### Technical Notes
+- Path management remains a critical issue - hardcoded paths are more reliable than environment variables
+- Worker processes need isolated environments with their own temp directories
+- Cross-script communication works best with absolute paths for file references
+- Fallback mechanisms are essential for API-dependent operations
+
+## [1.3.0] - 2025-08-05
 
 ### Added
 - Folder-based processing with ability to target specific folders
@@ -21,7 +46,7 @@ All notable changes to the Database Advanced Tokenizer will be documented in thi
 - Issues with Airtable API rate limiting
 - Batch processing to respect Airtable's 10-record limit
 
-## [1.2.0] - 2023-07-15
+## [1.2.0] - 2025-07-15
 
 ### Added
 - Initial OCR integration with Airtable

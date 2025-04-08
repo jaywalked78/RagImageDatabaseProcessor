@@ -24,6 +24,24 @@ This project now includes advanced OCR capabilities and Airtable integration:
 - **Selective Flag Updates**: Option to preserve sensitive flags while updating others
 - **Detailed Logging**: Track progress with timestamped console output
 
+### Parallel Processing Architecture (v1.3.1)
+- **Multi-Worker Support**: Process different segments of folders simultaneously
+- **Alphabetical Segmentation**: Divide folders alphabetically for parallel processing
+- **Bidirectional Processing**: Option to process folders in forward or reverse alphabetical order
+- **Path Isolation**: Each worker uses isolated temporary directories
+- **Robust Error Handling**: Fallback mechanisms for API failures and parsing errors
+- **New Scripts**:
+  - `process_all_frames_simple.sh`: Reliable single-worker processing (fallback solution)
+  - `run_parallel_segments.sh`: Manages multiple workers processing different folder segments
+  - `run_segment_worker.sh`: Processes a segment of folders with a dedicated worker
+
+### Technical Lessons Learned
+- **Path Management**: Consistent absolute paths prevent cross-script conflicts
+- **Process Isolation**: Workers need dedicated directories to prevent race conditions
+- **Error Recovery**: Robust parsing with regex fallbacks when JSON parsing fails
+- **Logging Strategy**: Detailed, timestamped logs are critical for debugging distributed processes
+- **Simplicity First**: Build reliable single-process solutions before scaling to parallel processing
+
 ### Airtable Integration
 - Records are updated only after successful OCR and LLM processing
 - Respects Airtable's 10-record batch update limit
@@ -46,6 +64,16 @@ To process frames in a specific folder:
 To process frames in batches:
 ```bash
 ./run_ocr_batch.sh
+```
+
+To process all frames with a simple, reliable approach:
+```bash
+./process_all_frames_simple.sh
+```
+
+To process frames with multiple workers in parallel:
+```bash
+./run_parallel_segments.sh
 ```
 
 To reset flagged fields for all folders:
