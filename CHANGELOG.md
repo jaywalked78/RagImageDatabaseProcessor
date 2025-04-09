@@ -2,6 +2,32 @@
 
 All notable changes to the Database Advanced Tokenizer will be documented in this file.
 
+## [1.4.0] - 2025-04-08
+
+### Fixed: Sequential OCR Processing with Reverse Order
+
+#### Issues Resolved
+- Fixed dependency errors in the OCR processing pipeline
+- Ensured proper execution of the reverse-order processing script
+
+#### Implementation Details
+- Environment Setup:
+  - Created dedicated Python virtual environment (SecondaryVenv) to isolate dependencies
+  - Activated with source SecondaryVenv/bin/activate
+- Dependency Installation:
+  - Installed Google Generative AI package: pip install google-generativeai
+  - Installed Python dotenv package: pip install python-dotenv
+  - Installed other required dependencies: Pillow, pytesseract, requests
+- Script Configuration:
+  - Ensured sequential_ocr_processor_Reverse.js references the correct Python script (process_frames_by_path_Reverse.py)
+  - Verified API key configuration in environment variables
+- Processing Workflow:
+  - The system now processes folders in reverse chronological order (Z→A)
+  - Each frame is processed sequentially with proper OCR and LLM analysis
+  - Frame data is saved to output/ocr_results directory as JSON
+  
+This implementation maintains the same functionality as the original processing workflow but processes records in reverse order, providing more recent data first.
+
 ## [1.3.1] - 2025-08-08
 
 ### Added

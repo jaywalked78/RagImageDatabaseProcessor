@@ -1,6 +1,6 @@
 {
   "name": "airtable-ocr-parser",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Parse OCR data from Airtable and update records",
   "main": "parse_ocr_data.js",
   "scripts": {
@@ -15,8 +15,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/vision": "^5.1.0",
     "@google/generative-ai": "^0.24.0",
     "airtable": "^0.12.2",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.4.7",
+    "tesseract.js": "^6.0.1"
   }
 }
