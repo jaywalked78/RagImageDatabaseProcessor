@@ -2,6 +2,36 @@
 
 A minimalist system for processing screen recordings, extracting text content, and generating image URLs for Retrieval Augmented Generation (RAG) applications.
 
+## System Architecture
+
+The RagImageDatabaseProcessor consists of three fully operational, independent tools that work together:
+
+### 1. OCR Processing Tool
+
+A comprehensive OCR system that:
+- Processes screen recording frames to extract text
+- Integrates directly with Airtable for storage and organization
+- Works with n8n for automation workflows
+- Handles batch processing of frame images
+
+### 2. Semantic Chunker
+
+A specialized text processing system that:
+- Divides extracted text into semantic chunks for optimal retrieval
+- Organizes chunks with proper metadata and references
+- Prepares data for embedding generation
+- Sends structured data via webhooks to other systems
+
+### 3. Lightweight Image Server
+
+A dedicated service that:
+- Hosts frame images via HTTP endpoints
+- Generates accessible URLs for frames
+- Provides a consistent interface for image retrieval
+- Enables visual reference alongside text content
+
+These three components can operate independently but are designed to work together through the integration scripts provided in this repository.
+
 ## Overview
 
 MinimalistRagIntake processes screen recording frames to:

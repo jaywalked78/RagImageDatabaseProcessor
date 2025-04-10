@@ -2,6 +2,16 @@
 
 This document provides a comprehensive guide for integrating the RagImageDatabaseProcessor with n8n for automated workflows.
 
+## System Architecture
+
+The RagImageDatabaseProcessor consists of three distinct tools that can be orchestrated through n8n:
+
+1. **OCR Processing Tool**: Extracts text from screen recording frames and integrates with Airtable
+2. **Semantic Chunker**: Processes extracted text into optimized chunks for retrieval
+3. **Lightweight Image Server**: Hosts frame images and generates accessible URLs
+
+These tools work together through n8n automation to create a comprehensive processing pipeline.
+
 ## Overview
 
 The RagImageDatabaseProcessor can be integrated with n8n to automate the process of:
@@ -72,7 +82,24 @@ sleep 5  # Give it time to start
 echo "Processor completed. Check /tmp/processor_output.log for details."
 ```
 
-## Data Flow
+## Data Flow Between Components
+
+The workflow coordinates data flow between the three main tools:
+
+1. **OCR Tool → Semantic Chunker**:
+   - OCR extracted text is passed to the Semantic Chunker
+   - Metadata and context are preserved during transfer
+
+2. **OCR Tool → Image Server**:
+   - Frame paths are passed to the Image Server for hosting
+   - Frame IDs maintain consistency between systems
+
+3. **Combined Output**:
+   - Semantic Chunker generates text chunks for retrieval
+   - Image Server provides URLs for visual reference
+   - Integration scripts combine these outputs for downstream use
+
+## Data Flow Through n8n
 
 The following data is passed through the workflow:
 
