@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000030.jpg",
+  "metadata": {
+    "id": "recn5Pi7ytbtiC2gs",
+    "createdTime": "2025-03-27T20:41:43.000Z",
+    "FrameID": "1eCTQw_oO9C-mSq1SEgFcplBk-2pZyGaT",
+    "FrameNumber": "30",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000030.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface, with the browser panel displaying a blurred webpage titled 'job application automation'. A loading spinner is visible in the center of the blurred area, indicating that the webpage within Operator is currently loading. The 'Share' and 'Save task' buttons are visible in the top right corner of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser",
+    "ActionsDetected": "Webpage loading within Operator, Waiting for content to load, Likely returning to Operator's browser panel",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation', Loading indicator: Spinner in the center of the blurred content area, UI elements: 'Share' and 'Save task' buttons visible in Operator's header",
+    "RelationshipToPrevious": "This frame follows frame 29, which showed the user switching back to OpenAI's Operator from n8n. This frame likely represents the state of Operator immediately after the context switch, with the browser panel reloading or resuming the 'job application automation' task.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:16:30:04",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.952483",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

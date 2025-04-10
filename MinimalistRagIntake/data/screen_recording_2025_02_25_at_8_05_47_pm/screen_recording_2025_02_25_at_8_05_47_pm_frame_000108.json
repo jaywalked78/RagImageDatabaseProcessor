@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000108.jpg",
+  "metadata": {
+    "id": "recS4CVfsD3imzibz",
+    "createdTime": "2025-03-27T20:57:49.000Z",
+    "FrameID": "1WoaBHkzdvyMS0xFcJfGrAY--BsvXnYB9",
+    "FrameNumber": "108",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000108.jpg",
+    "Summary": "Frame 108 shows a very blurred view, but the 'You have control' message and 'Finish up' button from OpenAI's Operator are clearly visible at the bottom. A loading spinner is also present in the blurred central area, suggesting the interface is in a loading or transitioning state, likely as the user is about to finish manual control and return to Operator.",
+    "ToolsVisible": "OpenAI's Operator, n8n (blurred, inferred), Web Browser (inferred)",
+    "ActionsDetected": "Concluding manual control phase (likely imminent), Interface loading/transitioning, Potentially preparing to click 'Finish up' button to return control to Operator, No direct user interaction visible in this frame due to blur",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Tool: n8n (blurred, inferred), Interface: Operator's 'You have control' UI elements, UI Elements visible: 'You have control' message, 'Finish up' button, loading spinner (in blurred content area), user avatar 'J', Blurred content likely represents the n8n workflow editor, but details are not discernible., No error messages or configuration panels are clearly visible due to blur.",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 107, and likely represents the moment just before or as the user clicks the 'Finish up' button in Operator's manual control mode. The loading spinner suggests the interface is transitioning back to Operator's automated guidance after the user's manual interaction with the n8n workflow. It marks the end of the manual control phase that was initiated for debugging the Airtable issue.",
+    "StageOfWork": "Concluding Manual Control/Returning to AI Guidance",
+    "Timestamp": "01:26:12:15",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "You have control Finish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.967404",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

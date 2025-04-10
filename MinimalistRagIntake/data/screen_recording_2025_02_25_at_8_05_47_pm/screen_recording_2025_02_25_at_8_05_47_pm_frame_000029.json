@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000029.jpg",
+  "metadata": {
+    "id": "rec5tEjV5ElbviR0y",
+    "createdTime": "2025-03-27T20:41:30.000Z",
+    "FrameID": "1gTKOgH_uHGTinnQ0MZZNDJ0o7jSGOSxe",
+    "FrameNumber": "29",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000029.jpg",
+    "Summary": "This frame shows the n8n workflow editor with the 'Google Gemini Chat Model' node configuration panel open, overlaid with a modal window from OpenAI's Operator titled 'Let Operator know what you changed'. The user is presented with options to 'Exit to chat' or 'Resume Operator', indicating a context switch back to Operator after working in n8n.",
+    "ToolsVisible": "n8n, OpenAI's Operator (Modal Window)",
+    "ActionsDetected": "Context switch to OpenAI's Operator, Pausing n8n workflow configuration, Reviewing Operator modal prompt, Choosing to 'Resume Operator' or 'Exit to chat'",
+    "TechnicalDetails": "n8n Node Name: Google Gemini Chat Model, n8n Node Configuration Panel still visible (Parameters tab, 'Wire me up' help box), OpenAI's Operator Modal Title: 'Let Operator know what you changed', Operator Modal Buttons: 'Exit to chat', 'Resume Operator', Operator Modal Prompt: 'Share a short summary to help Operator keep working smoothly.', 'What did you do while you had control? (Optional)'",
+    "RelationshipToPrevious": "This frame follows frame 28, where the user was actively configuring the 'Google Gemini Chat Model' node in n8n. This frame indicates a context switch back to OpenAI's Operator, likely triggered by the user after configuring the node in n8n and intending to inform Operator about the changes made.",
+    "StageOfWork": "Context Switching/Development",
+    "Timestamp": "00:15:08:58",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google Gemini Chat Model\nParameters\nSettings\nData Usage\nCredentials to connect with\nGoogle Gemini/PaLM2 API securely\nModel\nmodel:gemini-2d-flex\nOptions\nWire me up\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.952299",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

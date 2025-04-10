@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000038.jpg",
+  "metadata": {
+    "id": "recvTbE3VmZKq1JSn",
+    "createdTime": "2025-03-27T20:43:20.000Z",
+    "FrameID": "1T9RVjB5vcBmw9GDEzYOwMX3LMMkCT8CA",
+    "FrameNumber": "38",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000038.jpg",
+    "Summary": "This frame displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The 'AI Nodes' sidebar is now closed, and the user is viewing the overall workflow diagram in 'Editor' mode. The 'You have control' message and 'Finish up' button from OpenAI's Operator are still visible at the bottom, indicating the user is still in manual control of n8n.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Workflow visualization in n8n editor, Sidebar closed, Reviewing workflow diagram",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, View: Editor, Workflow State: Inactive, Sidebar: AI Nodes (closed), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame follows frame 37 where the user was browsing 'AI Templates' in the 'AI Nodes' sidebar. In this frame, the sidebar is closed, suggesting the user has finished browsing and is now reviewing the workflow again, still in 'You have control' mode from OpenAI's Operator.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:34:16:16",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nOverview\nProjects\nPersonal\nMy project\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\n2. Document Classifier and ReUpload Form\n3. Smarter Application Pre-fill with Job Role Context\n4. Save to Application\nTest workflow\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953991",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

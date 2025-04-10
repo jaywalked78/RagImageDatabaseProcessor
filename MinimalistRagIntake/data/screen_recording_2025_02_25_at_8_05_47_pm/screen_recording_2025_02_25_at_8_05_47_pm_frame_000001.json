@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000001.jpg",
+  "metadata": {
+    "id": "rec5xX08XiZH62Cyp",
+    "createdTime": "2025-03-27T20:59:56.000Z",
+    "FrameID": "1yoEe9NTdhDdjNVx9ZTNLog6dyhDfdzYZ",
+    "FrameNumber": "1",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000001.jpg",
+    "Summary": "The image contains the text 'Read cdn.jsdelivr.net', which includes a URL.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Starting n8n session, Exploring workflow creation options, Preparing to search or select a template",
+    "TechnicalDetails": "n8n logo visible in the top left corner, Search bar with placeholder text: \"Search apps, roles, usecases...\", Grid of placeholder boxes likely for workflow templates or starting points, URL \"read.cdn.jsdelivr.net\" visible in the bottom left, likely related to n8n's frontend assets",
+    "RelationshipToPrevious": "This is the first frame, establishing the initial context of the user launching n8n and starting a new automation project.",
+    "StageOfWork": "Design",
+    "Timestamp": "00:01:56:20",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Search apps, roles, usecases...",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.945924",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

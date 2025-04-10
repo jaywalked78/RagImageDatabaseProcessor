@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000022.jpg",
+  "metadata": {
+    "id": "recNH4duo8SZygX55",
+    "createdTime": "2025-03-27T20:40:07.000Z",
+    "FrameID": "1pk1oO0CJgueX0Z0AH051EyWHtHr9Deca",
+    "FrameNumber": "22",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000022.jpg",
+    "Summary": "This frame shows the 'Get API key' page within Google AI Studio. The user is viewing the API quickstart guide, which includes a curl command example for using the Gemini API. An existing 'Gemini API' project and its corresponding API key are listed in a table, indicating the user has already created a Gemini API key and is likely accessing it for use in their automation project.",
+    "ToolsVisible": "Web Browser, Google AI Studio",
+    "ActionsDetected": "Accessing Google AI Studio API key, Reviewing API quickstart guide, Managing Gemini API credentials",
+    "TechnicalDetails": "Interface: Google AI Studio 'Get API key' page, API: Gemini API, API quickstart guide with curl example, Existing API key listed: Project name 'Gemini API', API key ending in '-7JU', Plan: 'Free of charge', Actionable links: 'Set up Billing', 'View usage data'",
+    "RelationshipToPrevious": "This frame represents a shift from the n8n workflow editor and error identification in frame 21 to configuring access to the Google Gemini API. It suggests the user is addressing the potential error in the 'Google Gemini Chat Model' node in n8n by ensuring they have a valid API key from Google AI Studio.",
+    "StageOfWork": "Configuration/Setup",
+    "Timestamp": "00:11:51:06",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI Studio\nGet API key\nAPI quickstart guide\ncurl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?\nkey=GEMINI_API_KEY\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d '{\\n\"contents\": [{\\n\"parts\": [{\"text\": \"Explain how AI works\"}]\\n}]\\n}' \nUse code with caution.\nCreate API key\nYour API keys are listed below. You can also view and manage your project and API keys in Google Cloud.\nProject number\tProject name\tAPI key\tCreated\tPlan\n...1418\tGemini API\t...-7JU\tFeb 25, 2025\tFree of charge\nSet up Billing\nView usage data\nRemember to use API keys securely. Don't share or embed them in public code. Use of Gemini API from a billing-enabled project is subject to\npay-as-you-go pricing.",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: api_key, project_number"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950985",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

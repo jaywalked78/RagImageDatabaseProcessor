@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000094.jpg",
+  "metadata": {
+    "id": "recDoNWkO06y7OgnQ",
+    "createdTime": "2025-03-27T20:54:49.000Z",
+    "FrameID": "1MpJkXjdICQCaypvYHBr6_8naqSwAH94n",
+    "FrameNumber": "94",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000094.jpg",
+    "Summary": "Frame 94 displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The 'Workflow executed successfully' message is no longer visible, suggesting it was a transient notification. The user is viewing the workflow canvas, with focus on nodes like 'Save to Applicant Tracking System' and 'Redirect to Application Form', and the 'You have control' message with 'Finish up' button from OpenAI's Operator remains at the bottom.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Noting absence of 'Workflow executed successfully' message, Reviewing workflow structure, particularly nodes related to data saving and form redirection, Considering 'Finish up' button, Likely preparing to conclude manual control",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' message - Not visible (transient message), Nodes prominently visible: Save to Applicant Tracking System, Redirect to Application Form, Save to Airtable, Upload File to Record, Submission Success, Redirect To Step 2 of 2, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 93, following the successful workflow execution. The disappearance of the 'Workflow executed successfully' message indicates the system has moved past that transient notification, but the successful execution state is implied by the workflow view. The persistent 'You have control' and 'Finish up' elements reinforce that the user is at the point of concluding their manual interaction and returning control to OpenAI's Operator.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:21:55:25",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nSave to Applicant Tracking System\n5. Redirect to Application Form\nSave to Airtable\nUpload File to Record\nSubmission Success\nRedirect To Step 2 of 2\nChange Base URL here!\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.964749",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

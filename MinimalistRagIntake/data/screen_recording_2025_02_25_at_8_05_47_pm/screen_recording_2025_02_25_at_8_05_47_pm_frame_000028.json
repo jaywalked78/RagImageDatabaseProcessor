@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000028.jpg",
+  "metadata": {
+    "id": "recidZ7dXGvaAGwIw",
+    "createdTime": "2025-03-27T20:41:17.000Z",
+    "FrameID": "1V5l_Ju_Xg1P2JPUHfZ2-yaqJQdqXp9i8",
+    "FrameNumber": "28",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000028.jpg",
+    "Summary": "This frame shows the configuration panel for the 'Google Gemini Chat Model' node within n8n. The 'Parameters' tab is active, and the user is prompted to connect this node to an AI Chain. The model is set to 'models/gemini-2.0-flash', and the credential is set to 'Google Gemini(PaLM) Api account'. The 'Wire me up' help box is visible, guiding the user on how to connect the node within the workflow.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Configuring Google Gemini Chat Model node, Setting node parameters, Attempting to connect node in workflow, Following 'Wire me up' guidance",
+    "TechnicalDetails": "Node Name: Google Gemini Chat Model, Tab: Parameters, Credential: Google Gemini(PaLM) Api account, Model: models/gemini-2.0-flash, Message: 'This node must be connected to an AI chain. Insert one', UI element: 'Wire me up' box with hand cursor, No properties under 'Options' section",
+    "RelationshipToPrevious": "This frame is a continuation of working within the n8n workflow editor, following the API key configuration and potential research into Google AI services in previous frames. It shows the user is actively configuring the 'Google Gemini Chat Model' node within the workflow, addressing the error identified in frame 21 and utilizing the API key configured in frame 23.",
+    "StageOfWork": "Development",
+    "Timestamp": "00:14:45:40",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google Gemini Chat Model\nParameters\nSettings\nDocs\nCredential to connect with\nGoogle Gemini(PaLM) Api account\nThis node must be connected to an AI\nchain. insert one\nModel\nmodels/gemini-2.0-flash\nOptions\nNo properties\nAdd Option\nWire me up\nThis node can only receive input data\nif you connect it to another node.\nLearn more\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.952091",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

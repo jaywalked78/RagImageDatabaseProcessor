@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000034.jpg",
+  "metadata": {
+    "id": "recFjXL0WSDUjWEbm",
+    "createdTime": "2025-03-27T20:42:28.000Z",
+    "FrameID": "1e6oLeMvCkeSOs3sScZ44LkFcEQXO0B-c",
+    "FrameNumber": "34",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000034.jpg",
+    "Summary": "The frame displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow.  An error is now visible on a different node, 'OpenAI Chat Model1', with an 'Insufficient quota detected' message. The 'You have control' message and 'Finish up' button from OpenAI's Operator persist at the bottom, indicating the user is still in control within n8n while Operator is paused.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Observing new error in n8n workflow, Identifying quota issue with 'OpenAI Chat Model1' node, Reviewing workflow after 'OpenAI Chat Model2' deletion",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Error Node: OpenAI Chat Model1, Error Message: 'Insufficient quota detected. Learn more about resolving this issue Open node', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame follows frame 33 where 'OpenAI Chat Model2' was deleted. Now, a different 'OpenAI Chat Model1' node is displaying an error, suggesting a progression of debugging and configuration within the n8n workflow, possibly guided by or in interaction with OpenAI's Operator. The user is still in 'You have control' mode from Operator.",
+    "StageOfWork": "Debugging/Development",
+    "Timestamp": "00:22:07:31",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\n9 days left in your n8n trial\n0/1000 Executions\nOverview\nProjects\nPersonal\nMy project\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nError in sub-node 'OpenAI Chat Model1'\nInsufficient quota detected. Learn more about resolving this issue\nTest workflow\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953237",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

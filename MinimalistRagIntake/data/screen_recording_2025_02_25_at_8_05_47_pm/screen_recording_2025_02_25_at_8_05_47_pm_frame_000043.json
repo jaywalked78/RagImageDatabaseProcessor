@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000043.jpg",
+  "metadata": {
+    "id": "recNDM231nMEp19WZ",
+    "createdTime": "2025-03-27T20:44:13.000Z",
+    "FrameID": "1-BYKXRBdsc6qmBoQ-K60dczDa-LW__Kh",
+    "FrameNumber": "43",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000043.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface, and the browser panel, while still blurred, appears to be less obscured than in the previous frame. The loading spinner is no longer visible, suggesting the webpage within Operator has finished loading or is at least partially rendered. The 'Save task' button remains visible in the top right of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage likely loaded within Operator, Resuming interaction with Operator's browser panel, Potentially ready to continue task execution within Operator",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation' (inferred from previous frames, still blurred), Loading indicator: Spinner is not visible anymore, UI elements: 'Save task' button visible in Operator's header, Browser content: Less blurred compared to frame 42, suggesting loading completion",
+    "RelationshipToPrevious": "This frame directly follows frame 42, which showed Operator loading the browser panel after the user resumed control. Frame 43 indicates that the loading process in the browser panel is likely complete, and Operator is ready for further interaction or task execution.",
+    "StageOfWork": "Design/Development/Resuming AI Assistant Interaction",
+    "Timestamp": "00:37:57:19",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "You have control Finish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.954978",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

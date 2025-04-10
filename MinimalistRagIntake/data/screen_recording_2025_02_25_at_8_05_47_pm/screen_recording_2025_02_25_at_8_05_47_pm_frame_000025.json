@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000025.jpg",
+  "metadata": {
+    "id": "recUKawccRUAkKD0I",
+    "createdTime": "2025-03-27T20:40:37.000Z",
+    "FrameID": "1xdqDjiftJtD7pCq8ogMWiyrkNHZF2Ku7",
+    "FrameNumber": "25",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000025.jpg",
+    "Summary": "This frame shows a blank white webpage titled 'Google Maps Platform' in the browser tab. The page appears to be loading, as indicated by the 'Waiting for mapsplatform.google.com...' message in the browser's status bar. The user is likely navigating to the Google Maps Platform website, possibly for research or to explore its features.",
+    "ToolsVisible": "Web Browser, Google Maps Platform Website",
+    "ActionsDetected": "Navigating to Google Maps Platform website, Page loading",
+    "TechnicalDetails": "Website title: Google Maps Platform, Browser status: 'Waiting for mapsplatform.google.com...', Menu items visible: Why Google, Products, Solutions, Pricing, Resources, Contact sales, Get started",
+    "RelationshipToPrevious": "This frame shows a context switch away from Google AI Studio API key management (frames 22 and 24) and n8n configuration (frame 23). It suggests the user is now exploring the Google Maps Platform, potentially considering its relevance to the AI automation project, or simply researching other Google services.",
+    "StageOfWork": "Planning/Research",
+    "Timestamp": "00:13:56:55",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google Maps Platform Why Google Products Solutions Pricing Resources Contact sales Get started",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.951547",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

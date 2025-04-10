@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000072.jpg",
+  "metadata": {
+    "id": "recz9Z0jBZwy3dlPr",
+    "createdTime": "2025-03-27T20:50:01.000Z",
+    "FrameID": "1BluMXvEAxpv2ZMAXvs8PY2qgdzsridNk",
+    "FrameNumber": "72",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000072.jpg",
+    "Summary": "This frame displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with a 'Save changes before leaving?' modal window open. The user is prompted to either save or discard changes before navigating away from the current view. An error message 'Problem in node 'Extract from File'' is also visible at the bottom right, indicating an ongoing issue within the workflow.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing 'Save changes before leaving?' modal in n8n, Choosing whether to save or discard changes in n8n, Observing error message related to 'Extract from File' node, Potentially about to navigate away from the workflow editor",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, Modal Window Title: 'Save changes before leaving?', Modal Message: 'If you don't save, you will lose your changes.', Modal Buttons: 'Leave without saving', 'Save', Error Message: 'Problem in node 'Extract from File'', Error Details: 'This operation expects the node's input data to contain a binary file `File_Upload`, but none was found [item 0]', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame is a direct continuation of the debugging process in previous frames. The 'Save changes before leaving?' modal suggests the user is about to navigate away from the current workflow canvas, possibly in response to further guidance from OpenAI's Operator or to investigate a different aspect of the workflow related to the 'Extract from File' node error, which is a variation of the 'Upload File to Record' node issue seen earlier.",
+    "StageOfWork": "Debugging/Error Handling/Navigation Decision Point",
+    "Timestamp": "01:04:16:52",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Save changes before leaving?\nIf you don't save, you will lose your changes.\nLeave without saving\nSave\nYou have control\nFinish up\nProblem in node 'Extract from File'\nThis operation expects the node's input data to contain a binary file 'File_Upload', but none was found [item 0]",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.960540",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

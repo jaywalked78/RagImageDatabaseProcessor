@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000085.jpg",
+  "metadata": {
+    "id": "recfptqLWCAriLisx",
+    "createdTime": "2025-03-27T20:52:44.000Z",
+    "FrameID": "1UXfeHWhDkYsTwAWpoBsd6raro9H8D2ac",
+    "FrameNumber": "85",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000085.jpg",
+    "Summary": "This frame, although heavily blurred, appears to show the OpenAI's Operator interface, likely the right-hand panel. The user has seemingly returned to Operator's main interface after concluding the manual control phase in n8n, as indicated by the 'Job application automation' title and 'Save task' button visible in the cropped hints.  The 'Workflow executed successfully' state from n8n in previous frames might have led to this return to Operator for the next step in the automated solution building process.",
+    "ToolsVisible": "OpenAI's Operator (inferred), Web Browser (inferred)",
+    "ActionsDetected": "Returning to OpenAI's Operator interface (inferred), Concluding manual control phase in n8n (inferred from previous frame), Potentially resuming AI-guided debugging or next steps, Viewing Operator's task interface (inferred)",
+    "TechnicalDetails": "Tool: OpenAI's Operator (inferred), UI elements visible in crops: 'Job application automation' title, 'Share' button, 'Save task' button, user avatar 'J' (all inferred from blurred image and crops), n8n interface - Not directly visible in this blurred frame, but contextually relevant from previous frames, Workflow status: 'Workflow executed successfully' (inferred from frames 76-79, likely preceding this frame)",
+    "RelationshipToPrevious": "This frame directly follows frame 84, where the user was presented with the 'Let Operator know what you changed' modal in n8n, signaling the end of manual control. Frame 85 represents the user's return to the OpenAI's Operator interface, likely after clicking either 'Resume Operator' or 'Exit to chat' in the previous modal. This suggests a transition back to AI-guided workflow building after a period of manual intervention and debugging in n8n.",
+    "StageOfWork": "Debugging/Error Handling/Returning to AI Guidance",
+    "Timestamp": "01:14:50:31",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.962988",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

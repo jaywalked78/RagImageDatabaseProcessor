@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000006.jpg",
+  "metadata": {
+    "id": "recs6d3lAOrC1D6cV",
+    "createdTime": "2025-03-27T20:37:17.000Z",
+    "FrameID": "1syxb86bDN2VMn3TEzsMCzxWLawHXG-Rh",
+    "FrameNumber": "6",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000006.jpg",
+    "Summary": "This frame displays the n8n workflow editor, showcasing the 'Handling Job Application Submissions' workflow. The workflow is currently in 'Editor' view and is inactive. The user is presented with a pre-built workflow template, visually composed of interconnected nodes for automating job application handling.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Workflow visualization, Template review, Workflow exploration",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Workflow State: Inactive, View: Editor, Nodes visible: Text Classifier and ReUpload Form, Application Suitability Agent, Structured Output Parser, Save to Applicant Tracking System (Save to Airtable, Upload File to Record), Node technologies mentioned: OpenAI Chat Model, Airtable",
+    "RelationshipToPrevious": "This frame follows the template selection in previous frames and shows the loaded workflow template in the n8n editor, ready for the user to review, modify or test.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:04:34:52",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "9 days left in your n8n trial\n0/1000 Executions\nHandling Job Application Submissions + Add tag\nEditor Executions\nInactive\nShare\nSaved\nStar 62,949\nOverview\nProjects\nPersonal\nMy project\n1. Classifier and ReUpload Form\nText Classifier\nA critical step and before the introduction of LLMs, classifying document types was a\nprocess. Today, n8n's text classifier node does an excellent job at this task.\nIn powered by AI means invalid, incomplete or poorly created applicant CVs can be rejected as\nthis happens in our workflow, we present the user again with the file upload form to retry.\n3. Smarter Application Pre-fill with Job Role Context\nRead more about the Basic LLM node\nInformation extraction is a logical next step once we have our PDF contents but we can extend\nfurther by only extracting data which is relevant to our job post. This ensures the information we\nextract is always relevant which saves time for the hiring team.\nTo achieve this for this demo, I've included the job post in the prompt for the LLM to compare\nthe CV against. The provides the AI enough context to complete the task successfully.\n4. Save to Applicant Tracking System\nRead more about the Airtable node\nNext, we can complete our simple data capture by integrating and pushing\ndata to our Applicant Tracking System.\nHere, we're using Airtable because we can also store PDF files in our records.\nSee our example Airtable here: https://airtable.com/appQ6mE9KSzlva\nshrlivfe9qH6YEYAS\nfrom File\nFrom PDF\nCV or Resume\nOther\nClassify Document\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJC Jason Cox\nModel*\nModel\nApplication\nSuitability Agent\nOpenAI Chat Model1\nOpenAI Chat Model2\nFile Upload Retry\nNext Form Page\nOutput Parser\nOutput Parser\nStructured Output\nParser\nSave to Airtable\ncreate: record\nUpload File to Record\nTest workflow",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: urls, airtable_link"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.947524",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

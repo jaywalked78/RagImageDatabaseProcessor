@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000050.jpg",
+  "metadata": {
+    "id": "recJSKMtjTPUHaEnt",
+    "createdTime": "2025-03-27T20:45:39.000Z",
+    "FrameID": "153tivGM6lnF1iDEix4WjXhnwPKXw0cUK",
+    "FrameNumber": "50",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000050.jpg",
+    "Summary": "This frame shows the n8n interface, specifically the template page, and the user is again viewing the 'Hacker News Job Listing Scraper and Parser' template. This template is by 'Julian Kaiser' and categorized under 'HR' and 'AI'. The 'You have control' message from OpenAI's Operator is still visible at the bottom, but the user's focus is on browsing n8n templates again.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Browsing n8n templates, Viewing 'Hacker News Job Listing Scraper and Parser' template again, Potentially considering switching to this template",
+    "TechnicalDetails": "Template Name: Hacker News Job Listing Scraper and Parser, Template Author: Julian Kaiser, Template Categories: HR, AI, Button: 'Use workflow' (FREE), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame shows a return to browsing n8n templates, similar to frames 35 and 36, but now after the user engaged in debugging the 'Handling Job Application Submissions' workflow and even consulted n8n documentation for 'Insufficient quota' errors (frame 49). This suggests the user might be shifting away from the 'Handling Job Application Submissions' workflow, possibly due to the quota issues, and reconsidering the 'Hacker News Job Listing Scraper and Parser' template as an alternative project.",
+    "StageOfWork": "Planning/Exploration",
+    "Timestamp": "00:43:46:18",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "n8n.io/workflows/2924-hacker-news-job-listing-scraper-and-parser/\nProduct Use cases Docs Community Enterprise Pricing Sign in Get started\nBack to templates\nHacker News Job\nListing Scraper and\nParser\nPublished 8 days ago\nCREATED BY\nJulian Kaiser\nCATEGORIES\nHR AI\nUse workflow FREE\nTEMPLATE DESCRIPTION\nYou have control\nHacker News - Who Is Hiring\nScrape\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.956291",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

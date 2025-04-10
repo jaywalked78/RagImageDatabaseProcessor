@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000065.jpg",
+  "metadata": {
+    "id": "recGsWafOW1Z7m2Zg",
+    "createdTime": "2025-03-27T20:48:34.000Z",
+    "FrameID": "1MD7eVixwidFgBLDenfcvhBxMIJEo6vlQ",
+    "FrameNumber": "65",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000065.jpg",
+    "Summary": "This frame shows the n8n workflow editor for the 'Handling Job Application Submissions' workflow, immediately after the user clicked the 'Back to canvas' button. The 'Back to canvas' button is visually highlighted, indicating the action just performed. The user is now viewing the workflow canvas, still in debug mode and under 'You have control' from OpenAI's Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Navigating back to n8n workflow canvas, Clicking 'Back to canvas' button, Viewing workflow canvas after navigation, Following Operator's instructions",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), UI element: 'Back to canvas' button (highlighted), Nodes visible: Save to Airtable, Upload File to Record, Submission Success, Redirect to Application Form, Applicant Tracking System, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu` (no longer showing 'debug' in the URL, indicating exit from debug mode)",
+    "RelationshipToPrevious": "This frame directly follows frame 64 and shows the result of the user following Operator's instruction to 'tap Back to Canvas'. The highlighted 'Back to canvas' button confirms the user's action. The URL changing to remove '/debug/8' suggests the user has exited the debug execution view and returned to the standard workflow editor canvas, still within the Operator's control flow.",
+    "StageOfWork": "Debugging/Error Handling/Navigation (Guided by AI Assistant)",
+    "Timestamp": "01:01:22:25",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nOverview\nProjects\nPersonal\nMy project\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nve to Applicant Tracking System\n5. Redirect to Application Form\n6. Application Fo\nSave to Airtable\nUpload File to Record\nSubmission Success\nRedirect To Step 2 of 2\nChange Base URL here!\nThis redirect requires the full\nbase URL, change it to the host\nof your n8n instance.\nStep 2 of 2 - Application\nForm\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.959212",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

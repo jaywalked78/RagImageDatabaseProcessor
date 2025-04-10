@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000008.jpg",
+  "metadata": {
+    "id": "reckmNrB83PBWBiLK",
+    "createdTime": "2025-03-27T20:37:38.000Z",
+    "FrameID": "1kMk6s7E5QSk1kqBkcJrToyOOnNsVkxt2",
+    "FrameNumber": "8",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000008.jpg",
+    "Summary": "This frame shows the n8n workflow editor in the background and a modal from OpenAI Operator in the foreground. The modal is prompting the user to summarize what actions they took while they had control, before resuming interaction with the Operator. This indicates a context switch back to Operator after some interaction with n8n.",
+    "ToolsVisible": "n8n, OpenAI's Operator (modal)",
+    "ActionsDetected": "Context switching from n8n to OpenAI Operator, Interacting with Operator's 'Let Operator know what you changed' prompt, Preparing to resume Operator interaction",
+    "TechnicalDetails": "n8n workflow editor visible in background, OpenAI Operator modal title: 'Let Operator know what you changed', Modal prompt: 'Share a short summary to help Operator keep working smoothly.', Buttons in modal: 'Exit to chat', 'Resume Operator', Workflow name in n8n (partially visible): 'Handling Job Application Submissions'",
+    "RelationshipToPrevious": "This frame indicates a shift away from the n8n login attempt in the previous frame and a return to interacting with OpenAI Operator. It suggests the user might have paused Operator's assistance to attempt the n8n login and is now resuming interaction.",
+    "StageOfWork": "Context Switching/Planning",
+    "Timestamp": "00:05:23:45",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.948115",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

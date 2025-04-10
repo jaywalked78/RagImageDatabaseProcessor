@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000073.jpg",
+  "metadata": {
+    "id": "recwTewfkM20ROd52",
+    "createdTime": "2025-03-27T20:50:12.000Z",
+    "FrameID": "1gFEGAhVi30jD_FZwvWUv_18oD4GeZhVs",
+    "FrameNumber": "73",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000073.jpg",
+    "Summary": "This frame shows the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with the 'Save changes before leaving?' modal dismissed from the previous frame.  The error message 'Problem in node 'Extract from File'' remains visible at the bottom right, indicating the error persists. The user is still viewing the workflow canvas and the 'You have control' message from OpenAI's Operator is still present.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Dismissing 'Save changes before leaving?' modal, Observing persistent error message for 'Extract from File' node, Remaining in 'You have control' mode",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Error Message: 'Problem in node 'Extract from File'', Error Details: 'This operation expects the node's input data to contain a binary file `File_Upload`, but none was found [item 0]', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 72, showing the state after the user interacted with the 'Save changes before leaving?' modal and dismissed it. The persistent error message and continued workflow canvas view indicate the user is still addressing the 'Extract from File' node issue within n8n under Operator's guidance.",
+    "StageOfWork": "Debugging/Error Handling",
+    "Timestamp": "01:04:22:13",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\n4. Save to Applicant Tracking\nRead more about the Airtable node\nNext, we can complete our simple data capture by integrating and pushing data to our Applicant Tracking System.\nHere, we're using Airtable because we can also store PDF files in our rows.\nSee our example Airtable here: https://airtable.com/appQ6mE9KSzlvaGDT/shrlivfe9qH6YEYAs\nSave to Airtable\ncreate: record\nUpload File to Record\nSubmission Success\nNext Form Page\nRedirect To Step 2 of 2\nForm Ending\nChange Base URL here!\nThis redirect requires the full base URL, change it to the host of your n8n instance.\nProblem in node 'Extract from File'\nThis operation expects the node's input data to contain a binary file 'File_Upload', but none was found [item 0]",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: URL"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.960726",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

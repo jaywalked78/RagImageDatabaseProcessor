@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000035.jpg",
+  "metadata": {
+    "id": "recBr2m2YJCZGeIKt",
+    "createdTime": "2025-03-27T20:42:43.000Z",
+    "FrameID": "1tNjJXWrYjfQNOtsCapYxewJo6Zu8MJ2M",
+    "FrameNumber": "35",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000035.jpg",
+    "Summary": "This frame shows the n8n interface, specifically the template page, and the user is now viewing the 'Hacker News Job Listing Scraper and Parser' template.  The 'You have control' message from OpenAI's Operator persists at the bottom, but the user's focus appears to have shifted back to browsing n8n templates, potentially to explore a different automation approach after encountering issues with the 'Handling Job Application Submissions' workflow.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Browsing n8n templates, Viewing 'Hacker News Job Listing Scraper and Parser' template, Considering a different template",
+    "TechnicalDetails": "Template Name: Hacker News Job Listing Scraper and Parser, Template Author: Julian Kaiser, Template Categories: HR, AI, Button: 'Use workflow', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame represents a significant context shift. After debugging the 'Handling Job Application Submissions' workflow and interacting with OpenAI's Operator in frames 21-34, the user has navigated back to the n8n templates page, similar to the initial frames of the recording. This suggests a potential decision to abandon or postpone working on the 'Handling Job Application Submissions' workflow and explore a different starting point with the 'Hacker News Job Listing Scraper and Parser' template.",
+    "StageOfWork": "Planning/Exploration",
+    "Timestamp": "00:22:43:02",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Hacker News Job Listing Scraper and Parser\nPublished 8 days ago\nCREATED BY\nJulian Kaiser\nCATEGORIES\nHR  AI\nUse workflow FREE\nYou have control\nFinish up\nProduct Use cases Docs Community Enterprise Pricing Sign in Get started",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953427",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000102.jpg",
+  "metadata": {
+    "id": "rec1f4abaTycQ3dbp",
+    "createdTime": "2025-03-27T20:56:27.000Z",
+    "FrameID": "1Af1U-0IaT_FuUVlupX7mlCw3rxuTaiUb",
+    "FrameNumber": "102",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000102.jpg",
+    "Summary": "Frame 102 displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with a modal window 'Let Operator know what you changed' overlaid on the canvas. The user is prompted to summarize their actions during manual control before choosing to 'Exit to chat' or 'Resume Operator'. The 'Save to Airtable1' node in the background still shows an error, indicating the Airtable issue likely persists despite previous successful execution messages.",
+    "ToolsVisible": "n8n, OpenAI's Operator (implicit - control modal), Web Browser",
+    "ActionsDetected": "Concluding manual control phase, Viewing 'Let Operator know what you changed' modal, Choosing between 'Exit to chat' and 'Resume Operator', Preparing to return control to OpenAI's Operator, Potentially providing a summary of actions taken during manual control, Observing error indicator on 'Save to Airtable1' node",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Modal Window Title: 'Let Operator know what you changed', Modal Prompt: 'Share a short summary to help Operator keep working smoothly.', Modal Input: 'What did you do while you had control? (Optional)' (Textarea visible), Modal Buttons: 'Exit to chat', 'Resume Operator' (highlighted), Error Indicator: Present on 'Save to Airtable1' node (red triangle), Node visible and labelled with error: 'Save to Airtable1', Nodes visible: Application Form, Redirect To Step 2 of 2, Step 2 of 2 - Application Form, Form Success, n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is very similar to frame 84, showing the 'Let Operator know what you changed' modal again. It suggests that after the successful workflow execution messages in frames 92-99, the user is now again at the point of returning control to Operator. However, unlike frame 84 which followed a potentially successful Airtable configuration, frame 102 appears after a persistent Airtable error (frames 100-101), indicating the Airtable issue was not resolved and the successful execution messages might have been misleading or related to a different workflow run. The user is likely returning control to Operator to seek further assistance in resolving the 'Save to Airtable1' error.",
+    "StageOfWork": "Debugging/Error Handling/Concluding Manual Control/Returning to AI Guidance",
+    "Timestamp": "01:24:35:55",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nApplication Form\n6. Application Form to Amend Details\nStep 2 of 2 - Application\nSave to Airtable!\nForm Success\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.966271",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

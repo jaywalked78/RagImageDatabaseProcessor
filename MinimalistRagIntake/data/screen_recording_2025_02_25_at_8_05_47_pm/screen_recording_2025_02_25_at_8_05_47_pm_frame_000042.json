@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000042.jpg",
+  "metadata": {
+    "id": "recAqmPdCikabcj7I",
+    "createdTime": "2025-03-27T20:44:04.000Z",
+    "FrameID": "1W1h7CLnE_rV7TGidfFBXiwymxwDKxcE1",
+    "FrameNumber": "42",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000042.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface with the browser panel displaying a blurred webpage titled 'job application automation'. A loading spinner is visible in the center of the blurred area, indicating that the webpage within Operator is still loading after the user clicked 'Resume Operator' in the previous frame. The 'Save task' button is visible in the top right corner of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage loading within Operator, Waiting for content to load after resuming Operator control, Returning to Operator's browser panel",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation', Loading indicator: Spinner in the center of the blurred content area, UI elements: 'Save task' button visible in Operator's header",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 41, where the user was about to click 'Resume Operator'. This frame shows the Operator interface immediately after resuming control, with the browser panel still in a loading state, likely refreshing or re-engaging with the 'job application automation' task within the browser.",
+    "StageOfWork": "Design/Development/Resuming AI Assistant Interaction",
+    "Timestamp": "00:35:54:20",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "No readable text",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.954796",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

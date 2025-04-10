@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000082.jpg",
+  "metadata": {
+    "id": "recvIqHqFex5UOXzW",
+    "createdTime": "2025-03-27T20:52:10.000Z",
+    "FrameID": "18REOpsHXZJsH-ee98HOUfqhde71ucov0",
+    "FrameNumber": "82",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000082.jpg",
+    "Summary": "The provided image is IDENTICAL to Frame 80, showing the Google AI for Developers website, specifically the 'Gemini Developer API Pricing' page.  Assuming this is a mistake and you meant to ask about Frame 82 *following* Frame 81 (Airtable configuration in n8n), it's likely that Frame 82 shows the user either saving the Airtable connection details in n8n, or returning to the n8n workflow canvas after successfully configuring the Airtable connection. Without the actual Frame 82 image, this is an inferred analysis based on the likely workflow progression.",
+    "ToolsVisible": "Web Browser, Google AI for Developers Website (as per provided image - likely incorrect for frame 82), Potentially n8n (inferred for frame 82 based on sequence)",
+    "ActionsDetected": "Viewing Gemini Developer API Pricing page (as per provided image - likely incorrect for frame 82), Potentially saving Airtable connection details in n8n (inferred for frame 82), Potentially returning to n8n workflow canvas (inferred for frame 82)",
+    "TechnicalDetails": "Tool: Google AI for Developers Website (as per provided image - likely incorrect for frame 82), Page Title: Gemini Developer API Pricing (as per provided image - likely incorrect for frame 82), Service: Gemini API (as per provided image - likely incorrect for frame 82), Potentially Tool: n8n (inferred for frame 82), Potentially Node Configuration: Airtable Personal Access Token account (inferred for frame 82), Potentially Message: 'Connection saved successfully' or similar (inferred for frame 82), Message: 'You have control' (from Operator - likely persists), Button: 'Finish up' (from Operator - likely persists)",
+    "RelationshipToPrevious": "The provided image is IDENTICAL to Frame 80, showing a context switch to Google Gemini API pricing research, which was already analyzed.  If we assume you meant to ask about Frame 82 *following* Frame 81 (Airtable configuration), then Frame 82 is likely a continuation of the n8n workflow interaction, specifically related to saving the Airtable connection and proceeding within the n8n workflow, potentially returning to the canvas to continue debugging the 'Upload File to Record' issue or move to the next step guided by OpenAI's Operator.  The jump back to Gemini pricing in the provided image for Frame 82 seems out of sequence based on the previous frames focusing on n8n debugging.",
+    "StageOfWork": "Research/Planning/Exploration (as per provided image - likely incorrect for frame 82) / Configuration/Integration/Debugging (inferred for actual frame 82)",
+    "Timestamp": "01:13:08:19",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI for Developers\nGemini Developer API Pricing\nThe Gemini API \"free tier\" is offered through the API service with lower rate limits for testing purposes. Google AI Studio usage is completely free in all available countries. The Gemini API \"paid tier\" comes with higher rate limits, additional features, and different data handling.\nUpgrade to the Paid Tier\nGemini 2.0 Flash\nOur most capable multi-modal model with great performance across all tasks, with a 1 million token context window, and built for the era of Agents.\nTry it in Google AI Studio\nInput price\nFree Tier\nPaid Tier, per 1M tokens in USD\nFree of charge\n$0.10 (text / image / video)\n$0.70 (audio)",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.962425",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

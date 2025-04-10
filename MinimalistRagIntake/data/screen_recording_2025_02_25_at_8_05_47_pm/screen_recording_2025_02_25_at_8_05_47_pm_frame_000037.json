@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000037.jpg",
+  "metadata": {
+    "id": "recPlJUFPyWFovO5l",
+    "createdTime": "2025-03-27T20:43:07.000Z",
+    "FrameID": "1bLWFy8bDeRTgbziAcceesnlE_XVfHxcQ",
+    "FrameNumber": "37",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000037.jpg",
+    "Summary": "This frame is very similar to frame 36, showing the n8n workflow editor for the 'Handling Job Application Submissions' workflow with the 'AI Nodes' sidebar open on the right and the 'AI Templates' section expanded. The user appears to be continuing to browse the 'AI Templates' options within the sidebar.  The 'You have control' message from OpenAI's Operator is still visible at the bottom.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Continuing to browse AI Templates within n8n workflow editor, Further review of available AI Template options",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Sidebar: AI Nodes, Section: AI Templates (expanded and highlighted as 'Recommended'), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame directly follows frame 36 and shows a continuation of the action of browsing 'AI Templates' within the n8n workflow editor's sidebar. The user is still in the 'You have control' state from OpenAI's Operator.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:34:16:05",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953804",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

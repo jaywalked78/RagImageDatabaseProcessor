@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000064.jpg",
+  "metadata": {
+    "id": "recUt9WoadIiNQrlV",
+    "createdTime": "2025-03-27T20:48:23.000Z",
+    "FrameID": "1L6YPWzbX9VnuDFp1jAAILKV1lSfRp8D0",
+    "FrameNumber": "64",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000064.jpg",
+    "Summary": "This frame displays the OpenAI Operator interface, with the chat panel showing the instruction 'To close node, please tap Back to Canvas in top left corner'. The browser panel on the right is blurred, but likely still showing the n8n interface. The 'You have control' message remains at the bottom, indicating the user is still in manual control mode, guided by Operator's instructions.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Following Operator's instructions to navigate back to n8n canvas, Preparing to click 'Back to Canvas' button in n8n, Remaining in 'You have control' mode",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Operator Chat Message: 'To close node, please tap Back to Canvas in top left corner', UI element: 'You have control' bar visible at the bottom, Browser panel content: Blurred webpage, likely showing n8n interface related to the workflow",
+    "RelationshipToPrevious": "This frame directly follows frame 63 and continues the pattern of Operator providing instructions in the chat panel and a blurred webpage in the browser panel. The persistent instruction to 'tap Back to Canvas' suggests the user hasn't yet performed this action, and Operator is reiterating this step to continue the debugging process.",
+    "StageOfWork": "Debugging/Error Handling/Guidance by AI Assistant",
+    "Timestamp": "01:00:49:01",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "To close node, please tap Back to Canvas in top left corner\nWorked for 31 seconds\nTook control\nAttempting to close unresponsive panel\nMessage Operator\nOperator retains screenshots of its actions. Please monitor its work. It can make mistakes.\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.959022",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

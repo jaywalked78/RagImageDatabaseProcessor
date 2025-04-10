@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000027.jpg",
+  "metadata": {
+    "id": "recvTYsP9ZvdEFij8",
+    "createdTime": "2025-03-27T20:41:03.000Z",
+    "FrameID": "1cf-TTFkb5Ptz5nOQgGt2y7dQP-iOV2Ym",
+    "FrameNumber": "27",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000027.jpg",
+    "Summary": "This frame shows a loading screen for the 'Google AI for Developers' website. The page is still in the process of loading content, indicated by the 'Transferring data from www.gstatic.com...' message at the bottom and the presence of placeholder UI elements. The user is likely waiting for the 'Google AI for Developers' page to fully load and become interactive.",
+    "ToolsVisible": "Web Browser, Google AI for Developers Website",
+    "ActionsDetected": "Navigating to Google AI for Developers website, Page loading, Waiting for website to load",
+    "TechnicalDetails": "Website title: Google AI for Developers, Browser status: 'Transferring data from www.gstatic.com...', Placeholder UI elements visible (rectangles)",
+    "RelationshipToPrevious": "This frame is a continuation of exploring Google's AI related services, following Google Search for API pricing (frame 26) and Google Maps Platform loading (frame 25). It suggests the user is now navigating to 'Google AI for Developers' website, possibly to investigate developer resources or further AI service options from Google.",
+    "StageOfWork": "Planning/Research",
+    "Timestamp": "00:14:16:10",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI for Developers\nTransferring data from www.gstatic.com...",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.951910",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

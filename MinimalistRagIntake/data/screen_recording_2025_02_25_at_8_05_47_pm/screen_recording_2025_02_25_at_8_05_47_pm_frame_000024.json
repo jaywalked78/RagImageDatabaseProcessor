@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000024.jpg",
+  "metadata": {
+    "id": "rec48EWoYkxLmnSPb",
+    "createdTime": "2025-03-27T20:40:25.000Z",
+    "FrameID": "1VVGJQlVq1k70iTbJ14vZzpYvm1B9jMqq",
+    "FrameNumber": "24",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000024.jpg",
+    "Summary": "This frame is nearly identical to frame 22, showing the 'Get API key' page within Google AI Studio. The user is still viewing the API quickstart guide and the table listing their existing 'Gemini API' project and associated API key. It's likely the user is re-verifying or copying the API key after attempting to configure it in n8n in the previous frame.",
+    "ToolsVisible": "Web Browser, Google AI Studio",
+    "ActionsDetected": "Accessing Google AI Studio API key again, Re-reviewing API quickstart guide, Potentially copying Gemini API key",
+    "TechnicalDetails": "Interface: Google AI Studio 'Get API key' page, API: Gemini API, API quickstart guide with curl example, Existing API key listed: Project name 'Gemini API', API key ending in '-7JU', Plan: 'Free of charge', Actionable links: 'Set up Billing', 'View usage data'",
+    "RelationshipToPrevious": "This frame is very similar to frame 22, and follows frame 23 where the user was configuring the Google Gemini API key in n8n. It suggests a potential step to re-confirm or copy the API key from Google AI Studio after attempting to use it in n8n, possibly to ensure accuracy or if the previous attempt was unsuccessful.",
+    "StageOfWork": "Configuration/Setup",
+    "Timestamp": "00:13:48:55",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI Studio\nGet API key\nGet API key\nCreate Prompt\nStream Realtime\nStarter Apps\nTune a Model\nLibrary\nAPI quickstart guide\ncurl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?\nkey=GEMINI_API_KEY\" \\\n-H 'Content-Type: application/json' \\\n-X POST \\\n-d'{\\n\"contents\": [{\\n\"parts\": [{\"text\": \"Explain how AI works\"}]\\n}]\\n}'\\nUse code with caution.\nEnable chat history\nPrompt Gallery\nAPI documentation\nDeveloper forum\nChangelog NEW\nYour API keys are listed below. You can also view and manage your project and API keys in Google Cloud.\nProject number\nProject name\nAPI key\nCreated\nPlan\n...1418\nGemini API\n...-7JU\nFeb 25, 2025\nFree of charge\nSet up Billing\nView usage data\nRemember to use API keys securely. Don't share or embed them in public code. Use of Gemini API from a billing-enabled project is subject to\npay-as-you-go pricing.",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: api_key, project_number"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.951362",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

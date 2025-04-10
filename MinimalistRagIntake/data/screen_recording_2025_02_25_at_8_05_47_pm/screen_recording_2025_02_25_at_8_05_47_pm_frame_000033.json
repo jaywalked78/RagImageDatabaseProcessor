@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000033.jpg",
+  "metadata": {
+    "id": "recXXWmEOYUpLYhMv",
+    "createdTime": "2025-03-27T20:42:17.000Z",
+    "FrameID": "1IjiceksGPtDfn5crf9O1Gqh_nk2bmYtD",
+    "FrameNumber": "33",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000033.jpg",
+    "Summary": "This frame shows the n8n workflow editor with the 'Handling Job Application Submissions' workflow.  Notably, the 'OpenAI Chat Model2' node is now deleted from the workflow, as was proposed by OpenAI's Operator and confirmed by the user in previous frames. The 'Google Gemini Chat Model' node remains. The 'You have control' message and 'Finish up' button from OpenAI's Operator are still visible at the bottom, indicating the user retains control after the node deletion.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Workflow modification completed (node deletion), Workflow visualization after node deletion, User still in control of n8n",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Node deleted: OpenAI Chat Model2 (no longer visible), Node present: Google Gemini Chat Model, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame is the direct consequence of frame 32 and frame 31. In frame 31, the user agreed to Operator's proposal to delete 'OpenAI Chat Model2'. Frame 32 showed the workflow before deletion. Frame 33 now shows the workflow after the 'OpenAI Chat Model2' node has been successfully removed, likely orchestrated by OpenAI's Operator after the user clicked 'Finish up' (though this action isn't visible in a static frame).",
+    "StageOfWork": "Development/Interaction with AI Assistant",
+    "Timestamp": "00:20:09:04",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Applications\nn8n\nOverview\nProjects\nPersonal\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nExtract from File\nExtract From PDF\nGoogle Gemini Chat\nModel\nClassify Document\nTest workflow\nFinish up\n9 days left in your n8n trial\n0/1000 Executions",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953043",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

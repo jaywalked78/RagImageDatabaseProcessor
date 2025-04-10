@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000103.jpg",
+  "metadata": {
+    "id": "recwLyQFAABkSbNC0",
+    "createdTime": "2025-03-27T20:56:39.000Z",
+    "FrameID": "1oWEg4-ECpKXIpwyy45SHI6ZaQYcW3naG",
+    "FrameNumber": "103",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000103.jpg",
+    "Summary": "Frame 103 shows the OpenAI Operator interface, specifically the right-hand panel titled 'Job application automation'. The central area is blurred and displays a loading spinner, indicating that the interface is loading or refreshing after the user likely returned control from n8n. The 'Save task' button and task title are visible in the header, confirming the user is back in the Operator's task view.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (inferred)",
+    "ActionsDetected": "Returning to OpenAI Operator interface, Interface loading/refreshing, Observing task 'Job application automation', Potentially waiting for task details to load after manual control in n8n",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Interface: Task Panel (right-hand panel), Task Title: 'Job application automation', UI Elements visible: 'Save task' button, user avatar 'J', loading spinner (in blurred content area), No error messages or configuration panels visible in this frame., Inferred action: User likely clicked 'Resume Operator' or 'Exit to chat' in n8n's 'Let Operator know what you changed' modal (from frame 102).",
+    "RelationshipToPrevious": "This frame is a direct consequence of frame 102, where the user was presented with the 'Let Operator know what you changed' modal in n8n. Frame 103 shows the user back in the OpenAI Operator interface, indicating they have completed the manual control phase in n8n and returned to Operator for further AI-guided assistance. The loading spinner suggests Operator is now processing the information and preparing to continue the automation building process, potentially based on the user's actions during manual control.",
+    "StageOfWork": "Returning to AI Guidance/Task Management within Operator",
+    "Timestamp": "01:25:02:22",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Robo application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.966460",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

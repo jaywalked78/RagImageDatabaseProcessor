@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000018.jpg",
+  "metadata": {
+    "id": "recT8hSkxcMraRrwC",
+    "createdTime": "2025-03-27T20:39:22.000Z",
+    "FrameID": "1rugQOQwwVWthrghrHLYXMzSMe9XBwDlX",
+    "FrameNumber": "18",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000018.jpg",
+    "Summary": "This frame shows the Google AI Studio interface. The user is presented with the main dashboard of Google AI Studio, featuring options to 'Get API key', 'Create Prompt', 'Stream Realtime', 'Starter Apps', 'Tune a Model', 'Library', and 'Prompt Gallery'. The interface is in a ready state for the user to begin creating or exploring AI prompts and models.",
+    "ToolsVisible": "Web Browser, Google AI Studio",
+    "ActionsDetected": "Navigating Google AI Studio dashboard, Exploring Google AI Studio features, Preparing to create or manage AI prompts",
+    "TechnicalDetails": "Interface: Google AI Studio dashboard, Title: 'Untitled prompt', Menu options: 'Get API key', 'Create Prompt', 'Stream Realtime', 'Starter Apps', 'Tune a Model', 'Library', 'Prompt Gallery', Link in footer: Read www.googletagmanager.com",
+    "RelationshipToPrevious": "This frame directly follows frame 17, which was a blank page for Google AI Studio. This frame shows that Google AI Studio has now loaded successfully, and the user is presented with the main interface.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:10:23:52",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI Studio\nUntitled prompt\nGet API key\nCreate Prompt\nStream Realtime\nStarter Apps\nTune a Model\nLibrary\nPrompt Gallery\nAPI documentation\nDeveloper forum\nChangelog\nGemini makes mistakes, so double-check it.\nSettings\nwww.googletagmanager.com",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950249",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000015.jpg",
+  "metadata": {
+    "id": "rectzpkvHR5GzcvmB",
+    "createdTime": "2025-03-27T20:38:48.000Z",
+    "FrameID": "1QujaqdNzuS-vKANH65rxqzsWiaL_g82a",
+    "FrameNumber": "15",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000015.jpg",
+    "Summary": "The frame displays a webpage from 'TechTalks' discussing the pricing and availability of Claude 3.7 Sonnet. The user is likely researching pricing information for different LLM models, specifically Claude 3.7 Sonnet and comparing it to OpenAI models like o1 and o3-mini. The page highlights the cost of Claude 3.7 Sonnet through Anthropic API, Amazon Bedrock, and Google Vertex AI.",
+    "ToolsVisible": "Web Browser",
+    "ActionsDetected": "Researching LLM pricing, Comparing LLM models, Reading technical blog content",
+    "TechnicalDetails": "Website title: TechTalks, LLM mentioned: Claude 3.7 Sonnet, Platforms mentioned: Anthropic API, Amazon Bedrock, Google Vertex AI, Pricing details for Claude 3.7 Sonnet ($3/million input tokens, $15/million output tokens), Comparison to OpenAI o1 and o3-mini, Mention of prompt caching for discounts",
+    "RelationshipToPrevious": "This frame shows a shift from the n8n workflow testing back to researching LLM models and pricing, similar to frame 113 where Google Gemini pricing was being investigated. This frame indicates continued research but now focusing on Claude 3.7 Sonnet.",
+    "StageOfWork": "Planning/Development",
+    "Timestamp": "00:10:01:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "TechTalks\nClaude 3.7 Sonnet is also available through Anthropic API, Amazon Bedrock, and Google Vertex AI. Claude 3.7 Sonnet costs $3 per million input tokens and $15 per million output tokens. It is much cheaper than OpenAI o1 but is almost four times as expensive as o3-mini (you can get a huge discount if your application allows you to use prompt caching).\nThe API allows developers to specify a limit for the reasoning tokens to prevent the model from draining their budget.\nSubscribe to TechTalks\nBy Ben Dickson - Launched 4 years ago\nIn-depth discussions about machine learning, deep learning, reinforcement learning, neural networks, artificial general intelligence, AI business, and other technology trends.\nType your email... Subscribe\nBy subscribing, I agree to Substack's Terms of Use, and acknowledge its Information Collection Notice and Privacy Policy.",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.949630",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000032.jpg",
+  "metadata": {
+    "id": "recEAUOyuRMP6DxHo",
+    "createdTime": "2025-03-27T20:42:05.000Z",
+    "FrameID": "1LgjQRROFOWYfnUD0h2MXO58UjDIxd8SK",
+    "FrameNumber": "32",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000032.jpg",
+    "Summary": "This frame shows the n8n workflow editor, displaying the 'Handling Job Application Submissions' workflow. The 'Google Gemini Chat Model' node configuration is closed.  The 'OpenAI Chat Model2' node, which Operator proposed to delete in the previous frame, is still visible in the workflow. The 'You have control' message and 'Finish up' button from OpenAI's Operator are visible at the bottom, indicating the user is still in control and hasn't yet returned control to Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Workflow visualization, User retains control in n8n, Preparing to return control to Operator",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Node visible: OpenAI Chat Model2 (not yet deleted), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 31, where the user confirmed with Operator to delete the 'OpenAI Chat Model2' node.  However, in this frame, the deletion has not yet visually occurred in the n8n interface, and the user is still in control, likely before clicking 'Finish up' to hand back control to Operator for the deletion action to be executed.",
+    "StageOfWork": "Development/Interaction with AI Assistant",
+    "Timestamp": "00:20:08:54",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Applications\nBack to canvas\nOverview\nProjects\nPersonal\nAdmin Panel\nTemplates\nVariables\nHelp\nUpdates\nJason Cox\nExtract from File\nClassify Document\nGoogle Gemini Chat Model\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: URL"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.952857",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

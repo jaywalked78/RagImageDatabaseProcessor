@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000026.jpg",
+  "metadata": {
+    "id": "rec6qb6oBaWxFT2OU",
+    "createdTime": "2025-03-27T20:40:50.000Z",
+    "FrameID": "1OSjF_eGGRtRvN-RZE0XwtWKNLLFMLMTC",
+    "FrameNumber": "26",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000026.jpg",
+    "Summary": "This frame shows Google Search results for the query 'google api pricing'. The top result is for 'Google Maps Platform Pricing & API Costs', indicating the user is now researching the pricing structure of Google Maps Platform APIs. This suggests a continued exploration of Google's service offerings for potential integration into their AI automation project.",
+    "ToolsVisible": "Web Browser, Google Search",
+    "ActionsDetected": "Performing Google Search, Searching for Google API pricing, Reviewing Google Maps Platform pricing search result",
+    "TechnicalDetails": "Search Engine: Google, Search Query: 'google api pricing', Top Search Result: 'Google Maps Platform Pricing & API Costs', URL of top result: https://mapsplatform.google.com/Pricing, Section visible: 'People also ask'",
+    "RelationshipToPrevious": "This frame follows frame 25 which showed a loading page for Google Maps Platform. It confirms the user was navigating to Google Maps Platform to research pricing information, likely after exploring Google AI Studio and Gemini API in earlier frames and Claude pricing before that.",
+    "StageOfWork": "Planning/Research",
+    "Timestamp": "00:14:09:32",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "google api pricing\nGoogle Maps Platform\nhttps://mapsplatform.google.com > Pricing\nPlatform Pricing & API Costs\nLearn about the flexible Google Maps Platform costs and API pricing built to fit your business goals and needs, while staying within budget.\nPlaces API Usage and Billing\nRoutes API Usage and Billing\nPricing calculator\nPeople also ask :\nIs Google API for free?\nIs Google Pay API free?\nDo you have to pay for Google API?\nHow does Google API pricing work?\nGoogle for Developers\nhttps://developers.google.com > ... > Places API\nPlaces API Usage and Billing",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.951728",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

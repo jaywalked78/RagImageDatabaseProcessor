@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000014.jpg",
+  "metadata": {
+    "id": "recTS9kq1r62wCyCo",
+    "createdTime": "2025-03-27T20:38:37.000Z",
+    "FrameID": "1rDrDv9m2DtOdcrraxKATY6bw5UdZQUyY",
+    "FrameNumber": "14",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000014.jpg",
+    "Summary": "The frame shows the n8n workflow editor and the 'Handling Job Application Submissions' workflow. The 'Test workflow' button is visibly pressed down, indicating the user has just clicked it to initiate a test run of the workflow. The workflow is likely transitioning from an inactive state to a testing or running state.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Initiating workflow test, Clicking 'Test workflow' button, Workflow execution starting",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Workflow State: Transitioning to testing/running, View: Editor, Button: 'Test workflow' is pressed, URL: jaywalked.app.n8n.cloud/workflow/V6Y3yWDiI4DQMLlu",
+    "RelationshipToPrevious": "This frame directly follows frame 13, where the user was preparing to test the workflow. This frame captures the moment the user initiates the test run.",
+    "StageOfWork": "Testing",
+    "Timestamp": "00:09:42:10",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application\n9 days left in your n8n trial | 0/1000 Executions\nn8n\nHandling Job Applicat...ions + Add tag Inactive Share Save\nOverview Projects Personal Admin Panel Templates Variables Help 2 updates\nSet up template\nJason Cox\nYou have control\nEditor Executions\nFinish up\nTest workflow",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.949442",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000053.jpg",
+  "metadata": {
+    "id": "recdFC4MVrPSFtn2f",
+    "createdTime": "2025-03-27T20:46:13.000Z",
+    "FrameID": "1LDlsVZIjmwp8z5MibrpQVlyA0ngefE5E",
+    "FrameNumber": "53",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000053.jpg",
+    "Summary": "This frame shows an error message displayed on an n8n form hosted on n8n cloud. The form, part of the 'Handling Job Application Submissions' workflow, failed to load, with the message 'Problem loading form' and 'The execution \"6\" has finished with error.' The 'You have control' message and 'Finish up' button from OpenAI's Operator are still visible at the bottom, indicating the user remains in manual control despite the form error.",
+    "ToolsVisible": "Web Browser, n8n Form (hosted on n8n cloud), OpenAI's Operator (control message)",
+    "ActionsDetected": "Observing n8n form error, Form loading failure, Troubleshooting n8n form execution, User still in 'You have control' mode",
+    "TechnicalDetails": "Form URL: jaywalked.app.n8n.cloud/form-waiting/6, Error Message: 'Problem loading form', Error Details: 'The execution \"6\" has finished with error.', Branding: 'Form automated with n8n' with n8n logo, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame is likely a consequence of actions in previous frames, potentially related to the 'Handling Job Application Submissions' workflow execution. The form loading error could be a result of configuration issues, quota problems encountered earlier (frame 34, 49), or other runtime errors within the n8n workflow. The user is still in 'You have control' mode from Operator, suggesting they are manually investigating this error.",
+    "StageOfWork": "Debugging/Error Handling",
+    "Timestamp": "00:52:07:43",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Problem loading form\nThe execution \"6\" has finished with error.\nForm automated with n8n\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.956848",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

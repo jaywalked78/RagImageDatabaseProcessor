@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000055.jpg",
+  "metadata": {
+    "id": "rec6KeKnyzJH7adFv",
+    "createdTime": "2025-03-27T20:46:35.000Z",
+    "FrameID": "1xKE3Zrf0_qX_1klS5PR2SeA0OMGYUGYY",
+    "FrameNumber": "55",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000055.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface with the browser panel displaying a blurred webpage titled 'job application automation'. A loading spinner is visible in the center of the blurred area, indicating the webpage within Operator is currently loading. The 'Save task' button remains visible in the top right corner of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage loading within Operator, Waiting for content to load after resuming Operator control, Returning to Operator's browser panel",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation', Loading indicator: Spinner in the center of the blurred content area, UI elements: 'Save task' button visible in Operator's header",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 54, where the user clicked 'Resume Operator' to get assistance with the 'Upload File to Record' node error. This frame shows the Operator interface immediately after resuming control, with the browser panel in a loading state, possibly reloading or navigating to a new page relevant to the error or next step in the workflow.",
+    "StageOfWork": "Debugging/Error Handling/Resuming AI Assistant Interaction",
+    "Timestamp": "00:57:26:07",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.957229",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

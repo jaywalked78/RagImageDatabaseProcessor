@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000023.jpg",
+  "metadata": {
+    "id": "recxOiN0wonmV7FYD",
+    "createdTime": "2025-03-27T20:40:16.000Z",
+    "FrameID": "1P0ytUeWqOuqfi69-5HPOoe9hxnX74mHN",
+    "FrameNumber": "23",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000023.jpg",
+    "Summary": "This frame displays a modal window within n8n, specifically for configuring a 'Google Gemini (PaLM) API account'. The user is prompted to enter their API Key for the Google Gemini (PaLM) API, with the Host field pre-filled with 'https://generativelanguage.googleapis.com'. This modal is likely opened from the 'Google Gemini Chat Model' node that showed an error in frame 21.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Configuring Google Gemini API credentials in n8n, Entering API Key for Google Gemini node, Connecting n8n to Google Gemini API",
+    "TechnicalDetails": "Modal title: 'Google Gemini(PaLM) Api account', Service: Google Gemini(PaLM) Api, Fields: 'Host' (pre-filled: https://generativelanguage.googleapis.com), 'API Key' (empty), Buttons: 'Save', 'X' (close), Help link: 'Open docs', Assistant link: '+ Ask Assistant for setup instructions'",
+    "RelationshipToPrevious": "This frame directly follows frame 22 (Google AI Studio API key page) and frame 21 (n8n workflow with Gemini node error). It shows the user is now in n8n, configuring the 'Google Gemini Chat Model' node using the API key they likely obtained from Google AI Studio, resolving the error seen in frame 21.",
+    "StageOfWork": "Configuration/Development",
+    "Timestamp": "00:12:04:36",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google Gemini(PaLM) Api account\nConnection\nSharing\nDetails\nHost\nhttps://generativelanguage.googleapis.com\nAPI Key\nEnterprise plan users can pull in credentials from\nexternal vaults. More info\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.951171",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

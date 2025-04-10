@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000060.jpg",
+  "metadata": {
+    "id": "reczyhRN96UC6diDw",
+    "createdTime": "2025-03-27T20:47:42.000Z",
+    "FrameID": "1Jz9p_ClYk66CIXUekIesfdXMr8mA2lGz",
+    "FrameNumber": "60",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000060.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface providing guidance to the user. The chat panel instructs the user to 'tap Back to Canvas in top left corner', implying the user is currently viewing a node configuration or execution details in n8n. The browser panel on the right displays a blurred webpage, likely the n8n interface, and the 'You have control' message persists at the bottom.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Following Operator's instructions, Preparing to navigate back to n8n canvas, Potentially about to click 'Back to Canvas' button in n8n, Still in 'You have control' mode",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Operator Chat Message: 'To close node, please tap Back to Canvas in top left corner', UI element: 'You have control' bar at the bottom, Browser panel content: Blurred webpage, likely showing n8n interface (node configuration or execution view based on context)",
+    "RelationshipToPrevious": "This frame is a continuation of frame 59, where the user was viewing the n8n workflow canvas in debug mode, and Operator was already instructing to 'tap Back to Canvas'. Frame 60 reinforces this instruction and shows the user likely preparing to follow it.",
+    "StageOfWork": "Debugging/Error Handling/Guidance by AI Assistant",
+    "Timestamp": "00:59:07:56",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "I got the airtable node to work correctly but I'm not sure why the file upload node is not executing correctly.\nWorked for 1 minute\nTo close node, please tap Back to Canvas in top left corner\nUnpinning data for workflow debugging\nMessage Operator\nOperator retains screenshots of its actions. Please monitor its work. It can make mistakes.\nYou have control",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.958189",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

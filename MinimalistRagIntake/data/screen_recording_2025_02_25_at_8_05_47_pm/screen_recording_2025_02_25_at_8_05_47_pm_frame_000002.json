@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000002.jpg",
+  "metadata": {
+    "id": "rec0cO9Es8oJjaaBv",
+    "createdTime": "2025-03-27T20:36:35.000Z",
+    "FrameID": "1ALNtvx2Bk-uNgawcFDf9sGDV5RKzPPw4",
+    "FrameNumber": "2",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000002.jpg",
+    "Summary": "This is the first frame of the screen recording and shows the n8n templates page. The user is viewing the 'Handling Job Application Submissions with AI and n8n Forms' template, which is categorized under 'HR' and 'AI', and published by 'Jimleuk'. They appear to be at the stage of selecting a template to begin building an AI automation solution.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Template browsing, Template selection, Starting new automation project",
+    "TechnicalDetails": "Template Name: Handling Job Application Submissions with AI and n8n Forms, Template Creator: Jimleuk, Template Categories: HR, AI, Template Price: FREE, Button: 'Use workflow' is visible and likely interactive",
+    "RelationshipToPrevious": "First frame, establishing initial context of the user launching n8n and browsing templates to start a new automation project.",
+    "StageOfWork": "Design",
+    "Timestamp": "00:02:25:49",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "n8n\nBack to templates\nProduct Use cases Docs Community Enterprise Pricing\nSign in\nGet started\nHandling Job Application\nSubmissions with AI and n8n\nForms\nPublished 3 months ago\nCREATED BY\nJimleuk\nCATEGORIES\nHR\nAI\nUse workflow\nFREE\nRead static.cloudflareinsights.com",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.946305",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

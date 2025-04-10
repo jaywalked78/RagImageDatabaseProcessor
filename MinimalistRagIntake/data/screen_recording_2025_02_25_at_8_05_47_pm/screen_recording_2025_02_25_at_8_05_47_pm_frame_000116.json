@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000116.jpg",
+  "metadata": {
+    "id": "reclxB0z4z9VC4f7O",
+    "createdTime": "2025-03-27T20:59:43.000Z",
+    "FrameID": "14778su8nYXH5crTqiUyYhnMCQg5mEbaw",
+    "FrameNumber": "116",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000116.jpg",
+    "Summary": "Frame 116 shows the n8n workflow editor, with the configuration panel for the 'Step 2 of 2 - Application Form' node open and in focus. The user is examining the 'Parameters' tab, specifically the 'Options' section and the 'Form Path' setting within it. The 'You have control' message from OpenAI's Operator is still visible, suggesting the user is still in manual control mode and actively reviewing node configurations.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Inspecting configuration of 'Step 2 of 2 - Application Form' node, Examining 'Parameters' tab and 'Options' section within the node configuration, Reviewing 'Form Path' setting, Remaining in 'You have control' mode",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions (inferred from previous frames), View: Editor (Workflow Canvas), Node in Focus: 'Step 2 of 2 - Application Form', Node Configuration Panel: Open and displaying 'Parameters' tab, Node Parameter Section: 'Options', Node Parameter: 'Form Path', Form Path Value: 'job-application-step2of2', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of the manual control phase in n8n, following the successful workflow executions and the persistent 'You have control' message. It indicates the user is still actively engaged in reviewing and potentially adjusting node configurations within the n8n workflow, specifically focusing on the form path settings for the 'Step 2 of 2 - Application Form' node before likely returning control to OpenAI's Operator.",
+    "StageOfWork": "Design/Development/Configuration/Manual Control",
+    "Timestamp": "01:29:52:21",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Step 2 of 2 - Application Form\nParameters Settings Docs\nPull in a test form submission\nTest step\nActivate this workflow to have it also run automatically for new form submissions created via the Production URL. More info\nWhen will this node trigger my flow?\nRequired Field\nAdd Form Element\nOn submission, the user will be taken to the next form node\nOptions\nForm Path\njob-application-step2of2\nIgnore Bots\nUse Workflow Timezone\nAdd option\nI wish this node would...\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.969093",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

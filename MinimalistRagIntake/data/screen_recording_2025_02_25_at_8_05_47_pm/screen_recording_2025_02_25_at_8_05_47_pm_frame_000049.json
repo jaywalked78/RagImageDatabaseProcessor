@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000049.jpg",
+  "metadata": {
+    "id": "recteUPZACiXRiEVY",
+    "createdTime": "2025-03-27T20:45:26.000Z",
+    "FrameID": "1BgZMdD_-TRH19V2WjTR0n9hXrjQXV-UT",
+    "FrameNumber": "49",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000049.jpg",
+    "Summary": "This frame displays an n8n documentation page titled 'Insufficient quota #' within a web browser. The user is viewing documentation related to resolving 'Insufficient quota' errors for OpenAI nodes in n8n, likely troubleshooting the error observed in frame 34. The 'You have control' message and 'Finish up' button from OpenAI's Operator are still visible at the bottom.",
+    "ToolsVisible": "Web Browser, n8n Documentation Website, OpenAI's Operator (control message)",
+    "ActionsDetected": "Viewing n8n documentation, Troubleshooting 'Insufficient quota' error, Consulting documentation for error resolution, Potentially investigating OpenAI API quota issues",
+    "TechnicalDetails": "Page Title: Insufficient quota #, URL (partially visible): docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-langchain.openai/common-issues/#insufficient-quota, Content: Troubleshooting steps for 'Insufficient quota' error, mentioning OpenAI settings page, API keys, and organization billing overview., Cookie consent banner visible at the bottom of the documentation page, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame is directly related to frame 34, where an 'Insufficient quota detected' error was observed on the 'OpenAI Chat Model1' node in n8n. This frame shows the user actively seeking information to resolve this error by consulting n8n documentation.",
+    "StageOfWork": "Debugging/Troubleshooting",
+    "Timestamp": "00:43:41:37",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Insufficient quota\nThis error displays when your OpenAI account doesn't have enough credits or capacity to fulfill your request. This may mean that your OpenAI trial period has ended, that your account needs more credit, or that you've gone over your usage limit. To troubleshoot this error, on your OpenAI settings page:\n\u2022 Select the correct organization for your API key in the first selector in the upper-left corner.\n\u2022 Select the correct project for your API key in the second selector in the upper-left corner.\n\u2022 Check the organization-level billing controls page to ensure that the organization has enough credits. Double-check that you selected the correct organization.\nCookie consent\nWe use cookies and other tracking technologies to improve your browsing experience, to analyze our website traffic, assist our marketing efforts and to understand where our visitors are coming from.\nPrivacy policy\nAccept\nManage settings\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.956099",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

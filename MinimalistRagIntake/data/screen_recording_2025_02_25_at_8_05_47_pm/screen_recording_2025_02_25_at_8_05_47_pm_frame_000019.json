@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000019.jpg",
+  "metadata": {
+    "id": "recf1H2jrsWx2bbjB",
+    "createdTime": "2025-03-27T20:39:34.000Z",
+    "FrameID": "1gbZUr_oOvCykGGgzm0b1FBRLD2n5-T0U",
+    "FrameNumber": "19",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000019.jpg",
+    "Summary": "The frame is predominantly white and appears to be a loading screen or blank page within a web browser. The faint text 'Read www.gstatic.com' at the bottom suggests this is still related to Google services, possibly within Google AI Studio, and the user is waiting for content to load or for a page to fully render.",
+    "ToolsVisible": "Web Browser, Google AI Studio Website (likely related)",
+    "ActionsDetected": "Page loading, Waiting for content, Potential navigation within Google AI Studio",
+    "TechnicalDetails": "URL fragment: Read www.gstatic.com, Blank white screen content, Mouse cursor visible",
+    "RelationshipToPrevious": "This frame follows frame 18 which displayed the Google AI Studio dashboard. This blank frame likely represents an intermediate loading state within Google AI Studio as the user navigates to a new section or feature after viewing the dashboard.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:10:36:02",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "www.gstatic.com",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950439",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

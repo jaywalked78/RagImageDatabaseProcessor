@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000041.jpg",
+  "metadata": {
+    "id": "rec55SaLb7W3S7FyR",
+    "createdTime": "2025-03-27T20:43:56.000Z",
+    "FrameID": "1LcItb6WtCEGn36xYBeV3rouOfvJzMsWj",
+    "FrameNumber": "41",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000041.jpg",
+    "Summary": "This frame shows the n8n workflow editor with the 'Save to Airtable' node configuration panel open, overlaid with the OpenAI Operator's 'Let Operator know what you changed' modal. The user is about to click the 'Resume Operator' button, indicating they are ready to return control to Operator after making manual configurations within n8n.",
+    "ToolsVisible": "n8n, OpenAI's Operator (Modal Window)",
+    "ActionsDetected": "Returning control to OpenAI's Operator, Closing manual n8n configuration session, Preparing to resume interaction with Operator",
+    "TechnicalDetails": "n8n Node Name: Save to Airtable, n8n Node Configuration Panel visible (Formulas tab selected), OpenAI's Operator Modal Title: 'Let Operator know what you changed', Operator Modal Buttons: 'Exit to chat', 'Resume Operator' (highlighted/focused), Operator Modal Prompt: 'Share a short summary to help Operator keep working smoothly.', 'What did you do while you had control? (Optional)', Mouse cursor hovering over 'Resume Operator' button",
+    "RelationshipToPrevious": "This frame is the immediate follow-up to frames 38-40 where the user reviewed the n8n workflow and explored AI Templates while in 'You have control' mode from Operator. Now, the user is explicitly choosing to 'Resume Operator', signifying the end of their manual configuration and a return to AI-assisted workflow building.",
+    "StageOfWork": "Context Switching/Development",
+    "Timestamp": "00:35:26:25",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Save to Airtable\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.954600",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

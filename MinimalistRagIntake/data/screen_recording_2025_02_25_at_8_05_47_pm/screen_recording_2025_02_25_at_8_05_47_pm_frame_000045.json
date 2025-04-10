@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000045.jpg",
+  "metadata": {
+    "id": "recwkYTRvDrv1VLRe",
+    "createdTime": "2025-03-27T20:44:36.000Z",
+    "FrameID": "132Am8_qJhESJn2dkueCfwDvY8dypPbw6",
+    "FrameNumber": "45",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000045.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface, with the browser panel displaying a blurred webpage titled 'job application automation'. The loading spinner is not visible, but the content remains blurred, suggesting the page might be loaded but intentionally obscured by Operator, or still partially rendering.  The 'Share' and 'Save task' buttons are visible in the top right corner of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage loaded or partially loaded within Operator, Waiting for Operator to present next steps or guidance, Browser content blurred but visible",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation', Loading indicator: Spinner is not visible, UI elements: 'Share' and 'Save task' buttons visible in Operator's header, Browser content: Blurred webpage content visible",
+    "RelationshipToPrevious": "This frame follows frame 44, where the Airtable support page started loading within Operator after resuming control. This frame likely shows the Operator interface shortly after the Airtable support page loaded, although the content is still blurred, possibly as a default state or while Operator processes the page content.",
+    "StageOfWork": "Design/Development/Resuming AI Assistant Interaction",
+    "Timestamp": "00:38:54:05",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Share Save task",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.955357",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

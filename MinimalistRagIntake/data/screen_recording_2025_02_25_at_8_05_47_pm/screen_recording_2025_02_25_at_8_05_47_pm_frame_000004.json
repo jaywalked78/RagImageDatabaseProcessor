@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000004.jpg",
+  "metadata": {
+    "id": "rec2GqYl190Olmbrv",
+    "createdTime": "2025-03-27T20:36:54.000Z",
+    "FrameID": "1yWh6mMu4LLGswHsCRiQXEGrRFdBn0B1X",
+    "FrameNumber": "4",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000004.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface. The user and Operator are engaged in a conversation about 'AI job application automation'. The user has described the pain points of resume parsing and form filling, and Operator is responding with a plan to use n8n and Google Flash 2.0, requesting the n8n template and a sample resume.",
+    "ToolsVisible": "OpenAI's Operator",
+    "ActionsDetected": "Chat interaction, Project discussion, Planning automation strategy, Requesting information for automation",
+    "TechnicalDetails": "Chat interface with messages from 'User' and 'Operator', Project title: 'AI job application automation', Mention of n8n and Google Flash 2.0, Input field labeled 'Message Operator', 'Save task' button visible",
+    "RelationshipToPrevious": "This frame represents a shift from browsing n8n templates in the previous frames to engaging with OpenAI's Operator to discuss the project and plan the automation workflow before starting to build it in n8n.",
+    "StageOfWork": "Design/Planning",
+    "Timestamp": "00:02:31:39",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "AI job application automation\nreasoning. For example, I want it to take in the fields and reason if it's close enough to the required fields it needs like for example: job history is the same as work experience or any other variation of that parameter it needs to be able to read the resume and determine what exactly the fields are and what category they belong in. One of the pain points of applying for jobs is putting in all of the work to create the resume and then having to re-fill out the forms again online. We need a really good classification system on top of what's there existing to determine how to classify each of these fields. Let me know what you need from me. I'll login as needed\nTo get started, I'll set up n8n and explore the template you're using to parse the resume. I'll look into improving the classification and reasoning process for the resume fields. I'll also investigate integrating Google Flash 2.0 or other free APIs for enhanced classification.\nCould you provide the template you're using in n8n? Additionally, if you have a sample resume, that would help in testing the improvements.\nMessage Operator\nOperator retains screenshots of its actions. Please monitor its work. It can make mistakes.",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.946920",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

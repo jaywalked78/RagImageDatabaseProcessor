@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000090.jpg",
+  "metadata": {
+    "id": "recBRS1cji4oGfuEG",
+    "createdTime": "2025-03-27T20:54:00.000Z",
+    "FrameID": "1yomtUKSi4-ZBDd459rhw1tzSXD6t5mzU",
+    "FrameNumber": "90",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000090.jpg",
+    "Summary": "Frame 90 shows the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with a visible error message related to the 'Save to Airtable' node. The error is 'Forbidden - perhaps check your credentials?', indicating an issue with the Airtable connection or API key. The user is still in 'You have control' mode, likely troubleshooting the Airtable credential problem.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing error message for 'Save to Airtable' node, Analyzing Airtable connection error, Potentially investigating Airtable credentials, Remaining in 'You have control' mode",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Error Message: 'Problem in node 'Save to Airtable', Error Details: 'Forbidden - perhaps check your credentials?', Nodes partially visible: Save to Applicant Tracking System, Save to Airtable, Upload File to Record, Redirect to Application Form, Language Models, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame shows a continuation of the debugging efforts within the n8n workflow. While previous frames showed issues with the 'Extract from File' and 'Upload File to Record' nodes, this frame highlights a new error related to the 'Save to Airtable' node and credential problems. This suggests the debugging process is progressing, and the user is now focusing on resolving the Airtable integration issue, possibly after addressing the file upload problem.",
+    "StageOfWork": "Debugging/Error Handling/Credential Verification",
+    "Timestamp": "01:20:16:23",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nSave to Applicant Tracking System\n5. Redirect Language Models\nProblem in node 'Save to Airtable'\nForbidden - perhaps check your credentials?",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.963988",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

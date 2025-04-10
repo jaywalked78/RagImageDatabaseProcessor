@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000048.jpg",
+  "metadata": {
+    "id": "recMAF8Y2jEco4lJ7",
+    "createdTime": "2025-03-27T20:45:13.000Z",
+    "FrameID": "1KINhV03hPnGy2msL6_zXzTZiDdSpNbKh",
+    "FrameNumber": "48",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000048.jpg",
+    "Summary": "This frame displays the OpenAI Operator interface. The browser panel on the right shows a blurred webpage with the title 'job application automation'.  No loading indicator is visible, suggesting the page has loaded, although it remains blurred. The 'Share' and 'Save task' buttons are visible in the Operator interface header.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage loaded within Operator (blurred), Potentially waiting for Operator's next instructions or actions, Resumed interaction with Operator",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'job application automation', Loading indicator: Not visible (implies page load completion), UI elements: 'Share' and 'Save task' buttons visible",
+    "RelationshipToPrevious": "This frame continues from frame 47, where the user was configuring the Airtable Personal Access Token and was about to resume Operator control.  Frame 48 shows the Operator interface after resuming control, with the browser panel loaded but still blurred, likely awaiting further instructions or actions from Operator.",
+    "StageOfWork": "Design/Development/Resuming AI Assistant Interaction",
+    "Timestamp": "00:42:04:22",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Application automation Share Save task",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.955916",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000009.jpg",
+  "metadata": {
+    "id": "recWbZpkrzZOapOB3",
+    "createdTime": "2025-03-27T20:37:49.000Z",
+    "FrameID": "1dETzHk07wWP-Ebh6jP5CTNCQ36m4c4oI",
+    "FrameNumber": "9",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000009.jpg",
+    "Summary": "This frame shows a blank screen within the OpenAI Operator interface for the 'AI job application automation' project. It appears to be a waiting state within the Operator, possibly indicating that the Operator is ready for the next user input or is processing something in the background.",
+    "ToolsVisible": "OpenAI's Operator",
+    "ActionsDetected": "Waiting for user input or Operator response, Interface in idle state",
+    "TechnicalDetails": "Project title: 'AI job application automation' visible, Blank content area within Operator interface, Minimal UI elements (Share, Save task) visible",
+    "RelationshipToPrevious": "This frame is a continuation of the interaction with OpenAI Operator, following the context switch back to Operator in frame 8. It likely represents a pause or waiting period in the conversation or task execution within Operator.",
+    "StageOfWork": "Design/Planning",
+    "Timestamp": "00:06:03:55",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.948460",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

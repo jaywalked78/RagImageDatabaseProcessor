@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000040.jpg",
+  "metadata": {
+    "id": "rec9oelrENpWExzrz",
+    "createdTime": "2025-03-27T20:43:45.000Z",
+    "FrameID": "1U6uvle5tA22Yb9fcKbnOTVltIGy8W-6C",
+    "FrameNumber": "40",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000040.jpg",
+    "Summary": "This frame showcases the n8n workflow editor displaying the 'Handling Job Application Submissions' workflow in 'Editor' view. The user is viewing the complete workflow diagram, with no sidebars or node configurations currently open. The persistent 'You have control' message and 'Finish up' button from OpenAI's Operator at the bottom indicate the user is still in manual control of the n8n interface.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Workflow visualization in n8n editor, Reviewing the entire workflow diagram layout, No active configuration or editing visible",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, View: Editor, Workflow State: Inactive, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), Visible Nodes (partial list): 'With Job Role Context', 'Save to Applicant Tracking System', 'Redirect to Application Form', 'Application Form to Airtable'",
+    "RelationshipToPrevious": "This frame is a continuation of frames 38 and 39, where the user was reviewing the n8n workflow diagram after exploring AI Templates.  It reinforces the observation that the user is currently focused on visualizing and understanding the overall structure of the 'Handling Job Application Submissions' workflow before potentially returning control to OpenAI's Operator.",
+    "StageOfWork": "Design/Development/Review",
+    "Timestamp": "00:35:00:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nOverview\nProjects\nPersonal\nMy project\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.954414",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

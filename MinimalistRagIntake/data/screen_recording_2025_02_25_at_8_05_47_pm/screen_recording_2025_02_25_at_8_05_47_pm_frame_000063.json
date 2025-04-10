@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000063.jpg",
+  "metadata": {
+    "id": "recSevbwO14PoJv9K",
+    "createdTime": "2025-03-27T20:48:13.000Z",
+    "FrameID": "1y_8aG0ob_WxDK3FT2BX8_PZDMsxIdV68",
+    "FrameNumber": "63",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000063.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface, with the browser panel displaying a blurred webpage titled 'AI job application automation'. There is no loading spinner visible, suggesting the page has loaded, but the content remains blurred. The 'Share' and 'Save task' buttons are visible in the top right corner of the Operator interface.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Webpage loaded within Operator (blurred), Potentially waiting for Operator's next instructions or actions, Resumed interaction with Operator",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'AI job application automation', Loading indicator: Not visible (implies page load completion), UI elements: 'Share' and 'Save task' buttons visible, Browser content: Blurred webpage content visible",
+    "RelationshipToPrevious": "This frame is very similar to frame 62, continuing to show the Operator interface after resuming control. It appears to be a stable state where the browser panel is loaded but blurred, likely awaiting further instructions or actions from Operator in the chat panel.",
+    "StageOfWork": "Debugging/Error Handling/Resuming AI Assistant Interaction",
+    "Timestamp": "00:59:40:40",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "AI job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.958837",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

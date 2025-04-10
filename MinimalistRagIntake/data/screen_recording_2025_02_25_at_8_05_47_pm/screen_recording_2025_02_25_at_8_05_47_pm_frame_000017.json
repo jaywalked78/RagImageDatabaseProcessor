@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000017.jpg",
+  "metadata": {
+    "id": "recq5sIUJjxtvJH3k",
+    "createdTime": "2025-03-27T20:39:10.000Z",
+    "FrameID": "1uWPwi3HaDtlAwYL2StEpgc20D4c2weIW",
+    "FrameNumber": "17",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000017.jpg",
+    "Summary": "The frame is completely blank and white, with the URL 'aistudio.google.com' visible at the bottom left corner. This indicates the user has navigated to Google AI Studio in a web browser, and the page is either loading or displaying a completely empty state.",
+    "ToolsVisible": "Web Browser, Google AI Studio Website (likely)",
+    "ActionsDetected": "Navigating to Google AI Studio, Page loading (potentially), Starting interaction with Google AI Studio",
+    "TechnicalDetails": "URL: aistudio.google.com, Blank white screen content",
+    "RelationshipToPrevious": "This frame follows the previous frame which showed the Firefox start page, and before that, research on Claude pricing. This suggests a shift back to Google's AI offerings, potentially to explore Google AI Studio after researching Claude and Gemini pricing.",
+    "StageOfWork": "Design/Planning",
+    "Timestamp": "00:10:23:28",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "No readable text",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950007",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

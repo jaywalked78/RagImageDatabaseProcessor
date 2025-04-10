@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000099.jpg",
+  "metadata": {
+    "id": "recDj7GVDD4TpR6Gr",
+    "createdTime": "2025-03-27T20:55:48.000Z",
+    "FrameID": "1tMQQI3CcJAEdQyHtHWTqB8VUDHEN_OXk",
+    "FrameNumber": "99",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000099.jpg",
+    "Summary": "Frame 99 displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The transient 'Workflow executed successfully' message from previous frames is no longer visible. The user is viewing the workflow canvas, focusing on nodes at the end of the workflow such as 'Application Form' and 'Form Success', and the 'You have control' message with the 'Finish up' button from OpenAI's Operator is still present at the bottom, indicating the user is very likely about to conclude the manual control phase.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Noting the disappearance of the 'Workflow executed successfully' message, Reviewing the end section of the workflow after successful execution, Likely about to click 'Finish up' and return control to OpenAI's Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' message - Not visible (transient message), Error Message: Not visible (previous errors resolved), Nodes visible: Application Form, Redirect To Step 2 of 2, Step 2 of 2 - Application Form, Save to Airtable1, Form Success, Node labels visible: Ending, update: record, Form Ending, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 98, following the successful workflow execution and the disappearance of the transient success message. The user is still in the n8n interface, in manual control provided by OpenAI's Operator, and is highly likely in the final stage of reviewing the workflow and preparing to return control to the AI.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:22:30:30",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nApplication Form\n6. Application Form to Amend Details\nStep 2 of 2 - Application Form\nSave to Airtable1\nForm Success\nChange Base URL here!\nThis redirect requires the full base URL, change it to the host of your n8n instance.\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.965695",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

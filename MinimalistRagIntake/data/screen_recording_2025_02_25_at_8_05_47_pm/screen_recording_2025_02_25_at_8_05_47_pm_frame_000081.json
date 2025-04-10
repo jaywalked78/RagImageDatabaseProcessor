@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000081.jpg",
+  "metadata": {
+    "id": "recexUGbMpGcSu41Y",
+    "createdTime": "2025-03-27T20:51:53.000Z",
+    "FrameID": "1vLfbMa-p_tNJORnbkWUrZtBNU4Xt3DSh",
+    "FrameNumber": "81",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000081.jpg",
+    "Summary": "This frame displays the n8n workflow editor, specifically the configuration panel for an 'Airtable Personal Access Token account' node. The connection test is successful, indicated by a green 'Connection tested successfully' message. The user is likely configuring the Airtable connection by providing an Access Token, and is still under the 'You have control' state from OpenAI's Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Configuring Airtable connection in n8n, Entering Airtable Personal Access Token, Testing Airtable connection, Observing successful connection test, Managing Airtable API credentials",
+    "TechnicalDetails": "Tool: n8n, Node Configuration: Airtable Personal Access Token account, Configuration Tab: Connection (active tab), Message: 'Connection tested successfully' (green indicator), Button: 'Retry', Field: 'Access Token' (masked input), Scopes recommendation: data.records:read, data.records:write, schema.bases:read, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame represents a return to the n8n workflow configuration within the OpenAI Operator context, after a possible brief detour in frame 80 to view Google Gemini API pricing. It shows the user actively configuring an Airtable connection, likely as part of resolving the earlier 'Upload File to Record' node issue or as a next step in the workflow building process guided by Operator.",
+    "StageOfWork": "Configuration/Integration/Debugging",
+    "Timestamp": "01:11:22:04",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Airtable Personal Access Token account\nAirtable Personal Access Token API\nConnection\nConnection tested successfully\nSharing\nDetails\nNeed help filling out these fields? Open docs\nAsk Assistant for setup instructions\nAccess Token\nMake sure you enabled the following scopes for your token:\ndata.records: read\ndata.records: write\nschema.bases: read\nEnterprise plan users can pull in credentials from external vaults. More info\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: api_key"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.962240",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

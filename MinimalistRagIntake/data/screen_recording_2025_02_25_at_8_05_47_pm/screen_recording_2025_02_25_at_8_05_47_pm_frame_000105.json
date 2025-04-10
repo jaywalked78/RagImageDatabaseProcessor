@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000105.jpg",
+  "metadata": {
+    "id": "rechsKGaO5CZl4fud",
+    "createdTime": "2025-03-27T20:57:04.000Z",
+    "FrameID": "1FqiEL6nxoO2NXOe4h3HZdl7GnTELxE_s",
+    "FrameNumber": "105",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000105.jpg",
+    "Summary": "Frame 105 shows the split-screen interface of OpenAI's Operator. On the left, Operator's AI assistant is providing debugging instructions for the 'Save to Airtable1' node, suggesting credential verification, base/table name checks, and configuration comparison. On the right, the n8n workflow editor is visible, displaying the 'Handling Job Application Submissions' workflow with the 'Save to Airtable1' node still showing an error indicator, confirming the Airtable issue persists.",
+    "ToolsVisible": "OpenAI's Operator, n8n, Web Browser",
+    "ActionsDetected": "AI Assistant (Operator) providing debugging instructions, User viewing n8n workflow editor, User likely following Operator's debugging steps, Observing persistent error on 'Save to Airtable1' node",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Tool: n8n, Interface: OpenAI Operator split-screen (chat panel left, n8n in browser right), Task Title: 'AI job application automation' (inferred from previous frames), Operator Instructions: 'Verify that the correct Airtable credentials are selected.', 'Ensure that the base and table names are correctly specified.', 'Compare the configuration with the working \"Save to Airtable\" node to identify any differences.', Operator Action: 'I'll start by inspecting the \"Save to Airtable1\" node's settings to identify any discrepancies or issues.', Error Indicator: Present on 'Save to Airtable1' node (red triangle), Node visible and labelled with error: 'Save to Airtable1', Workflow Name: Handling Job Application Submissions (in n8n), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 104, showing the OpenAI Operator interface after the user returned from manual control in n8n. Operator is now actively providing specific debugging steps to address the persistent Airtable connection issue, as indicated by the error on the 'Save to Airtable1' node in the visible n8n workflow.",
+    "StageOfWork": "Debugging/Error Handling (AI-Guided by Operator)",
+    "Timestamp": "01:25:25:26",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Al job application automation\nHandling Job Application Submissions\nApplication Form\n6. Application Form to Amend Details\nSave to Airtable1\nupdate record\nVerifying settings for Airtable node\nView in browser\nMessage Operator\nOperator retains screenshots of its actions. Please monitor its work. It can make mistakes.",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.966831",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

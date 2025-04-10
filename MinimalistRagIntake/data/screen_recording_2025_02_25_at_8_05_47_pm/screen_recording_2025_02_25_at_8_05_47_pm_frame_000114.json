@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000114.jpg",
+  "metadata": {
+    "id": "recy9uwG7sfwboVXF",
+    "createdTime": "2025-03-27T20:59:12.000Z",
+    "FrameID": "1s_FJDA1gWaj_X8RZ7IAIaMaDerdqEjCT",
+    "FrameNumber": "114",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000114.jpg",
+    "Summary": "Frame 114 presents the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with the 'Workflow executed successfully' message still prominently displayed at the bottom right. The user is viewing the workflow canvas, confirming the consistently successful execution. The 'You have control' message and 'Finish up' button from OpenAI's Operator continue to be visible, strongly suggesting the user is about to conclude the manual control phase.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing and confirming the persistent 'Workflow executed successfully' message, Reviewing the workflow interface after multiple successful execution indications, Likely finalizing review and preparing to click 'Finish up' to return control to OpenAI's Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' (green popup at bottom right), Error Message: Not visible (previous errors resolved), Nodes visible: Submission Success, Redirect To Step 2 of 2, Node labels visible: Next Form Page, Form Ending, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 113, further solidifying the consistent successful workflow execution. The continued presence of the 'Workflow executed successfully' message, now across a significant sequence of frames (92-99, 111-114), firmly establishes the successful operation of the workflow. The user's actions are now almost certainly focused on concluding manual control and returning to the automated workflow guided by OpenAI's Operator.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:29:09:55",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nEditor Executions\n5. Redirect to Application Form\nLearn more about Form Ending\nFinally to complete the form flow for step 1 of 2, we'll use a form ending node to redirect the user to step 2 of 2.\nHere, we using query params as part of our redirect as this will pre-fill the form fields in step 2 of 2.\nSubmission Success\nNext Form Page\nRedirect To Step 2 of 2\nForm Ending\nChange Base URL here!\nWorkflow executed successfully\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.968672",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

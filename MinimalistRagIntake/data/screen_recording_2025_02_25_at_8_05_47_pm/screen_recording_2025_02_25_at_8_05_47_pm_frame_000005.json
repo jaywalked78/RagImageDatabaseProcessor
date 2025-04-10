@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000005.jpg",
+  "metadata": {
+    "id": "recDWwLeIxE6OVIgu",
+    "createdTime": "2025-03-27T20:37:06.000Z",
+    "FrameID": "1H0D4vlG8c3YHuEruR7Ur4xCOOHb1_u_V",
+    "FrameNumber": "5",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000005.jpg",
+    "Summary": "This frame shows a blank screen within the OpenAI Operator interface, titled 'AI Job application automation'.  It appears to be a clean slate, possibly indicating the start of a new interaction or a cleared chat history within the Operator tool, ready for the next user input or Operator response.",
+    "ToolsVisible": "OpenAI's Operator",
+    "ActionsDetected": "Interface initialization, Potentially waiting for user input or Operator response, Starting a new task within Operator",
+    "TechnicalDetails": "Project title: 'AI Job application automation', Visible elements: 'Share' and 'Save task' buttons, user avatar 'J', Blank chat/content area",
+    "RelationshipToPrevious": "This frame directly follows the initial interaction with OpenAI Operator in frame 4, where the project was discussed. This blank state might represent the beginning of a new turn in the conversation or a reset of the Operator interface.",
+    "StageOfWork": "Design/Planning",
+    "Timestamp": "00:03:33:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.947226",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

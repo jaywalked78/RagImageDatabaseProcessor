@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000021.jpg",
+  "metadata": {
+    "id": "recyP1H47d7JOQBQt",
+    "createdTime": "2025-03-27T20:39:57.000Z",
+    "FrameID": "1EDUm3s4VIVpKNQwsIc8xyV4_0kF8ixJ0",
+    "FrameNumber": "21",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000021.jpg",
+    "Summary": "This frame shows the n8n workflow editor, displaying the 'Handling Job Application Submissions' workflow in 'Editor' view. The workflow is inactive, and a red exclamation mark icon is visible on the 'Google Gemini Chat Model' node, indicating a potential error or configuration issue within this node of the workflow.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Workflow visualization, Identifying potential node error, Reviewing workflow configuration",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Workflow State: Inactive, View: Editor, Node with error: Google Gemini Chat Model (indicated by red exclamation mark icon), Nodes visible: Extract from File, Classify Document, Google Gemini Chat Model, OpenAI Chat Model2, File",
+    "RelationshipToPrevious": "This frame is a continuation of the previous frames showing the n8n workflow editor and the 'Handling Job Application Submissions' workflow. It highlights a potential issue within the workflow that needs attention.",
+    "StageOfWork": "Debugging/Development",
+    "Timestamp": "00:11:13:01",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application\nn8n\nHandling Job Applicat...ions\nOverview\nProjects\nPersonal\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\n9 days left in your n8n trial\n0/1000 Executions\nUpgrade now\nSet up template\nClassify Document\nExtract from File\nExtract From PDF\nOpenAI Chat Model2\nGoogle Gemini Chat\nTest workflow\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950803",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

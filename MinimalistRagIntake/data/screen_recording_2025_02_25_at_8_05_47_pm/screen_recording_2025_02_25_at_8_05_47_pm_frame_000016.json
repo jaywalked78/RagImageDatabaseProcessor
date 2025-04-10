@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000016.jpg",
+  "metadata": {
+    "id": "recAGzNquDNKuMCU6",
+    "createdTime": "2025-03-27T20:38:57.000Z",
+    "FrameID": "1aKNi0mh80kCMbGHgmg4wRvxXqb08QIql",
+    "FrameNumber": "16",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000016.jpg",
+    "Summary": "The frame shows the default start page of the Firefox web browser. The user is presented with quick links to various websites (Amazon, Temu, Old Navy, ChatGPT, Sora, Youtube, etc.) and 'Thought-provoking stories' news articles. There is no specific automation-related activity visible in this frame, suggesting a break or a transition between tool usages.",
+    "ToolsVisible": "Web Browser, Firefox",
+    "ActionsDetected": "Browsing web browser start page, Viewing quick links and news headlines",
+    "TechnicalDetails": "Browser: Firefox, Quick links visible: Amazon, Temu, Old Navy, chatgpt, sora, youtube, unified.c..., drive.go..., News articles section 'Thought-provoking stories'",
+    "RelationshipToPrevious": "This frame represents a shift away from the previous frame (frame 15) where the user was researching Claude 3.7 Sonnet pricing. It's a context switch to a standard web browser start page, possibly indicating a pause in the research or a transition to a different task.",
+    "StageOfWork": "Context Switching/Browsing",
+    "Timestamp": "00:10:03:06",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Firefox\nSearch with Google or enter address\nAmazon\nTemu\nOld Navy\nchatgpt\nsora\nyoutube\nunified.c...\ndrive.go...\nThought-provoking stories\nThe Guardian\nRachel Maddow Staff to Be Let Go\nAs Part of MSNBC Overhaul\nNews comes as leading network star\ncriticizes management for decision to\ncancel shows hosted by non-white...\nBusiness\nfinancebuzz.com\nPay Off Your Debt Like The Rich Do\nDebt is a universal struggle and you're\nnot alone. Here is what to do.\nSponsored by FinanceBuzz\nSlate\nEvery Book Lover Dreams of It. Few\nEver Get It.\nThe ascendance of the book ladder.\nEntertainment\n68\u00b0F\nGranbury",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.949820",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

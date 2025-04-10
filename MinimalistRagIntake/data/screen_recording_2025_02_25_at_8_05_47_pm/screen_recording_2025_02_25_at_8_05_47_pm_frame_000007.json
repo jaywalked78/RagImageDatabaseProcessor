@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000007.jpg",
+  "metadata": {
+    "id": "recmw1Gc2FsH9WYK6",
+    "createdTime": "2025-03-27T20:37:27.000Z",
+    "FrameID": "1W_YmUr6mXbHkvhAER3lL97djke4wb_vl",
+    "FrameNumber": "7",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000007.jpg",
+    "Summary": "This frame displays the n8n login page. The user is attempting to sign in using their email (jaywalked78@gmail.com) and password, but is encountering multiple 'Problem logging in' error messages, indicating a failed login attempt.",
+    "ToolsVisible": "n8n, Web Browser",
+    "ActionsDetected": "Login attempt, Encountering login error",
+    "TechnicalDetails": "n8n login page, Email: jaywalked78@gmail.com, Multiple 'Problem logging in' error messages, Error message suggests checking username/password and caps lock",
+    "RelationshipToPrevious": "This frame shows the user attempting to log into n8n, likely to access or create workflows after browsing templates and discussing the project with Operator in previous frames. It indicates a necessary step before further workflow development can occur.",
+    "StageOfWork": "Initial Setup/Login",
+    "Timestamp": "00:04:43:19",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Sign in\nEmail\njaywalked78@gmail.com\nPassword\nSign in\nForgot my password\nProblem logging in\nWrong username or password. Do\nyou have caps lock on?\nProblem logging in\nWrong username or password. Do\nyou have caps lock on?\nProblem logging in\nWrong username or password. Do\nyou have caps lock on?\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: email, password"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.947832",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

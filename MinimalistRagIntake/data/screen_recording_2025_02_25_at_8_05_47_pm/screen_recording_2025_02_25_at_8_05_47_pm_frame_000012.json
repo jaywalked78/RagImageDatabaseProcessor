@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000012.jpg",
+  "metadata": {
+    "id": "recWEw44kqm0aU18J",
+    "createdTime": "2025-03-27T20:38:21.000Z",
+    "FrameID": "1q6EAso6V2zCaklP5Cvp5CCpNbaBalhnI",
+    "FrameNumber": "12",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000012.jpg",
+    "Summary": "This frame displays the n8n workflow editor, showing the 'Handling Job Application Submissions' workflow in 'Editor' view. The workflow is inactive, and the user is likely reviewing the visual layout of the nodes and connections in the workflow, possibly before initiating a test run. The 'Test workflow' button is visible and prominent.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Workflow visualization, Workflow review, Preparing for workflow testing",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Workflow State: Inactive, View: Editor, Button: 'Test workflow' is visible and highlighted, Visible Nodes (partially): 1. Application Form To Upload CV, 2. Document Classifier and Reupload Form, 3. Smarter Applications Pre-fill with Job Role Context, 4. Save to Applicant Tracking System",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 11, further illustrating the user's review of the 'Handling Job Application Submissions' workflow within the n8n editor interface.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:09:05:46",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application\n9 days left in your n8n trial\n0/1000 Executions\nUpgrade now\nHandling Job Applicat...ions\nOverview\nProjects\nPersonal\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nYou have control\nFinish up\nTest workflow",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.949046",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

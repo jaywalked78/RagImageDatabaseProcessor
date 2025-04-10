@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000051.jpg",
+  "metadata": {
+    "id": "recPO0rSSqYV5P5Qb",
+    "createdTime": "2025-03-27T20:45:52.000Z",
+    "FrameID": "1iSqTLQnIHXP6MVP4h50NlE8tLyAEWdOr",
+    "FrameNumber": "51",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000051.jpg",
+    "Summary": "This frame shows the n8n workflow editor, with a 'Save output changes before closing?' modal window overlaid on the 'Save to Airtable' node configuration panel. The user is prompted to either 'Discard' or 'Save' the changes made to the 'Save to Airtable' node before closing its configuration. The 'You have control' message from OpenAI's Operator remains at the bottom.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Closing n8n node configuration panel, Prompted to save or discard changes, Decision making regarding saving node configuration, Likely about to choose 'Save' or 'Discard'",
+    "TechnicalDetails": "Tool: n8n, Node Name: Save to Airtable, Modal Window Title: 'Save output changes before closing?', Modal Buttons: 'Discard', 'Save' (red), Node Configuration Panel Visible: 'Save to Airtable' (Parameters tab), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame follows frame 50 where the user was browsing n8n templates.  It indicates a return to the 'Handling Job Application Submissions' workflow and the 'Save to Airtable' node configuration, likely after the user decided to continue working on this workflow despite the earlier quota error and template browsing. The user is now closing the 'Save to Airtable' node configuration panel after potentially making adjustments while in 'You have control' mode from Operator.",
+    "StageOfWork": "Design/Development/Manual Configuration",
+    "Timestamp": "00:51:04:58",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Save output changes before closing?",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.956475",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

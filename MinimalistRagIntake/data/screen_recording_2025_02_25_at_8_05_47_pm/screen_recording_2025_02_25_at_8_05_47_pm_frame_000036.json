@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000036.jpg",
+  "metadata": {
+    "id": "recPG6lsjikZjPcNC",
+    "createdTime": "2025-03-27T20:42:57.000Z",
+    "FrameID": "1syxaKmo1zEEEOCPyz8xK8E4P02hACHzt",
+    "FrameNumber": "36",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000036.jpg",
+    "Summary": "This frame shows the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The 'AI Nodes' sidebar is open on the right, and the 'AI Templates' section is expanded, suggesting the user is now exploring available AI Templates to add to this specific workflow. The 'You have control' message from OpenAI's Operator remains visible at the bottom.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Browsing AI Templates within n8n workflow editor, Considering adding AI Template node to workflow, Reviewing available AI Templates options",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Sidebar: AI Nodes, Section: AI Templates (expanded and highlighted as 'Recommended'), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame shows a return to the 'Handling Job Application Submissions' workflow after the user briefly browsed templates generally in frame 35. Now, within the context of this workflow, the user is exploring 'AI Templates' specifically, possibly to enhance or modify the existing workflow with pre-built AI functionalities. The 'You have control' message indicates the user is still in manual control after the Operator-initiated node deletion.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:23:10:13",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nOverview\nProjects\nPersonal\nMy project\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nJason Cox\nAI Nodes\nSelect an AI Node to add to your workflow\nAI Templates\nSee what's possible and get started 5x faster\nAI Agent\nGenerates an action plan and executes it. Can use external tools.\nOpenAI\nMessage an assistant or GPT, analyze images, generate audio, etc.\nBasic LLM Chain\nA simple chain to prompt a large language model\nInformation Extractor\nExtract information from text in a structured format\nQuestion and Answer Chain\nAnswer questions about retrieved documents\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.953611",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

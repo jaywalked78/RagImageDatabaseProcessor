@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000112.jpg",
+  "metadata": {
+    "id": "rec98fva1AYkYXTub",
+    "createdTime": "2025-03-27T20:58:43.000Z",
+    "FrameID": "1o8BA8eHaPT7w1sFIZ3rBBawCwU6Pnqop",
+    "FrameNumber": "112",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000112.jpg",
+    "Summary": "Frame 112 displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow, once again showing the 'Workflow executed successfully' popup at the bottom right. The user is viewing the workflow canvas, confirming the successful execution is consistently reported. The 'You have control' message and 'Finish up' button from OpenAI's Operator are still present, reinforcing the user's likely imminent action to conclude manual control.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing and confirming persistent 'Workflow executed successfully' message, Reviewing workflow structure after repeated successful execution indications, Likely preparing to click 'Finish up' to return control to OpenAI's Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' (green popup at bottom right), Error Message: Not visible (previous errors resolved), Nodes visible: Submission Success, Redirect To Step 2 of 2, Node labels visible: Next Form Page, Form Ending, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 111, further solidifying the successful workflow execution. The repeated appearance of the 'Workflow executed successfully' message across multiple consecutive frames (92-99, 111-112) strongly indicates a consistent successful run of the workflow, likely after resolving the previous Airtable credential issue. The user is now very likely to proceed with concluding manual control and returning to Operator's guidance.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:28:16:04",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nLearn more about Form Ending\nFinally to complete the form flow for step 1 of 2, we'll use a form ending node to redirect the user to step 2 of 2.\nHere, we using query params as part of our redirect as this will pre-fill the form fields in step 2 of 2.\nSubmission Success\nNext Form Page\nRedirect To Step 2 of 2\nForm Ending\nChange Base URL here!\nThis redirect requires the full base URL, change it to the host of your n8n instance\nWorkflow executed successfully\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.968243",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

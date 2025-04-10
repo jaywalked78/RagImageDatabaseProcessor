@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000097.jpg",
+  "metadata": {
+    "id": "recXeIw5jJVwczD7x",
+    "createdTime": "2025-03-27T20:55:21.000Z",
+    "FrameID": "1YssDaPMBnL2rU0vdmR3VACzeLgOwIRmY",
+    "FrameNumber": "97",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000097.jpg",
+    "Summary": "Frame 97 is almost identical to frame 96, continuing to display the n8n workflow editor for the 'Handling Job Application Submissions' workflow with the 'Workflow executed successfully' popup at the bottom right. The user is still viewing the workflow canvas, and the 'You have control' message with the 'Finish up' button from OpenAI's Operator remains prominently visible, reinforcing the user's likely imminent action to conclude manual control.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing the persistent 'Workflow executed successfully' message, Likely in the final moments of reviewing the workflow before relinquishing manual control, Preparing to click 'Finish up' to return control to OpenAI's Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' (green popup at bottom right), Error Message: Not visible (previous errors resolved), Nodes visible: Save to Applicant Tracking System, Redirect to Application Form, Submission Success, Redirect To Step 2 of 2, Save to Airtable, Upload File to Record, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a virtually identical continuation of frame 96, further solidifying the successful workflow execution state and the user's position at the cusp of concluding manual control. The redundancy of the 'Workflow executed successfully' message across frames 92, 93, 96, and 97 strongly suggests the user has confirmed the successful outcome and is ready to proceed with the next steps in the automation process, likely guided again by OpenAI's Operator.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:22:12:08",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nSave to Applicant Tracking System\n5. Redirect to Application Form\nSave to Airtable\nUpload File to Record\nSubmission Success\nRedirect To Step 2 of 2\nChange Base URL here!\nThis redirect requires the full base URL, change it to the host of your n8n instance.\nWorkflow executed successfully\nYou have control\nFinish up",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: url"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.965318",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

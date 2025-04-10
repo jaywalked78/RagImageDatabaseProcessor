@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000052.jpg",
+  "metadata": {
+    "id": "reckkY5bGinND6l99",
+    "createdTime": "2025-03-27T20:46:02.000Z",
+    "FrameID": "1ZXpq-TMlYU82k9xKMJ7L-btpTKXrP7u8",
+    "FrameNumber": "52",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000052.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface with the 'Let Operator know what you changed' modal open, and the user is in the process of clicking the 'Resume Operator' button. Behind the modal, the browser panel displays a webpage that appears to be a web form, likely part of the 'Handling Job Application Submissions' workflow, where the user has possibly been manually inputting data or interacting with the form while in 'You have control' mode.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface)",
+    "ActionsDetected": "Clicking 'Resume Operator' button, Returning control to OpenAI's Operator, Completing manual interaction with a web form (likely job application form), Dismissing 'Let Operator know what you changed' modal",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Modal Title: 'Let Operator know what you changed', Button: 'Resume Operator' (highlighted, mouse cursor visible), Browser panel content: Web form visible in background, title 'Step 1 of 2: Submit Your CV', Form fields visible: 'Name', 'File Upload', Example data in 'Name' field: 'Test', Uploaded file: 'Jason Fox 2024a-Resume-1.pdf'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 51, where the user was prompted to save changes in n8n and was still in 'You have control' mode. Frame 52 shows the user now within the OpenAI Operator interface, having likely completed a manual step, possibly filling out a web form related to the job application process, and is now resuming Operator's automated assistance.",
+    "StageOfWork": "Manual Interaction/Context Switching/Resuming AI Assistant Interaction",
+    "Timestamp": "00:52:02:04",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Step 1 of 2: Submit Your CV\nThank you for your interest in applying for Action Inc. To ensure a speedy process, please ensure you are following all instructions and fill out all required inputs.\nThis also requires you upload your PDF in a password-free PDF format. Any document that is not a CV will be rejected.\nName\nTest\nFile Upload\nChoose File Jason Cox 20242 - Resume 1.pdf\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: personal_data"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.956662",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

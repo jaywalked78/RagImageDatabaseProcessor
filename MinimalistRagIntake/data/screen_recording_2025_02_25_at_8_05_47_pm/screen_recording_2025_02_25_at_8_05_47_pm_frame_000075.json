@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000075.jpg",
+  "metadata": {
+    "id": "recTcdkbWzmgahqDF",
+    "createdTime": "2025-03-27T20:50:37.000Z",
+    "FrameID": "15G2-dTQfliVo4hiDfx69-kwlR82coTE7",
+    "FrameNumber": "75",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000075.jpg",
+    "Summary": "This frame continues to display the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The user is still viewing the workflow canvas and the error message 'Problem in node 'Extract from File'' persists at the bottom right of the interface. The 'You have control' message from OpenAI's Operator remains visible, indicating manual control is still in effect.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing the persistent 'Extract from File' node error message, Continuing to examine the workflow structure, Maintaining 'You have control' mode from Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Error Message: 'Problem in node 'Extract from File'', Error Details: 'This operation expects the node's input data to contain a binary file `File_Upload`, but none was found [item 0]', Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame is consistent with the previous frames (72-74), showing a continued view of the n8n workflow canvas with the 'Extract from File' error message remaining visible. The user appears to be still in the process of debugging and analyzing the workflow in response to the ongoing error, while maintaining manual control under OpenAI's Operator.",
+    "StageOfWork": "Debugging/Error Handling",
+    "Timestamp": "01:06:05:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\n1. Application Form To Upload CV\n2. Document Classifier and ReUpload Form\n3. Smarter Application Pre-fill\nGoogle Gemini Chat Model\nOpenAI Chat Model2\nOpenAI Chat Model1\nStructured Output Parser",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.961105",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

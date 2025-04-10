@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000047.jpg",
+  "metadata": {
+    "id": "rec4uolfGMizl2WB4",
+    "createdTime": "2025-03-27T20:45:01.000Z",
+    "FrameID": "1ZdmFDNBU1vfAACLC5r1JrwJcg7vs4h4d",
+    "FrameNumber": "47",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000047.jpg",
+    "Summary": "This frame displays an Airtable webpage titled 'Personal access token / n8n Credential' within the browser panel of OpenAI's Operator. The user is configuring an Airtable Personal Access Token, likely for use within n8n.  The 'Let Operator know what you changed' modal is still present, and the 'Resume Operator' button is highlighted, indicating the user is about to return control to Operator after configuring the Airtable credential.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (within Operator's interface), Airtable Website",
+    "ActionsDetected": "Configuring Airtable Personal Access Token, Setting up Airtable credential in browser, Preparing to return control to OpenAI's Operator, Reviewing Airtable credential settings (Scopes)",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Browser panel title: 'Personal access token / n8n Credential' (Airtable), Airtable page section: 'Personal access token / n8n Credential', Input field: 'n8n Credential' (Name), Scopes visible: 'data.records:read', 'data.records:write', 'schema.bases:read', 'schema.bases:write', 'webhook:manage', 'user:email:read', Modal Title: 'Let Operator know what you changed', Button: 'Resume Operator' (highlighted/focused)",
+    "RelationshipToPrevious": "This frame directly follows frame 46, where OpenAI's Operator provided instructions for configuring Airtable Personal Access Token permissions. This frame shows the user actively performing these configurations within the Airtable website, as guided by Operator. The presence of the 'Resume Operator' modal indicates this is a user-controlled step before handing back control to the AI assistant.",
+    "StageOfWork": "Configuration/Manual Configuration (Guided by AI Assistant)",
+    "Timestamp": "00:41:53:28",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Builder Hub\nPersonal access token / n8n Credential\nName\nn8n Credential\nScope\ndata record read\ndata record write\naccess user write\nLet Operator know what you changed\nShare a short summary to help Operator keep working smoothly.\nWhat did you do while you had control? (Optional)\nExit to chat\nResume Operator",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: api_key, credentials"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.955730",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

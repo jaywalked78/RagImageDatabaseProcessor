@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000079.jpg",
+  "metadata": {
+    "id": "recnIUxBINcX6rgJt",
+    "createdTime": "2025-03-27T20:51:25.000Z",
+    "FrameID": "1TTMsp-_dQsu7KaDvirUbZnld8jCGLjbX",
+    "FrameNumber": "79",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000079.jpg",
+    "Summary": "This frame presents the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The 'Workflow executed successfully' message from the previous frames is no longer visible, indicating it was a transient notification. The user is viewing the workflow canvas, and the 'You have control' message with the 'Finish up' button from OpenAI's Operator remains visible at the bottom, suggesting they are likely about to finish manual control and return to Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Noting absence of 'Workflow executed successfully' message, Considering 'Finish up' button, Likely preparing to click 'Finish up' and return control to Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' message - Not visible (transient message), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame is a continuation of frame 78, following the successful workflow execution. The disappearance of the 'Workflow executed successfully' message indicates the system has moved beyond that transient notification. The persistent 'You have control' and 'Finish up' elements suggest the user is at the point of concluding their manual interaction and returning control to OpenAI's Operator for the next phase of assistance.",
+    "StageOfWork": "Testing/Successful Execution/Concluding Manual Control",
+    "Timestamp": "01:10:59:48",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\n6. Application Form to Amend Details\nLearn more about Forms\nIn the second part of the application process, applicants are presented with a form containing multiple fields to complete. This step has often been a source of frustration for many, as they end up duplicating information that's already in their CV.\nIf our redirection with prefilled data works as intended, this issue will be resolved, as the fields will be automatically populated by our LLM during step 1 of 2. This also allows candidates the opportunity to review and refine the application fields before submitting.\nStep 2 of 2 - Application\nForm\nSave to Airtable1\nupdate: record\nChange Base URL here!\nredirect requires the full URL, change it to the host our n8n instance.\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.961859",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

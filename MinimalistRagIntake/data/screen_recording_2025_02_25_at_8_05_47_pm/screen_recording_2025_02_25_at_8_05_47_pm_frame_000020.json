@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000020.jpg",
+  "metadata": {
+    "id": "rec73sqxWFMNJkC81",
+    "createdTime": "2025-03-27T20:39:47.000Z",
+    "FrameID": "1of72RaCSWn_VAmYiRXTFZ2cXQf52jX_4",
+    "FrameNumber": "20",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000020.jpg",
+    "Summary": "This frame shows the Google AI Studio interface, displaying the main dashboard with options like 'Get API key', 'Create Prompt', and 'Starter Apps'. It is the same view as in Frame 18, suggesting the user has returned to or remained on the main Google AI Studio dashboard and is ready to choose an action within the platform.",
+    "ToolsVisible": "Web Browser, Google AI Studio",
+    "ActionsDetected": "Navigating Google AI Studio dashboard, Ready to select an option within Google AI Studio",
+    "TechnicalDetails": "Interface: Google AI Studio dashboard, Title: 'Untitled prompt', Menu options: 'Get API key', 'Create Prompt', 'Stream Realtime', 'Starter Apps', 'Tune a Model', 'Library', 'Prompt Gallery', 'API documentation', 'Developer forum', 'Changelog', Footer link: Read www.googletagmanager.com",
+    "RelationshipToPrevious": "This frame is a direct continuation of Frame 18, showing the Google AI Studio dashboard. Frame 19 was likely a loading screen within Google AI Studio. This frame indicates the user is still within Google AI Studio and ready to proceed with using the platform.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:10:37:43",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI Studio\nUntitled prompt\nGet API key\nCreate Prompt\nStream Realtime\nStarter Apps\nTune a Model\nLibrary\nPrompt Gallery\nAPI documentation\nDeveloper forum\nChangelog\nGemini makes mistakes, so double-check it.\nSettings\nRead www.googletagmanager.com",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.950621",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

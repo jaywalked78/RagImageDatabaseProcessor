@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000039.jpg",
+  "metadata": {
+    "id": "reclSFhXHJrP9vO0y",
+    "createdTime": "2025-03-27T20:43:31.000Z",
+    "FrameID": "1zI3ONZutqjIrTeQ3sar6NhxAvvPPcfrn",
+    "FrameNumber": "39",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000039.jpg",
+    "Summary": "This frame shows the n8n workflow editor for the 'Handling Job Application Submissions' workflow in 'Editor' view. The user appears to be reviewing the overall workflow diagram, which is currently inactive. The 'You have control' message and 'Finish up' button from OpenAI's Operator remain visible at the bottom, suggesting the user is still in manual control before potentially returning control to Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message)",
+    "ActionsDetected": "Workflow visualization in n8n editor, Reviewing workflow diagram, Preparing to potentially return control to Operator",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, View: Editor, Workflow State: Inactive, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator)",
+    "RelationshipToPrevious": "This frame is a continuation of frame 38, showing the user still in 'You have control' mode and reviewing the n8n workflow diagram after closing the 'AI Nodes' sidebar. The user is likely assessing the current state of the workflow before deciding to 'Finish up' and return control to OpenAI's Operator.",
+    "StageOfWork": "Design/Development/Review",
+    "Timestamp": "00:35:00:24",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.954179",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

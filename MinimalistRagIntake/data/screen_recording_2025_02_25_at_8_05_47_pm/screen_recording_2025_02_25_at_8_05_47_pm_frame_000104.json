@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000104.jpg",
+  "metadata": {
+    "id": "recTvBhk8dbxasEz3",
+    "createdTime": "2025-03-27T20:56:50.000Z",
+    "FrameID": "1jsVePBFU9i8uEpsI1a0OX4GKf0-vZT4g",
+    "FrameNumber": "104",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000104.jpg",
+    "Summary": "Frame 104 shows the OpenAI Operator interface, specifically the right-hand panel for the 'AI job application automation' task. The central area is blurred and displays a loading spinner, indicating the interface is still loading or refreshing after the user returned control from n8n in the previous frame. The task title and 'Save task' button are visible, confirming the user is back in Operator.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser (inferred)",
+    "ActionsDetected": "Returning to OpenAI Operator interface, Interface still loading/refreshing, Observing task 'AI job application automation', Waiting for task details to fully load after manual control phase",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Interface: Task Panel (right-hand panel), Task Title: 'AI job application automation', UI Elements visible: 'Save task' button, user avatar 'J', loading spinner (in blurred content area), No error messages or configuration panels visible in this frame., Inferred action: Continued loading process after returning to Operator from n8n.",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 103, showing the OpenAI Operator interface still in a loading state after the user returned control from n8n. The persistent loading spinner suggests the interface is still processing information or retrieving task details after the manual control phase in n8n concluded in frame 102.",
+    "StageOfWork": "Returning to AI Guidance/Task Management within Operator",
+    "Timestamp": "01:25:02:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "AI job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.966646",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000110.jpg",
+  "metadata": {
+    "id": "reciOQKivYJcsBVjF",
+    "createdTime": "2025-03-27T20:58:20.000Z",
+    "FrameID": "1qmCH0xLBNzAFglACGioFXRc8xKRJ3EUC",
+    "FrameNumber": "110",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000110.jpg",
+    "Summary": "Frame 110 presents a clear view of the n8n workflow editor for the 'Handling Job Application Submissions' workflow. The user is viewing the workflow canvas, specifically focusing on the 'Submission Success' and 'Redirect To Step 2 of 2' nodes at the end of the workflow. The 'You have control' message and 'Finish up' button from OpenAI's Operator are still visible, indicating the user is likely in the final moments of manual control before returning to Operator.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing workflow structure, particularly the 'Submission Success' and 'Redirect To Step 2 of 2' nodes, Remaining in 'You have control' mode, Likely in the final stages of manual review before clicking 'Finish up'",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), Nodes prominently visible: Submission Success, Redirect To Step 2 of 2, Change Base URL! (annotation on 'Redirect To Step 2 of 2' node), Node labels visible: Next Form Page, Form Ending, n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame is a direct continuation of frame 109, continuing to show the n8n workflow editor and the user in manual control. It reinforces the idea that the user is in the final phase of manual review, likely about to click the 'Finish up' button and return control to OpenAI's Operator after inspecting the workflow and potentially addressing the Airtable error in previous steps, although the error is not visible in this frame.",
+    "StageOfWork": "Concluding Manual Control/Returning to AI Guidance",
+    "Timestamp": "01:27:10:01",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nLearn more about Form Ending\nFinally to complete the form flow for step 1 of 2, we'll use a form ending node to redirect the user to step 2 of 2.\nHere, we using query params as part of our redirect as this will pre-fill the form fields in step 2 of 2.\nSubmission Success\nNext Form Page\nRedirect To Step 2 of 2\nForm Ending\nChange Base URL here!\nThis redirect requires the full base URL, change it to the host of your n8n instance.\nTest workflow\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.967840",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000046.jpg",
+  "metadata": {
+    "id": "recoZoHsLSxseilLM",
+    "createdTime": "2025-03-27T20:44:49.000Z",
+    "FrameID": "1w2AProe7Q7k-6SnUEhrf2uUgSleXdaC3",
+    "FrameNumber": "46",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000046.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface providing step-by-step instructions for updating the Airtable Personal Access Token permissions.  Operator is guiding the user to modify the token settings in Airtable to include specific permissions like `data.records:read`, `data.records:write`, and `schema.bases:read` to ensure proper functionality within the automation workflow.",
+    "ToolsVisible": "OpenAI's Operator",
+    "ActionsDetected": "Providing instructions, Guiding user on Airtable API configuration, Requesting user feedback on assistance needed",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Instructions for: Airtable Personal Access Token permissions, Permission requirements: `data.records:read`, `data.records:write`, `schema.bases:read`, Instruction steps: Numbered list (1-4), Question: 'Would you like assistance with these steps?', UI elements: 'View in browser' button, feedback icons (like, dislike, undo), 'Message Operator' input, 'You have control' bar, 'Finish up' button",
+    "RelationshipToPrevious": "This frame is a direct continuation of the interaction with OpenAI's Operator after resuming control in frame 44. Operator is now actively guiding the user on the necessary Airtable configuration, likely prompted by the user's previous work with the 'Save to Airtable' node in n8n and the need to ensure proper Airtable API access.",
+    "StageOfWork": "Configuration/Guidance by AI Assistant",
+    "Timestamp": "00:40:10:58",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "To update the Airtable Personal Access Token's permissions:\n1. Go to your Airtable account settings.\n2. Find the Personal Access Token used in the workflow.\n3. Edit the token's permissions to include data.records:read, data.records:write, and schema.bases:read.\n4. Ensure the token has access to the specific base and table used in the workflow.\nWould you like assistance with these steps?",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.955542",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

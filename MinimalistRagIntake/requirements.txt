@@ -1,0 +1,17 @@
+fastapi==0.95.1
+uvicorn==0.22.0
+pydantic==1.10.7
+python-dotenv==1.0.0
+requests==2.30.0
+# Added additional dependencies
+python-multipart==0.0.6  # For form data processing
+aiofiles==23.1.0         # For asynchronous file operations
+pillow==9.5.0            # For image processing if needed
+# Dependencies for process_json_files_v2.py
+langchain==0.0.267       # For text splitting and semantic chunking
+langsmith==0.0.92        # Required by langchain with specific version
+tiktoken==0.5.1          # For token counting in text splitters
+numpy>=1.20.0            # Required by langchain
+regex>=2022.1.18         # Required for text processing
+tenacity>=8.1.0          # For robust API calls
+pyyaml>=6.0              # For configuration handling

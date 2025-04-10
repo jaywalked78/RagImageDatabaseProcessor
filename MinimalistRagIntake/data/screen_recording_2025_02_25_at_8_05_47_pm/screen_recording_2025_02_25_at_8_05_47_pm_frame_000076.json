@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000076.jpg",
+  "metadata": {
+    "id": "reclZFebHnbLLJr15",
+    "createdTime": "2025-03-27T20:50:49.000Z",
+    "FrameID": "11xjIXkktvvyOKnYfCBIODegMqnCv-IVW",
+    "FrameNumber": "76",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000076.jpg",
+    "Summary": "This frame displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow, now showing a successful workflow execution. The error message related to 'Extract from File' is no longer visible, and a green 'Workflow executed successfully' popup is displayed at the bottom right. The 'You have control' message from OpenAI's Operator remains visible at the bottom.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing successful workflow execution, Acknowledging 'Workflow executed successfully' message, Potentially preparing to 'Finish up' manual control in Operator",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Message: 'Workflow executed successfully' (green popup), Error Message: Not visible (error from previous frames is gone), Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`",
+    "RelationshipToPrevious": "This frame marks a positive shift from the previous frames (72-75) where the 'Extract from File' node error was persistent. Frame 76 indicates that the user has likely resolved the error, and the workflow has now executed successfully. This suggests progress in the debugging process and a potential resolution to the file upload/processing issue.",
+    "StageOfWork": "Testing/Successful Execution/Completion of Debugging (Potentially)",
+    "Timestamp": "01:08:49:28",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nWorkflow executed successfully",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.961301",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

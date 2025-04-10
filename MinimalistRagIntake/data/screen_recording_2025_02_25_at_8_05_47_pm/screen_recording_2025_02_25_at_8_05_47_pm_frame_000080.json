@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000080.jpg",
+  "metadata": {
+    "id": "recGToZgu1ydYbtGh",
+    "createdTime": "2025-03-27T20:51:39.000Z",
+    "FrameID": "1u43qhUgsoi4GzJ-FlPnUwjH0cZLkv8bD",
+    "FrameNumber": "80",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000080.jpg",
+    "Summary": "This frame displays the Google AI for Developers website, specifically the 'Gemini Developer API Pricing' page. The user is viewing the pricing details for the Gemini API, including information on the free tier and paid tier options for different Gemini models like Gemini 2.0 Flash.",
+    "ToolsVisible": "Web Browser, Google AI for Developers Website",
+    "ActionsDetected": "Viewing Gemini Developer API Pricing page, Reviewing Gemini API pricing tiers, Potentially researching cost implications of using Gemini models, Exploring Google AI developer platform",
+    "TechnicalDetails": "Tool: Google AI for Developers Website, Page Title: Gemini Developer API Pricing, Service: Gemini API, Visible Sections: Gemini API 'Free tier' information, 'Upgrade to the Paid Tier' button, Gemini 2.0 Flash pricing details, Free Tier and Paid Tier pricing tables, Navigation path: Home > Gemini API > Models > Pricing, Website Header: 'Google AI for Developers', navigation menus (Models, Solutions, Code assistance, Showcase, Community)",
+    "RelationshipToPrevious": "This frame represents a significant context switch from the previous frames (58-79) which were focused on n8n workflow editing and debugging with OpenAI's Operator. Frame 80 shows the user has transitioned to researching Google's Gemini API and its pricing, possibly as part of exploring different LLM options or considering integrating Gemini into their automation solutions. This might indicate a shift from debugging a specific n8n workflow to a broader exploration of AI service options.",
+    "StageOfWork": "Research/Planning/Exploration",
+    "Timestamp": "01:11:19:37",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Google AI for Developers\nGemini API docs API Reference SDKs Pricing Cookbook\nGemini 2.0 Flash is now production ready! Learn more\nHome > Gemini API > Models > Pricing\nGemini Developer API Pricing\nThe Gemini API \"free tier\" is offered through the API service with lower rate limits for testing purposes. Google AI Studio usage is completely free in all available countries. The Gemini API \"paid tier\" comes with higher rate limits, additional features, and different data handling.\nUpgrade to the Paid Tier\nOn this page\nGemini 2.0 Flash\nGemini 2.0 Flash-Lite\nImagen 3\nGemini 1.5 Flash\nGemini 1.5 Flash-8B\nGemini 1.5 Pro\nText Embedding 004\nGemini 2.0 Flash\nTry it in Google AI Studio\nOur most capable multi-modal model with great performance across all tasks, with a 1 million token context window, and built for the era of Agents.\nInput price Free Tier Paid Tier, per 1M tokens in USD\nFree of charge $0.10 (text / image / video)\n$0.70 (audio)",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.962046",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

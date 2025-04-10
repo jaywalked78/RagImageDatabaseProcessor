@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000100.jpg",
+  "metadata": {
+    "id": "recIkd4VVEOMwqHky",
+    "createdTime": "2025-03-27T20:56:00.000Z",
+    "FrameID": "1zeDzA2eiL5CCjoqX9Ebg8CdpAVibifcl",
+    "FrameNumber": "100",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000100.jpg",
+    "Summary": "Frame 100 displays the n8n workflow editor for the 'Handling Job Application Submissions' workflow, with the persistent error message 'Problem in node 'Save to Airtable1' - Forbidden - perhaps check your credentials?' visible. The user is viewing the workflow canvas, focused on the 'Save to Airtable1' node and surrounding nodes, and the 'You have control' message with 'Finish up' button from OpenAI's Operator is still present, indicating ongoing manual control and unresolved Airtable credential issue.",
+    "ToolsVisible": "n8n, OpenAI's Operator (control message), Web Browser",
+    "ActionsDetected": "Viewing n8n workflow editor canvas, Observing persistent error message for 'Save to Airtable1' node, Analyzing Airtable connection error, Potentially still investigating Airtable credentials, Remaining in 'You have control' mode, troubleshooting the error",
+    "TechnicalDetails": "Tool: n8n, Workflow Name: Handling Job Application Submissions, View: Editor (Workflow Canvas), Error Message: 'Problem in node 'Save to Airtable1', Error Details: 'Forbidden - perhaps check your credentials?', Nodes visible and labeled: Step 2 of 2 - Application Form, Save to Airtable1, Form Success, Application Form, Redirect To Step 2 of 2, Message: 'You have control' (from Operator), Button: 'Finish up' (from Operator), n8n URL visible in browser address bar: `jaywalked.app.n8n.cloud/workflow/V6Y3yWDIl4DQMiLu`, Trial Status: '9 days left in your n8n trial', Executions count: '0/1000 Executions', Inactive toggle is visible and set to 'Inactive'",
+    "RelationshipToPrevious": "This frame shows a return to the error state seen in earlier frames like 90 and 91, where the 'Save to Airtable1' node was failing with a 'Forbidden' error. Despite the successful workflow execution in frames 92-99 (indicated by the transient 'Workflow executed successfully' message), it appears the Airtable credential issue has resurfaced or was not fully resolved. The user is again facing the Airtable connection problem and remains in manual control to debug it.",
+    "StageOfWork": "Debugging/Error Handling/Credential Verification/Regression",
+    "Timestamp": "01:24:28:22",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application Submissions\nApplication Form\n6. Application Form to Amend Details\nStep 2 of 2 - Application Form\nSave to Airtable1\nProblem in node 'Save to Airtable1'\nForbidden - perhaps check your credentials?\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.965882",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

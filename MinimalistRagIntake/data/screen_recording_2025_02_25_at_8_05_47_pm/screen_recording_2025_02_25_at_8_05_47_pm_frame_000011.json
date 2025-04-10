@@ -1,0 +1,26 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000011.jpg",
+  "metadata": {
+    "id": "recVCcMHdUtn6Xmdf",
+    "createdTime": "2025-03-27T20:38:11.000Z",
+    "FrameID": "174ZkPZJj0-JDW-MNpZfOqGBUZtl7PRRz",
+    "FrameNumber": "11",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000011.jpg",
+    "Summary": "This frame shows the n8n workflow editor displaying the 'Handling Job Application Submissions' workflow. The workflow is in 'Editor' view and is currently inactive. The user appears to be reviewing the workflow structure and nodes within the n8n interface, possibly preparing to modify or test it.",
+    "ToolsVisible": "n8n",
+    "ActionsDetected": "Workflow visualization, Workflow review, Exploring n8n interface",
+    "TechnicalDetails": "Workflow Name: Handling Job Application Submissions, Workflow State: Inactive, View: Editor, Button: 'Test workflow' is visible, URL: jaywalked.app.n8n.cloud/workflow/V6Y3yWDiI4DQMLlu",
+    "RelationshipToPrevious": "This frame continues to show the n8n workflow editor, building upon frame 6 where the workflow was initially loaded. It indicates the user is now actively engaging with the n8n interface to examine the workflow.",
+    "StageOfWork": "Design/Development",
+    "Timestamp": "00:09:05:34",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Handling Job Application\njaywalked.app.n8n.cloud/workflow/V6Y3yWDII4DQMILU\nBack to canvas\nOverview\nProjects\nPersonal\nAdmin Panel\nTemplates\nVariables\nHelp\n2 updates\nHandling Job Applications\nEditor\nYou have control\nFinish up\nJason Cox",
+    "Flagged": "true",
+    "SensitivityConcerns": "Sensitive content detected: workflow_id"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.948857",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

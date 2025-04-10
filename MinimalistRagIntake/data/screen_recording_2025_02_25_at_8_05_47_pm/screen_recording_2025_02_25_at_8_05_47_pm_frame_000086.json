@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000086.jpg",
+  "metadata": {
+    "id": "recAOditK7zQ96ZZP",
+    "createdTime": "2025-03-27T20:52:58.000Z",
+    "FrameID": "1N98Udim0Iw4pyfxxL6B2Jux92FSFCKOI",
+    "FrameNumber": "86",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000086.jpg",
+    "Summary": "Frame 86 clearly displays the OpenAI Operator interface, specifically the right-hand panel titled 'AI job application automation'. The user is viewing the main task interface with options like 'Share' and 'Save task' visible in the header. The blurred content in the central area suggests the task details are loading or being rendered, but the tool is definitively OpenAI Operator.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser",
+    "ActionsDetected": "Viewing OpenAI Operator interface, Observing task 'AI job application automation', Potentially waiting for task details to load, Preparing for next steps in Operator guided automation building",
+    "TechnicalDetails": "Tool: OpenAI's Operator, Interface: Task Panel (right-hand panel), Task Title: 'AI job application automation', UI Elements visible: 'Share' button, 'Save task' button, task title, placeholder/loading content area in the center, User Avatar: 'J' (top right), Left Panel (partially visible in crop): Appears to be the Operator chat panel with conversation history indicators (play icons), No error messages or configuration panels visible in this frame.",
+    "RelationshipToPrevious": "This frame is a clearer continuation of frame 85, confirming the user has successfully returned to the OpenAI Operator interface after the manual control phase in n8n. Frame 86 provides an unblurred view of the Operator's task panel, showing the 'AI job application automation' task and the standard UI elements. This indicates a resumption of AI-guided workflow building within Operator, likely following the successful (or perceived successful) resolution of the 'Extract from File' error and the Airtable connection configuration in n8n.",
+    "StageOfWork": "Returning to AI Guidance/Task Management within Operator",
+    "Timestamp": "01:14:50:40",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "Al job application automation",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.963227",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}

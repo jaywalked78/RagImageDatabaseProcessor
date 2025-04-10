@@ -1,0 +1,25 @@
+{
+  "folder_path": "screen_recording_2025_02_25_at_8_05_47_pm",
+  "file_name": "frame_000010.jpg",
+  "metadata": {
+    "id": "recSeKqC6yLlw78pS",
+    "createdTime": "2025-03-27T20:38:01.000Z",
+    "FrameID": "1pYVCCAMQEe1IWkPFIeEBHgWxzVXEGePy",
+    "FrameNumber": "10",
+    "FolderPath": "/home/jason/Videos/screenRecordings/screen_recording_2025_02_25_at_8_05_47_pm/frame_000010.jpg",
+    "Summary": "This frame shows the OpenAI Operator interface with the right-hand browser panel displaying the Google NotebookLM website. The user appears to be exploring the features and plans offered by Google NotebookLM, possibly evaluating its suitability for integration into the 'AI job application automation' project being discussed with the Operator.",
+    "ToolsVisible": "OpenAI's Operator, Web Browser, Google NotebookLM Website",
+    "ActionsDetected": "Browsing website within Operator, Researching Google NotebookLM, Evaluating tool for automation",
+    "TechnicalDetails": "URL: operator.chatgpt.com, Website in browser panel: notebooklm.google.plus, Website title: NotebookLM, Features highlighted: Customizable settings, Sharing, Analytics, Plan options: Consumer, Business, Enterprise, Education",
+    "RelationshipToPrevious": "This frame follows the blank state of the OpenAI Operator in the previous frame (frame 9), indicating the Operator has now navigated to the Google NotebookLM website, likely as part of the automation planning or information gathering process initiated in earlier frames.",
+    "StageOfWork": "Design/Planning",
+    "Timestamp": "00:07:39:41",
+    "FolderName": "screen_recording_2025_02_25_at_8_05_47_pm",
+    "OCRData": "NotebookLM\nCustomizable settings\nze the style and length of your\nCu notebook responses\ntomize the style and length of your\nnotebook responses\nSharing\nreate expert guides or help centers to\nuse across your organization\nreate expert guides or help centers to\nuse across your organization\nAnalytics\ntics to view how people\nwith your notebooks\ntics to view how people\nwith your notebooks\nUPGRADE BASED ON YOUR NEEDS\nConsumer\nvia Google One\nBusiness\nvia Google Workspace\nEnterprise\nvia Google Cloud\nEducation\nvia Google Workspace\nTrusted by teams at\nYou have control\nFinish up",
+    "Flagged": "false"
+  },
+  "content": null,
+  "embedding_id": null,
+  "processed_at": "2025-04-10T06:53:56.948660",
+  "batch_id": "8ad6aa3d-7c95-493d-9dd2-4cc9c2cb17df"
+}
