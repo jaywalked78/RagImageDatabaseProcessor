@@ -1,3 +1,67 @@
+# DatabaseAdvancedTokenizer
+
+Advanced tools for processing, tokenizing, and analyzing screen recordings and image frames for ML/AI applications.
+
+## Overview
+
+This repository contains multiple specialized tools for processing screen recordings and image frames, extracting data, and preparing it for machine learning applications. The modular architecture allows for flexible integration with n8n and other automation platforms.
+
+## Key Components
+
+### MinimalistRagIntake
+
+A lightweight system for processing screen recording frames, extracting metadata, and chunking text for RAG (Retrieval Augmented Generation) applications.
+
+**Key Features**:
+- Efficient text chunking for optimal retrieval
+- Webhook integration for n8n workflows
+- Semantic and token-based chunking options
+- Hierarchical data structure optimized for RAG systems
+
+[Go to MinimalistRagIntake →](MinimalistRagIntake/)
+
+### LightweightImageServer
+
+A high-performance, lightweight image server for hosting local images with HTTP URLs, perfect for integration with multimodal AI models.
+
+**Key Features**:
+- Blazing-fast image loading with parallel processing
+- RESTful API for directory management
+- Auto-unload timeout for efficient resource management
+- Batch processing and real-time progress tracking
+
+[Go to LightweightImageServer →](LightweightImageServer/)
+
+## Upcoming Integration
+
+A key upcoming feature is the integration between MinimalistRagIntake and LightweightImageServer, which will:
+
+1. Process frames for text content and metadata
+2. Automatically host the corresponding images via HTTP
+3. Combine both text chunks and image URLs in a single webhook delivery
+4. Provide a complete data package for downstream processing
+
+This integration will enable more powerful multimodal AI applications by providing both text content and visual data from screen recordings in a unified, structured format.
+
+## Getting Started
+
+Each component has its own setup and configuration instructions. Please refer to the respective README files for detailed information:
+
+- [MinimalistRagIntake Setup](MinimalistRagIntake/README.md#getting-started)
+- [LightweightImageServer Setup](LightweightImageServer/README.md#quick-start)
+
+## n8n Integration
+
+Both components are designed to work seamlessly with n8n workflows:
+
+1. n8n triggers the processing of frame data
+2. Processed data (text chunks and image URLs) is sent back to n8n via webhooks
+3. n8n can then generate embeddings, store data, and trigger further automations
+
+## License
+
+MIT
+
 # Database Advanced Tokenizer
 
 A comprehensive system for processing, analyzing, and storing OCR data from screen recordings with advanced sensitive information detection and LLM processing.
@@ -48,6 +112,11 @@ This project now includes advanced OCR capabilities and Airtable integration:
 - Stores OCR text and sensitive content flags
 - Provides detailed logging of all processing steps
 - Supports controlled updates to avoid false data
+- **Field Mapping**:
+  - `OCRData`: Cleaned and structured text extracted from frame images
+  - `Flagged`: Indicates whether sensitive content was detected (Yes/No with sensitivity percentage)
+  - `SensitivityConcerns`: Detailed explanation of detected sensitive information and why it's flagged
+- Environment variables control field names (`AIRTABLE_OCR_DATA_FIELD`, `AIRTABLE_FLAGGED_FIELD`, `AIRTABLE_SENSITIVITY_CONCERNS_FIELD`)
 
 ### Getting Started with OCR
 
@@ -113,9 +182,17 @@ The system uses three main schemas:
 - `frame_details_full`: Stores full frame details including OCR text and LLM-generated descriptions
   - Primary key: `frame_id` (references `content.frames.frame_id`)
   - Contains: descriptions, summaries, OCR data, and technical details
+  - **OCR Integration Fields**:
+    - `ocr_data`: Stores cleaned OCR text extracted from frames
+    - `flagged`: Boolean indicating whether sensitive content was detected
+    - `sensitivity_concerns`: Detailed explanation of sensitivity issues detected
 - `frame_details_chunks`: Stores chunks from frames with specific analyses
   - Primary key: `frame_id` (references `content.frames.frame_id`)
   - Has `chunk_id` to link with embeddings
+  - **OCR Integration Fields**:
+    - `ocr_data`: Stores cleaned OCR text from specific chunks
+    - `flagged`: Boolean indicating whether this chunk contains sensitive content
+    - `sensitivity_concerns`: Detailed explanation of sensitivity issues in this chunk
 - `process_frames_chunks`: Tracks processing status of chunks
   - Contains references to `frame_id` and `chunk_id`
   - Logs processing status, timestamps, and metadata
