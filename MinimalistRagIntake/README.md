@@ -1,210 +1,132 @@
 # MinimalistRagIntake
 
-A lightweight system for processing screen recording frames, extracting metadata, and chunking text for RAG applications, with n8n integration capabilities.
+A minimalist system for processing screen recordings, extracting text content, and generating image URLs for Retrieval Augmented Generation (RAG) applications.
 
 ## Overview
 
-MinimalistRagIntake is designed to be a minimal yet efficient system for:
+MinimalistRagIntake processes screen recording frames to:
+1. Extract text content using OCR
+2. Chunk text for more efficient retrieval
+3. Generate image URLs for frame images
+4. Combine text chunks and image URLs into a unified dataset
+5. Send processed data via webhooks
 
-1. Receiving frame data via a REST API
-2. Processing frame metadata and content 
-3. Chunking text for optimal retrieval
-4. Organizing frame and chunk data in a structured format
-5. Sending the processed data to n8n webhooks for further processing (including embedding generation)
+## Components
 
-## Key Features
+### 1. Text Chunker
 
-- **FastAPI REST API**: Exposes endpoints for frame data intake
-- **Efficient Chunking**: Splits text content with configurable size and overlap
-- **Webhook Integration**: Sends processed data to configurable webhook endpoints
-- **Test/Production Modes**: Supports different webhook endpoints for testing and production
-- **Structured Output**: Organizes data in a hierarchical structure for n8n processing
-- **Image URLs Integration**: *(Coming Soon)* Integration with LightweightImageServer for providing image URLs alongside chunked text data
+The text chunker processes JSON files containing OCR data from screen recording frames:
+- Extracts meaningful text from OCR data
+- Chunks text into manageable segments
+- Organizes chunks with metadata
+- Sends processed data via webhook
 
-## System Architecture
+### 2. Image Server Integration
 
-### Components
+Integrated with LightweightImageServer to:
+- Host frame images via HTTP
+- Generate accessible URLs for each frame
+- Combine image URLs with text data
 
-1. **FastAPI Service (`main.py`)**: 
-   - REST API for receiving frame data
-   - Background processing of frame batches
-   - Status monitoring endpoints
+## Installation
 
-2. **Frame Processor (`process_json_files.py`)**:
-   - Processes JSON files with frame metadata
-   - Chunks text content for better RAG performance
-   - Organizes data into a structured format
-   - Sends data to webhook endpoints
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jaywalked78/RagImageDatabaseProcessor.git
+   cd RagImageDatabaseProcessor/MinimalistRagIntake
+   ```
 
-3. **Utility Scripts**:
-   - `run.sh`: Sets up environment and starts the API service
-   - `stop.sh`: Gracefully stops the running service
-   - `run_processor.sh`: Processes specific folders or files
-   - `setup_chunker.sh`: Comprehensive setup script for TheChunker environment
-   - `quick_setup.sh`: Simplified setup script for quick deployment
-   - `run_processor_with_image_server.sh`: *(Coming Soon)* Processes frames and integrates with LightweightImageServer
+2. Create a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-### Data Flow
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. **Intake Flow**:
-   - External system (n8n) sends frame data to the API
-   - Data is saved as JSON files organized by folder
-   - In-memory tracking of processed frames is maintained
+4. Configure environment:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-2. **Processing Flow**:
-   - The processor reads JSON files from specified folders
-   - For each frame:
-     - Extracts metadata and content
-     - Chunks the text with proper overlap
-     - Structures data with reference IDs for n8n processing
+## Usage
 
-3. **Output Flow**:
-   - Processed data is sent to a webhook (configurable for test/production)
-   - Structured output includes frame metadata and chunked content
-   - n8n can process the data further, including generating embeddings
+### Basic Usage
 
-### Upcoming Integration Flow (Coming Soon)
-
-The upcoming integration with LightweightImageServer will enhance the system by:
-
-1. **Image URL Generation**:
-   - Automatically starting the image server when processing frames
-   - Loading image files from corresponding frame folders
-   - Generating accessible HTTP URLs for all frame images
-
-2. **Enhanced Output Structure**:
-   - Adding image URLs to the frame data structure
-   - Providing direct links to view the original screenshots
-   - Creating a more comprehensive data package for downstream processing
-
-3. **Combined Webhook Delivery**:
-   - Sending a single webhook with both text chunks and image URLs
-   - Optimizing the entire pipeline for efficiency
-   - Providing a complete data set to n8n workflows
-
-## Output Structure
-
-```json
-{
-  "folder_name": "example_folder",
-  "processed_at": "2023-04-09T14:30:45.123456",
-  "test_mode": false,
-  "frames": [
-    {
-      "id": "example_folder_frame001",
-      "folder_name": "example_folder",
-      "file_name": "frame001.jpg",
-      "frame_number": "frame001",
-      "airtable_record_id": "rec123456",
-      "metadata": { ... },
-      "content": "...",
-      "chunks": [
-        {
-          "id": "example_folder_frame001_chunk_0",
-          "chunk_index": 0,
-          "text": "..."
-        },
-        ...
-      ],
-      "processed_at": "2023-04-09T14:30:45.123456",
-      "test_mode": false
-    },
-    ...
-  ],
-  "stats": {
-    "total_files": 10,
-    "processed": 9,
-    "errors": 1
-  }
-}
-```
-
-## n8n Integration
-
-This system is designed to work with n8n workflows:
-
-1. n8n can send frame data to the API for processing
-2. Processed data (with chunks) is sent back to n8n via webhooks
-3. n8n can then generate embeddings and store the data in appropriate databases
-
-## Getting Started
-
-### Installation
-
-There are two methods to set up the environment:
-
-#### Method 1: Using the Comprehensive Setup Script
-
-This method provides detailed feedback and creates a fully configured environment:
+Process a folder of screen recording frames:
 
 ```bash
-cd MinimalistRagIntake
-chmod +x setup_chunker.sh
-./setup_chunker.sh
+./run_processor_with_image_server.sh folder_name [test]
 ```
 
-#### Method 2: Using the Quick Setup Script
+Arguments:
+- `folder_name`: Name of the folder containing frame images
+- `test` (optional): Run in test mode (doesn't send to webhook)
 
-For a more straightforward setup:
+### Advanced Usage
+
+Process a specific JSON file:
 
 ```bash
-cd MinimalistRagIntake
-chmod +x quick_setup.sh
-./quick_setup.sh
+./run_processor_with_image_server.sh folder_name path/to/file.json
 ```
 
-### Configuration
+### n8n Integration
 
-Edit the `.env` file to configure:
-- API host and port
-- Data and log directories
-- Webhook URLs
-- Chunking parameters
+For automated workflows with n8n, see [n8n_integration.md](./n8n_integration.md).
 
-### Running the Service
+## Input/Output
 
-1. Activate the virtual environment:
-   ```bash
-   source TheChunker/bin/activate
-   ```
+### Input
 
-2. Start the API service:
-   ```bash
-   ./run.sh
-   ```
+- JSON files containing OCR data from screen recording frames
+- Each file represents a single frame with:
+  - Frame metadata
+  - Raw OCR text
+  - Timestamp
 
-3. Process frames:
-   ```bash
-   ./run_processor.sh <folder_name>          # Process in production mode
-   ./run_processor.sh <folder_name> test     # Process in test mode
-   ./run_processor.sh <folder_name> <file>   # Process a specific file
-   ```
+### Output
 
-4. Stop the service:
-   ```bash
-   ./stop.sh
-   ```
+1. **Text Processing Output**:
+   - Chunked text data
+   - Webhook payload with structured content
+   - Metadata for each chunk
 
-5. Deactivate the virtual environment when done:
-   ```bash
-   deactivate
-   ```
+2. **Image Server Output**:
+   - JSON file with image URLs
+   - Format: `folder_name_YYYYMMDD_HHMMSS.json` (timestamped to prevent overwrites)
+   - Symlink: `folder_name_latest.json` for easy access
 
-## API Endpoints
+## Configuration
 
-- `POST /api/frames/batch`: Receive a batch of frames for processing
-- `GET /api/status`: Get the current status of the API
-- `GET /api/frames/{folder_path}/{file_name}`: Check if a specific frame has been processed 
+Edit `.env` file to configure:
+- Webhook URL for sending processed data
+- Base directory for frame images
+- Test mode settings
+- Image server connection details
 
-## Dependencies
+## Scripts
 
-The following dependencies are required and will be installed by the setup scripts:
+- `run_processor_with_image_server.sh`: Main script for integrated processing
+- `process_json_files_v4.py`: Text processing and chunking
+- `run.sh`: Starts the API server for receiving processing requests
 
-- fastapi==0.95.1
-- uvicorn==0.22.0
-- pydantic==1.10.7
-- python-dotenv==1.0.0
-- requests==2.30.0
-- python-multipart==0.0.6 (for handling form data)
-- aiofiles==23.1.0 (for asynchronous file operations)
-- pillow==9.5.0 (for image processing capabilities) 
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a pull request
+
+## License
+
+This project is proprietary and not licensed for public use without explicit permission from the repository owner.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history and updates. 

@@ -1,6 +1,62 @@
 # Changelog
 
+## Version 2.0.0 (2024-03-01)
+
+### Major Enhancements
+- Added automatic timestamping to output filenames to prevent overwrites
+- Added Central Standard Time (CST) timezone support for timestamps
+- Improved n8n integration with enhanced script execution
+- Refactored directory handling in all scripts for better path resolution
+- Added symlink creation to latest output files for easier access
+
+### Script Improvements
+- `run_processor_with_image_server.sh`: 
+  - Added timestamp-based filename generation
+  - Fixed directory handling with proper pushd/popd usage
+  - Added comprehensive logging with color-coded output
+  - Improved image server startup and detection logic
+  - Added error handling for failed image loading
+  - Renamed output files to include timestamps
+  - Created symlinks to latest output files
+
+### n8n Integration
+- Created dedicated n8n workflow documentation
+- Added support for dynamic variable passing from n8n
+- Improved execution flow for webhook integration
+- Added consistent logging for n8n-triggered processes
+
+### Bug Fixes
+- Fixed issues with relative vs. absolute paths in scripts
+- Fixed file overwriting issues by adding timestamps to filenames
+- Resolved image server connection handling issues
+- Fixed environment variable inheritance problems
+
+## Version 1.0.0 (2024-02-20)
+
+### Initial Release
+- Basic processing pipeline for screen recordings
+- Text extraction and chunking
+- Image server for hosting frame images
+- Initial webhook integration
+- Basic n8n compatibility
+
 All notable changes to the MinimalistRagIntake project will be documented in this file.
+
+## [1.1.0] - 2025-04-10
+
+### Added
+- Integration with LightweightImageServer for image URL generation
+- New `run_processor_with_image_server.sh` script for coordinated processing
+- n8n workflow template for combining text chunks and image URLs
+- Detailed documentation for n8n integration
+- Support for automatically starting the image server if not running
+- Parallel processing of text content and image URLs
+
+### Enhanced
+- Better path resolution for finding image folders
+- Color-coded terminal output for better readability
+- Improved error handling for when image server is unavailable
+- Clear separation of concerns between text and image processing
 
 ## [1.0.0] - 2025-04-10
 
