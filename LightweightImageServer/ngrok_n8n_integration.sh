@@ -2,6 +2,31 @@
 # ngrok_n8n_integration.sh - Stable integration of ngrok with LightweightImageServer
 # This script replaces localtunnel with ngrok for more reliable public URLs
 
+# Check if running from n8n
+if [[ "$1" == "--n8n" ]]; then
+  # Run the script in background and poll for URL file
+  nohup bash "$0" > /tmp/ngrok_complete_output.log 2>&1 &
+  BG_PID=$!
+  
+  # Wait for URL file with timeout
+  MAX_WAIT=30
+  for i in $(seq 1 $MAX_WAIT); do
+    if [ -f "/tmp/current_ngrok_url.txt" ]; then
+      NGROK_URL=$(cat /tmp/current_ngrok_url.txt)
+      echo "NGROK_URL=$NGROK_URL"
+      echo "MONITOR_PID=$BG_PID"
+      echo "Success=true"
+      exit 0
+    fi
+    sleep 1
+    echo "Waiting for ngrok to initialize ($i/$MAX_WAIT)..." >&2
+  done
+  
+  echo "Error: Timed out waiting for ngrok URL" >&2
+  echo "Success=false"
+  exit 1
+fi
+
 # Configuration
 MAX_LOG_SIZE=10000000  # 10MB max log size
 MAX_RESTART_ATTEMPTS=3
@@ -12,6 +37,13 @@ PORT=7779
 MAX_RUNTIME=43200  # 12 hours max runtime
 KEEPALIVE_INTERVAL=300  # 5 minutes between health checks
 
+# Colors for better readability
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 # Create PID directory
 mkdir -p $PID_DIR
 
@@ -19,10 +51,24 @@ mkdir -p $PID_DIR
 if [ -f "$LOCK_FILE" ]; then
   LOCK_PID=$(cat "$LOCK_FILE")
   if ps -p $LOCK_PID > /dev/null; then
-    echo "Another ngrok script is already running with PID $LOCK_PID"
+    echo -e "${RED}Another ngrok script is already running with PID $LOCK_PID${NC}"
+    
+    # If lock exists but we can get the URL, just return it (for n8n integration)
+    if [ -f "/tmp/current_ngrok_url.txt" ]; then
+      NGROK_URL=$(cat /tmp/current_ngrok_url.txt)
+      if [ -n "$NGROK_URL" ]; then
+        echo -e "${GREEN}Using existing ngrok tunnel${NC}"
+        echo "NGROK_URL=$NGROK_URL"
+        echo "SERVER_PID=$(cat $PID_DIR/server.pid 2>/dev/null || echo 'unknown')"
+        echo "MONITOR_PID=$LOCK_PID"
+        echo "NGROK_WEB_INTERFACE=http://localhost:4040"
+        exit 0
+      fi
+    fi
+    
     exit 1
   else
-    echo "Removing stale lock file"
+    echo -e "${YELLOW}Removing stale lock file${NC}"
     rm -f "$LOCK_FILE"
   fi
 fi
@@ -32,7 +78,7 @@ echo $$ > "$LOCK_FILE"
 
 # Setup cleanup trap for graceful exit
 cleanup() {
-  echo "Cleaning up processes and files..."
+  echo -e "${BLUE}Cleaning up processes and files...${NC}"
   # Kill all child processes
   for pid_file in $PID_DIR/*.pid; do
     if [ -f "$pid_file" ]; then
@@ -62,9 +108,18 @@ rotate_log() {
 
 # Check if ngrok is installed
 if ! command -v ngrok &> /dev/null; then
-  echo "ERROR: ngrok is not installed"
-  echo "Please install ngrok from https://ngrok.com/download"
-  echo "Then authenticate with: ngrok config add-authtoken YOUR_TOKEN"
+  echo -e "${RED}ERROR: ngrok is not installed${NC}"
+  echo -e "${YELLOW}Please install ngrok from https://ngrok.com/download${NC}"
+  echo -e "${YELLOW}Then use ./setup_ngrok.sh to authenticate${NC}"
+  exit 1
+fi
+
+# Check if ngrok is authenticated
+AUTH_CHECK=$(ngrok config check 2>&1)
+if echo "$AUTH_CHECK" | grep -q "error"; then
+  echo -e "${RED}ERROR: ngrok is not properly authenticated${NC}"
+  echo -e "${YELLOW}Please run ./setup_ngrok.sh to authenticate ngrok${NC}"
+  echo -e "${BLUE}Or manually run: ngrok config add-authtoken YOUR_TOKEN${NC}"
   exit 1
 fi
 
@@ -78,30 +133,30 @@ check_server() {
 }
 
 # Start the LightweightImageServer
-echo "Starting image server..."
+echo -e "${BLUE}Starting image server...${NC}"
 cd /home/jason/Documents/DatabaseAdvancedTokenizer/LightweightImageServer
 
 if check_server; then
-  echo "Image server is already running on port $PORT"
+  echo -e "${GREEN}Image server is already running on port $PORT${NC}"
 else
-  echo "Starting image server..."
+  echo -e "${BLUE}Starting image server...${NC}"
   ./persistent_run.sh &
   SERVER_PID=$!
   echo $SERVER_PID > "$PID_DIR/server.pid"
-  echo "Server started with PID: $SERVER_PID"
+  echo -e "${GREEN}Server started with PID: $SERVER_PID${NC}"
   
   # Wait for server to initialize
-  echo "Waiting for server to initialize..."
+  echo -e "${BLUE}Waiting for server to initialize...${NC}"
   for i in {1..10}; do
     if check_server; then
-      echo "Server initialized successfully"
+      echo -e "${GREEN}Server initialized successfully${NC}"
       break
     fi
-    echo "Waiting... ($i/10)"
+    echo -e "${YELLOW}Waiting... ($i/10)${NC}"
     sleep 1
     
     if [ $i -eq 10 ]; then
-      echo "Failed to start server. Check logs for details."
+      echo -e "${RED}Failed to start server. Check logs for details.${NC}"
       cleanup
       exit 1
     fi
@@ -120,17 +175,24 @@ MAX_LOG_SIZE=5000000  # 5MB
 KEEPALIVE_INTERVAL=300  # 5 minutes
 MAX_RUNTIME=43200  # 12 hours
 
+# Colors
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 # Rotate log if needed
 if [ -f "$LOG_FILE" ] && [ $(stat -c%s "$LOG_FILE" 2>/dev/null || echo 0) -gt $MAX_LOG_SIZE ]; then
   mv "$LOG_FILE" "${LOG_FILE}.old"
 fi
 
-echo "=== Starting ngrok monitor at $(date) ===" > $LOG_FILE
+echo -e "${BLUE}=== Starting ngrok monitor at $(date) ===${NC}" > $LOG_FILE
 
 start_ngrok() {
   # Check restart limit
   if [ $RESTART_COUNT -ge $MAX_RESTARTS ]; then
-    echo "$(date): Maximum restart attempts reached ($RESTART_COUNT). Exiting." | tee -a $LOG_FILE
+    echo -e "$(date): ${RED}Maximum restart attempts reached ($RESTART_COUNT). Exiting.${NC}" | tee -a $LOG_FILE
     exit 1
   fi
   
@@ -139,7 +201,7 @@ start_ngrok() {
   sleep 2
   
   # Start ngrok
-  echo "$(date): Starting ngrok for port $PORT" | tee -a $LOG_FILE
+  echo -e "$(date): ${BLUE}Starting ngrok for port $PORT${NC}" | tee -a $LOG_FILE
   ngrok http $PORT --log=stdout > /tmp/ngrok_log.txt 2>&1 &
   NGROK_PID=$!
   echo $NGROK_PID > "$PID_DIR/ngrok.pid"
@@ -161,12 +223,12 @@ start_ngrok() {
   done
   
   if [ -z "$NGROK_URL" ]; then
-    echo "$(date): Failed to get ngrok URL after multiple attempts" | tee -a $LOG_FILE
+    echo -e "$(date): ${RED}Failed to get ngrok URL after multiple attempts${NC}" | tee -a $LOG_FILE
     return 1
   fi
   
-  echo "$(date): Ngrok started with PID: $NGROK_PID" | tee -a $LOG_FILE
-  echo "$(date): Tunnel URL: $NGROK_URL" | tee -a $LOG_FILE
+  echo -e "$(date): ${GREEN}Ngrok started with PID: $NGROK_PID${NC}" | tee -a $LOG_FILE
+  echo -e "$(date): ${GREEN}Tunnel URL: $NGROK_URL${NC}" | tee -a $LOG_FILE
   echo "$NGROK_URL" > /tmp/current_ngrok_url.txt
   
   return 0
@@ -174,7 +236,7 @@ start_ngrok() {
 
 # Cleanup function
 cleanup() {
-  echo "$(date): Monitor shutting down, cleaning up processes" | tee -a $LOG_FILE
+  echo -e "$(date): ${BLUE}Monitor shutting down, cleaning up processes${NC}" | tee -a $LOG_FILE
   pkill -f "ngrok http $PORT" || true
   rm -f $PID_DIR/ngrok.pid
   exit 0
@@ -190,25 +252,25 @@ while [ $RUNTIME -lt $MAX_RUNTIME ]; do
   # Check log file size and rotate if needed
   if [ -f "$LOG_FILE" ] && [ $(stat -c%s "$LOG_FILE" 2>/dev/null || echo 0) -gt $MAX_LOG_SIZE ]; then
     mv "$LOG_FILE" "${LOG_FILE}.old"
-    echo "=== Log rotated at $(date) ===" > $LOG_FILE
+    echo -e "${BLUE}=== Log rotated at $(date) ===${NC}" > $LOG_FILE
   fi
   
   # Check if ngrok is still running
   if [ -f "$PID_DIR/ngrok.pid" ]; then
     NGROK_PID=$(cat "$PID_DIR/ngrok.pid")
     if ! ps -p $NGROK_PID > /dev/null; then
-      echo "$(date): Ngrok process died, restarting..." | tee -a $LOG_FILE
+      echo -e "$(date): ${YELLOW}Ngrok process died, restarting...${NC}" | tee -a $LOG_FILE
       start_ngrok
     fi
   else
-    echo "$(date): Ngrok PID file missing, restarting..." | tee -a $LOG_FILE
+    echo -e "$(date): ${YELLOW}Ngrok PID file missing, restarting...${NC}" | tee -a $LOG_FILE
     start_ngrok
   fi
   
   # Check if ngrok tunnel is still working by checking the API
   TUNNEL_COUNT=$(curl -s http://localhost:4040/api/tunnels | grep -o '"public_url"' | wc -l)
   if [ "$TUNNEL_COUNT" -eq 0 ]; then
-    echo "$(date): No active tunnels found, restarting ngrok..." | tee -a $LOG_FILE
+    echo -e "$(date): ${YELLOW}No active tunnels found, restarting ngrok...${NC}" | tee -a $LOG_FILE
     start_ngrok
   fi
   
@@ -219,7 +281,7 @@ while [ $RUNTIME -lt $MAX_RUNTIME ]; do
       MEM_USAGE=$(ps -o rss= -p $NGROK_PID)
       # If using more than 200MB, restart it
       if [ $MEM_USAGE -gt 204800 ]; then
-        echo "$(date): Ngrok using excessive memory ($MEM_USAGE KB), restarting" | tee -a $LOG_FILE
+        echo -e "$(date): ${YELLOW}Ngrok using excessive memory ($MEM_USAGE KB), restarting${NC}" | tee -a $LOG_FILE
         start_ngrok
       fi
     fi
@@ -229,8 +291,8 @@ while [ $RUNTIME -lt $MAX_RUNTIME ]; do
   if [ -f "/tmp/current_ngrok_url.txt" ]; then
     NGROK_URL=$(cat /tmp/current_ngrok_url.txt)
     if [ -n "$NGROK_URL" ]; then
-      echo "$(date): Sending health check to $NGROK_URL" >> $LOG_FILE
-      curl -s -m 10 "$NGROK_URL" -o /dev/null || echo "$(date): Health check failed" >> $LOG_FILE
+      echo -e "$(date): ${BLUE}Sending health check to $NGROK_URL${NC}" >> $LOG_FILE
+      curl -s -m 10 "$NGROK_URL" -o /dev/null || echo -e "$(date): ${RED}Health check failed${NC}" >> $LOG_FILE
     fi
   fi
   
@@ -241,53 +303,53 @@ while [ $RUNTIME -lt $MAX_RUNTIME ]; do
   RUNTIME=$((RUNTIME + KEEPALIVE_INTERVAL))
 done
 
-echo "$(date): Maximum runtime reached, exiting monitor" | tee -a $LOG_FILE
+echo -e "$(date): ${YELLOW}Maximum runtime reached, exiting monitor${NC}" | tee -a $LOG_FILE
 cleanup
 EOL
 
 chmod +x /tmp/ngrok_monitor.sh
 
 # Start ngrok with monitor
-echo "Starting ngrok with monitoring..."
+echo -e "${BLUE}Starting ngrok with monitoring...${NC}"
 nohup /tmp/ngrok_monitor.sh "$PORT" > /tmp/ngrok_startup.log 2>&1 &
 MONITOR_PID=$!
 echo $MONITOR_PID > "$PID_DIR/main_monitor.pid"
 
-echo "Waiting for ngrok to establish..."
+echo -e "${BLUE}Waiting for ngrok to establish...${NC}"
 sleep 8
 
 # Get the URL from the monitor's output
 if [ -f "/tmp/current_ngrok_url.txt" ]; then
   NGROK_URL=$(cat /tmp/current_ngrok_url.txt)
-  echo "Ngrok URL: $NGROK_URL"
+  echo -e "${GREEN}Ngrok URL: $NGROK_URL${NC}"
 else
-  echo "ERROR: Could not get ngrok URL"
+  echo -e "${RED}ERROR: Could not get ngrok URL${NC}"
   cat /tmp/ngrok_startup.log
   cleanup
   exit 1
 fi
 
 # Verify ngrok is working
-echo "Verifying ngrok connection..."
+echo -e "${BLUE}Verifying ngrok connection...${NC}"
 VERIFY_RESULT=$(curl -s -L -m 10 -o /dev/null -w "%{http_code}" "$NGROK_URL")
 if [ "$VERIFY_RESULT" = "200" ] || [ "$VERIFY_RESULT" = "404" ]; then
-  echo "NGROK_VERIFIED=YES"
-  echo "HTTP Status: $VERIFY_RESULT"
+  echo -e "${GREEN}NGROK_VERIFIED=YES${NC}"
+  echo -e "${GREEN}HTTP Status: $VERIFY_RESULT${NC}"
 else
-  echo "NGROK_VERIFIED=NO"
-  echo "HTTP Status: $VERIFY_RESULT"
+  echo -e "${RED}NGROK_VERIFIED=NO${NC}"
+  echo -e "${RED}HTTP Status: $VERIFY_RESULT${NC}"
   
   # Try to diagnose
-  echo "Trying to diagnose issues..."
+  echo -e "${YELLOW}Trying to diagnose issues...${NC}"
   curl -s -v "$NGROK_URL" > /tmp/ngrok_debug.log 2>&1
-  echo "Debug log saved to /tmp/ngrok_debug.log"
+  echo -e "${YELLOW}Debug log saved to /tmp/ngrok_debug.log${NC}"
 fi
 
 # Check ngrok web interface
 NGROK_DASHBOARD=$(curl -s http://localhost:4040/api/tunnels | grep -o '"web_addr":[^,}]*' | cut -d'"' -f3)
-echo "Ngrok Web Interface: $NGROK_DASHBOARD"
+echo -e "${BLUE}Ngrok Web Interface: $NGROK_DASHBOARD${NC}"
 
-# Output for n8n to parse
+# Output for n8n to parse - always ensure these are printed without colors
 echo "NGROK_URL=$NGROK_URL"
 echo "SERVER_PID=$(cat $PID_DIR/server.pid 2>/dev/null || echo 'unknown')"
 echo "MONITOR_PID=$MONITOR_PID"
@@ -296,16 +358,16 @@ echo "NGROK_WEB_INTERFACE=http://localhost:4040"
 
 # Important usage notes
 echo ""
-echo "=================== USAGE NOTES ==================="
-echo "1. The ngrok URL is: $NGROK_URL"
-echo "2. To stop all services: kill $MONITOR_PID"
-echo "3. To view ngrok status: http://localhost:4040"
-echo "4. This tunnel will automatically renew if disconnected"
-echo "5. Total maximum runtime: 12 hours"
-echo "6. Logs can be found at:"
-echo "   - /tmp/ngrok_monitor.log (monitor logs)"
-echo "   - /tmp/ngrok_log.txt (ngrok process logs)"
-echo "=================================================="
+echo -e "${BLUE}=================== USAGE NOTES ===================${NC}"
+echo -e "${GREEN}1. The ngrok URL is: $NGROK_URL${NC}"
+echo -e "${GREEN}2. To stop all services: kill $MONITOR_PID${NC}"
+echo -e "${GREEN}3. To view ngrok status: http://localhost:4040${NC}"
+echo -e "${GREEN}4. This tunnel will automatically renew if disconnected${NC}"
+echo -e "${GREEN}5. Total maximum runtime: 12 hours${NC}"
+echo -e "${GREEN}6. Logs can be found at:${NC}"
+echo -e "   ${BLUE}- /tmp/ngrok_monitor.log (monitor logs)${NC}"
+echo -e "   ${BLUE}- /tmp/ngrok_log.txt (ngrok process logs)${NC}"
+echo -e "${BLUE}==================================================${NC}"
 
 # Release lock when done
 # (Lock will be released by cleanup trap when process exits) 
