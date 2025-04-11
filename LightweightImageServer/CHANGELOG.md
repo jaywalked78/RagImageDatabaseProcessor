@@ -2,6 +2,30 @@
 
 All notable changes to the TinyImageHoster project will be documented in this file.
 
+## [2.1.0] - 2024-03-01
+
+### Added
+- ngrok integration for stable public URL generation
+- Robust monitoring and auto-recovery for ngrok tunnels
+- Health checking to ensure tunnel stability
+- Resource usage monitoring to prevent memory leaks
+- Log rotation for long-running services
+- Detailed diagnostic information for troubleshooting
+- Web interface access for tunnel management
+
+### Changed
+- Replaced localtunnel with ngrok for more reliable public access
+- Enhanced public URL stability with automatic recovery
+- Improved error handling and diagnostic capabilities
+- Updated integration scripts for better n8n compatibility
+- Enhanced resource management for long-running tunnels
+
+### Fixed
+- Stability issues with public URL generation
+- Connection drops during extended operation
+- Memory usage growth over time
+- Multiple instances conflict resolution
+
 ## [2.0.0] - 2025-04-10
 
 ### Added
