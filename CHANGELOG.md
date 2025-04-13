@@ -2,6 +2,22 @@
 
 All notable changes to the Database Advanced Tokenizer will be documented in this file.
 
+## [1.5.0] - 2025-04-13
+
+### Added
+- New `@TimeStampGenerator` module for timestamp generation across the system
+- Integrated dynamic date and time generation for changelog updates
+- Enhanced webhook payload system for both text chunks and image URLs
+
+### Improved
+- Extended timeout settings for image server to prevent connection issues
+- Better ngrok integration for webhook handling
+- Dynamic variable passing to scripts for improved flexibility
+
+### Technical Notes
+- Timestamp format standardized as "YYYY-MM-DD HH:MM:SS"
+- Modular design of timestamp generator allows for easy integration with other components
+
 ## [1.4.0] - 2025-04-08
 
 ### Fixed: Sequential OCR Processing with Reverse Order
