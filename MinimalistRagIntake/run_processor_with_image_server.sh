@@ -154,16 +154,16 @@ echo -e "\n${BLUE}=== Running Text Chunking Processor ===${NC}"
 # Check if second argument is "test" or a file path
 if [ "$TEST_MODE" == "test" ]; then
     echo -e "${BLUE}Running chunker in TEST mode for folder: ${GREEN}$FOLDER_NAME${NC}"
-    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v4.py\" --folder \"$FOLDER_NAME\" --test --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
-    python "$CHUNKER_DIR/process_json_files_v4.py" --folder "$FOLDER_NAME" --test --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
+    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v5.py\" --folder \"$FOLDER_NAME\" --test --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
+    python "$CHUNKER_DIR/process_json_files_v5.py" --folder "$FOLDER_NAME" --test --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
 elif [ -n "$TEST_MODE" ] && [ "$TEST_MODE" != "test" ]; then
     echo -e "${BLUE}Chunker processing specific file: ${GREEN}$TEST_MODE${NC}"
-    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v4.py\" --folder \"$FOLDER_NAME\" --file \"$TEST_MODE\" --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
-    python "$CHUNKER_DIR/process_json_files_v4.py" --folder "$FOLDER_NAME" --file "$TEST_MODE" --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
+    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v5.py\" --folder \"$FOLDER_NAME\" --file \"$TEST_MODE\" --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
+    python "$CHUNKER_DIR/process_json_files_v5.py" --folder "$FOLDER_NAME" --file "$TEST_MODE" --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
 else
     echo -e "${BLUE}Running chunker in PRODUCTION mode for folder: ${GREEN}$FOLDER_NAME${NC}"
-    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v4.py\" --folder \"$FOLDER_NAME\" --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
-    python "$CHUNKER_DIR/process_json_files_v4.py" --folder "$FOLDER_NAME" --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
+    echo -e "${BLUE}Command: ${GREEN}python \"$CHUNKER_DIR/process_json_files_v5.py\" --folder \"$FOLDER_NAME\" --image-urls \"${OUTPUT_DIR}/${OUTPUT_FILENAME}\"${NC}"
+    python "$CHUNKER_DIR/process_json_files_v5.py" --folder "$FOLDER_NAME" --image-urls "${OUTPUT_DIR}/${OUTPUT_FILENAME}"
 fi
 
 PROCESSOR_STATUS=$?

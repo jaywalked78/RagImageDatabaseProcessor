@@ -15,6 +15,12 @@ if [ "$2" != "" ]; then
     HOST="$2"
 fi
 
+# Default timeout (in minutes)
+TIMEOUT=60
+if [ "$3" != "" ]; then
+    TIMEOUT="$3"
+fi
+
 # Set the virtual environment name
 VENV_DIR="tinyHosterVenv"
 
@@ -92,9 +98,10 @@ fi
 export IMAGE_SERVER_PORT="$PORT"
 export IMAGE_SERVER_HOST="$HOST"
 export IMAGE_SERVER_PERSIST="true"  # Enable directory persistence
+export IMAGE_SERVER_TIMEOUT="$TIMEOUT"  # Set explicit timeout value
 
 echo "Starting image server on http://$HOST:$PORT (persistent mode)"
-echo "Directories loaded in this server will remain loaded after shutdown"
+echo "Directories loaded in this server will remain loaded for $TIMEOUT minutes"
 echo "Press Ctrl+C to stop the server"
 
 # Run the server in the background

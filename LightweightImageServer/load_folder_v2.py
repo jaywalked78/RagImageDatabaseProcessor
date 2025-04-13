@@ -32,7 +32,7 @@ except ImportError:
 
 # Configuration
 SERVER_URL = "http://localhost:7779"
-DEFAULT_TIMEOUT = 30  # Default timeout in minutes
+DEFAULT_TIMEOUT = 60  # Increased timeout to 60 minutes
 OUTPUT_DIR = os.path.expanduser("~/Documents/LightweightImageServer/output/json")
 # Base directory for screen recordings from .env
 FRAME_BASE_DIR = os.environ.get("FRAME_BASE_DIR", "/home/jason/Videos/screenRecordings")
