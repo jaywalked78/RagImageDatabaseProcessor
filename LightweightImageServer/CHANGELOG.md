@@ -2,6 +2,28 @@
 
 All notable changes to the TinyImageHoster project will be documented in this file.
 
+## [2.2.0] - 2024-06-06
+
+### Added
+- Simplified ngrok integration script for reliable tunneling
+- Enhanced webhook routing between test and production endpoints
+- Permanent subdomain support for consistent public URLs
+- Central Standard Time (CST) timestamps in output filenames
+- Improved n8n integration with executionMode parameter support
+
+### Changed
+- Streamlined processor-background.sh script for better error handling
+- Simplified ngrok script to focus on core tunneling functionality
+- Enhanced environment variable management for public URLs
+- Improved tunnel detection and verification
+- Better handling of image server startup and teardown
+
+### Fixed
+- Address reliability issues with webhook routing
+- Simplified tunnel establishment process
+- Reduced script complexity for better maintainability
+- Fixed output file naming consistency with timestamps
+
 ## [2.1.0] - 2024-03-01
 
 ### Added
